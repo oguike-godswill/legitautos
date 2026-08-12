@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { AdminLayout } from "@/app/components/admin/AdminLayout";
 import { AdminCarTable } from "@/app/components/admin/AdminCarTable";
 import { Button } from "@/app/components/ui/Button";
