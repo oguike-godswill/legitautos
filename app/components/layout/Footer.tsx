@@ -43,10 +43,10 @@ export function Footer() {
                   <span className="text-base font-bold text-white tracking-wide block leading-tight">
                     LegitVenture
                   </span>
-                  <span className="text-[0.55rem] text-white/40 uppercase tracking-widest">Auto Marketplace</span>
+                  <span className="text-[0.55rem] text-white/70 uppercase tracking-widest">Auto Marketplace</span>
                 </div>
               </Link>
-              <p className="text-sm text-white/40 leading-relaxed max-w-sm mb-6">
+              <p className="text-sm text-white/70 leading-relaxed max-w-sm mb-6">
                 Nigeria&apos;s trusted car marketplace. Buy, sell, and find your perfect vehicle with confidence.
               </p>
               <div className="flex items-center gap-3">
@@ -70,7 +70,7 @@ export function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-white/40 hover:text-white transition-colors duration-300"
+                      className="text-sm text-white/70 hover:text-white transition-colors duration-300"
                     >
                       {link.label}
                     </Link>
@@ -85,7 +85,7 @@ export function Footer() {
               <ul className="space-y-3">
                 {SERVICES.map((service) => (
                   <li key={service}>
-                    <span className="text-sm text-white/40">{service}</span>
+                    <span className="text-sm text-white/70">{service}</span>
                   </li>
                 ))}
               </ul>
@@ -98,7 +98,7 @@ export function Footer() {
                 {CONTACT_INFO.map((item) => (
                   <li key={item.text} className="flex items-start gap-3">
                     <item.icon className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                    <span className="text-sm text-white/40">{item.text}</span>
+                    <span className="text-sm text-white/70">{item.text}</span>
                   </li>
                 ))}
               </ul>
@@ -108,10 +108,10 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-white/10 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="text-xs text-white/30">
+          <span className="text-xs text-white/60">
             &copy; {new Date().getFullYear()} LegitVenture Autos. All Rights Reserved.
           </span>
-          <div className="flex items-center gap-6 text-xs text-white/30">
+          <div className="flex items-center gap-6 text-xs text-white/60">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
           </div>
