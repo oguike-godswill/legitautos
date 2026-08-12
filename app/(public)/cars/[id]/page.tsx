@@ -43,7 +43,7 @@ export default function CarDetailPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-white">
-        <div className="pt-28 pb-12 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
+        <div className="pt-28 pb-12 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
           <CarDetailSkeleton />
         </div>
       </div>
@@ -75,7 +75,7 @@ export default function CarDetailPage() {
     }
   };
 
-  const whatsappMessage = `Hello, I'm interested in the ${car.title} (${car.year}) listed for ${formatPrice(car.price)} on LegitVenture Autos. Is it still available?`;
+  const whatsappMessage = `Hello, I'm interested in the ${car.title} (${car.year}) listed for ${formatPrice(car.price)} on LegitAutos Autos. Is it still available?`;
 
   const specs = [
     { icon: Calendar, label: "Year", value: car.year.toString() },
@@ -89,7 +89,7 @@ export default function CarDetailPage() {
   return (
     <div className="min-h-screen bg-white pb-24 md:pb-0">
       {/* Breadcrumb */}
-      <div className="pt-24 pb-4 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
+      <div className="pt-24 pb-4 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
         <nav className="flex items-center gap-2 t-mono text-[0.5rem] text-dark-400 min-w-0">
           <Link href="/" className="hover:text-dark-600 transition-colors shrink-0">Home</Link>
           <span className="shrink-0">/</span>
@@ -99,7 +99,7 @@ export default function CarDetailPage() {
         </nav>
       </div>
 
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-12">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-12">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
@@ -114,7 +114,7 @@ export default function CarDetailPage() {
             >
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <h1 className="text-2xl sm:text-3xl font-bold text-dark-900">{car.title}</h1>
+                  <h1 className="text-xl sm:text-3xl font-bold text-dark-900">{car.title}</h1>
                   <div className="flex flex-wrap items-center gap-3 mt-3">
                     <Badge variant={car.condition === "new" ? "success" : car.condition === "certified" ? "primary" : "default"}>
                       {car.condition}
@@ -145,7 +145,7 @@ export default function CarDetailPage() {
 
               {/* Price */}
               <div className="mt-6 flex flex-wrap items-baseline gap-3">
-                <span className="text-3xl sm:text-4xl font-bold text-dark-900">
+                <span className="text-2xl sm:text-4xl font-bold text-dark-900">
                   {formatPrice(car.price)}
                 </span>
                 {car.originalPrice && car.originalPrice > car.price && (
@@ -284,7 +284,7 @@ export default function CarDetailPage() {
 
       {/* Similar Cars */}
       {similarCars.length > 0 && (
-        <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+        <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
           <div className="flex items-center justify-between mb-6">
             <div>
               <span className="t-mono text-[0.5rem] text-dark-400 block mb-2">Similar Cars</span>

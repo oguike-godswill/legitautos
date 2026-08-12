@@ -3,11 +3,11 @@ import { RequestForm } from "@/app/components/requests/RequestForm";
 import { Search, Clock, MessageCircle, Car } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Request a Car — LegitVenture Autos",
+  title: "Request a Car — LegitAutos Autos",
   description:
     "Can't find the car you want? Tell us what you're looking for and we'll find it for you. Free car sourcing service across Nigeria.",
   openGraph: {
-    title: "Request a Car — LegitVenture Autos",
+    title: "Request a Car — LegitAutos Autos",
     description: "Can't find your dream car? We'll source it for you.",
   },
 };
@@ -39,7 +39,7 @@ export default function RequestCarPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <div className="pt-32 pb-16 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
+      <div className="pt-32 pb-16 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
         <div className="max-w-3xl">
           <span className="t-mono text-[0.5rem] text-dark-400 block mb-4">Request a Car</span>
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 leading-[0.95] tracking-tight">
@@ -56,7 +56,7 @@ export default function RequestCarPage() {
       </div>
 
       {/* Content */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Form */}
           <div className="lg:col-span-3">
@@ -135,3 +135,4 @@ export default function RequestCarPage() {
     </div>
   );
 }
+

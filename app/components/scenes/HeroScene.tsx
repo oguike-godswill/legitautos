@@ -60,11 +60,11 @@ export function HeroScene() {
         <div className="absolute inset-0 bg-gradient-to-r from-dark/60 via-transparent to-transparent" />
       </div>
 
-      <div className="relative z-10 h-full flex flex-col justify-end pb-24 sm:pb-32 pt-36 sm:pt-44 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
+      <div className="relative z-10 h-full flex flex-col justify-end pb-24 sm:pb-32 pt-36 sm:pt-44 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
         <div ref={labelRef} className="flex items-center gap-3 mb-6">
           <div className="w-8 h-[1px] bg-white/30" />
           <span className="t-mono text-white/30 text-[0.55rem] tracking-[0.2em]">
-            LegitVenture Autos &mdash; Est. 2018
+            LegitAutos Autos &mdash; Est. 2018
           </span>
         </div>
 
@@ -142,3 +142,4 @@ export function HeroScene() {
     </section>
   );
 }
+

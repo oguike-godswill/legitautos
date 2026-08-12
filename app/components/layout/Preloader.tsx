@@ -59,7 +59,7 @@ export function Preloader({ onComplete }: { onComplete: () => void }) {
         </div>
         <div ref={textRef} className="flex flex-col items-center opacity-0">
           <span className="text-[0.8rem] font-bold text-white tracking-[0.2em]">
-            LEGITVENTURE
+            LegitAutos
           </span>
           <span className="t-mono text-[0.5rem] text-white/25 mt-1 tracking-[0.3em]">
             AUTOS

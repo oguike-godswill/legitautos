@@ -15,9 +15,9 @@ import {
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Us — LegitVenture Autos",
+  title: "About Us — LegitAutos Autos",
   description:
-    "Learn about LegitVenture Autos — Nigeria's trusted car marketplace connecting buyers and sellers since 2018.",
+    "Learn about LegitAutos Autos — Nigeria's trusted car marketplace connecting buyers and sellers since 2018.",
 };
 
 const VALUES = [
@@ -37,7 +37,7 @@ const VALUES = [
     icon: Target,
     title: "Quality Over Quantity",
     description:
-      "We don't list everything — we list what matters. Every car on LegitVenture meets our standards for quality, documentation, and value.",
+      "We don't list everything — we list what matters. Every car on LegitAutos meets our standards for quality, documentation, and value.",
   },
   {
     icon: TrendingUp,
@@ -102,7 +102,7 @@ const TEAM_MEMBERS = [
   {
     name: "Fatima Abdullahi",
     role: "Head of Customer Experience",
-    description: "Dedicated to making every interaction with LegitVenture exceptional. Leads our 24/7 support and verification teams.",
+    description: "Dedicated to making every interaction with LegitAutos exceptional. Leads our 24/7 support and verification teams.",
     image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
   },
 ];
@@ -138,14 +138,14 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <div className="relative pt-32 pb-20 px-6 sm:px-8 lg:px-12 overflow-hidden">
+      <div className="relative pt-32 pb-20 px-2 sm:px-8 lg:px-12 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]" />
         </div>
         <div className="max-w-[1400px] mx-auto relative z-10">
           <div className="max-w-3xl">
             <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em] block mb-4">About Us</span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-dark-900 leading-[1.05] tracking-[-0.02em]">
+            <h1 className="text-2xl sm:text-5xl lg:text-6xl font-bold text-dark-900 leading-[1.05] tracking-[-0.02em]">
               Every Car, Every
               <br />
               <span className="italic text-dark-400">Dream.</span>
@@ -160,11 +160,11 @@ export default function AboutPage() {
       </div>
 
       {/* Our Story */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pt-8 pb-20">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-20">
           <div>
-            <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em] block mb-4">Our Story</span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-dark-900 leading-tight mb-6">
+            <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em] block mb-2">Our Story</span>
+            <h2 className="text-xl sm:text-4xl font-bold text-dark-900 leading-tight mb-3">
               Born from a simple belief:
               <br />
               <span className="italic text-dark-400">Nigerians deserve better.</span>
@@ -173,7 +173,7 @@ export default function AboutPage() {
           <div className="space-y-4">
             <p className="text-sm text-dark-600 leading-relaxed">
               In 2018, buying a car in Nigeria was a gamble. Hidden defects, inflated prices,
-              missing documents — the process was broken. We started LegitVenture Autos with a
+              missing documents — the process was broken. We started LegitAutos Autos with a
               simple idea: what if every car listing was verified, every price was honest, and
               every seller was accountable?
             </p>
@@ -192,21 +192,21 @@ export default function AboutPage() {
       </div>
 
       {/* CEO Feature */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="rounded-2xl bg-[#0a0a0a] p-8 sm:p-12 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-[120px]" />
           <div className="absolute bottom-0 left-0 w-60 h-60 bg-primary/5 rounded-full blur-[100px]" />
           <div className="relative z-10 grid lg:grid-cols-2 gap-10 items-center">
             <div className="order-2 lg:order-1">
               <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em] block mb-4">Meet Our CEO</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-4">
+              <h2 className="text-xl sm:text-4xl font-bold text-white leading-tight mb-4">
                 Adebayo Johnson
               </h2>
               <p className="text-sm text-primary mb-4">Founder & Chief Executive Officer</p>
               <div className="flex items-start gap-3 mb-6">
                 <Quote className="w-6 h-6 text-primary/40 shrink-0 mt-1" />
                 <p className="text-sm text-white/60 leading-relaxed italic">
-                  &ldquo;When we started LegitVenture in 2018, we had one goal: make buying a car in Nigeria stress-free. Every feature we build, every car we verify, every partnership we form — it all comes back to that single mission. We&apos;re not just building a platform; we&apos;re building trust.&rdquo;
+                  &ldquo;When we started LegitAutos in 2018, we had one goal: make buying a car in Nigeria stress-free. Every feature we build, every car we verify, every partnership we form — it all comes back to that single mission. We&apos;re not just building a platform; we&apos;re building trust.&rdquo;
                 </p>
               </div>
               <div className="flex items-center gap-4">
@@ -226,9 +226,9 @@ export default function AboutPage() {
                 </div>
               </div>
             </div>
-            <div className="order-1 lg:order-2 flex justify-center">
+            <div className="order-1 lg:order-2 flex justify-center items-center">
               <div className="relative">
-                <div className="w-64 h-80 rounded-2xl overflow-hidden relative">
+                <div className="w-80 h-80 rounded-2xl overflow-hidden relative">
                   <Image
                     src={TEAM_MEMBERS[0].image}
                     alt="Adebayo Johnson - CEO"
@@ -247,11 +247,11 @@ export default function AboutPage() {
       </div>
 
       {/* Team */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">The Team</span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
-            People Behind LegitVenture
+          <h2 className="text-xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
+            People Behind LegitAutos
           </h2>
         </div>
 
@@ -281,10 +281,10 @@ export default function AboutPage() {
       </div>
 
       {/* Values */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">What We Stand For</span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
+          <h2 className="text-xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
             Our Values
           </h2>
         </div>
@@ -306,10 +306,10 @@ export default function AboutPage() {
       </div>
 
       {/* Timeline */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">Our Journey</span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
+          <h2 className="text-xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
             From Lagos to Nationwide
           </h2>
         </div>
@@ -334,10 +334,10 @@ export default function AboutPage() {
       </div>
 
       {/* How It Works */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">How It Works</span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
+          <h2 className="text-xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
             Four Steps to Your Next Car
           </h2>
         </div>
@@ -360,13 +360,13 @@ export default function AboutPage() {
       </div>
 
       {/* CTA */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="rounded-2xl bg-[#0a0a0a] p-10 sm:p-14 text-center relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-[120px]" />
           </div>
           <div className="relative z-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-4">
+            <h2 className="text-lg sm:text-3xl font-bold text-white leading-tight mb-4">
               Ready to Find Your Car?
             </h2>
             <p className="text-sm text-white/60 leading-relaxed max-w-md mx-auto mb-8">
@@ -389,3 +389,4 @@ export default function AboutPage() {
     </div>
   );
 }
+

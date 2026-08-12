@@ -34,7 +34,7 @@ export function CarCard({ car, index = 0 }: CarCardProps) {
   const handleWhatsApp = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const message = `Hello, I'm interested in the ${car.title} (${car.year}) listed for ${formatPrice(car.price)} on LegitVenture Autos. Is it still available?`;
+    const message = `Hello, I'm interested in the ${car.title} (${car.year}) listed for ${formatPrice(car.price)} on LegitAutos Autos. Is it still available?`;
     window.open(
       generateWhatsAppLink(car.seller?.whatsapp || car.seller?.phone || "+2348000000000", message),
       "_blank"
@@ -163,3 +163,4 @@ export function CarCard({ car, index = 0 }: CarCardProps) {
     </motion.div>
   );
 }
+

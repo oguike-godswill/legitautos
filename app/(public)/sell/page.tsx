@@ -4,7 +4,7 @@ import { Camera, Shield, Clock, CheckCircle, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Sell Your Car — LegitVenture Autos",
+  title: "Sell Your Car — LegitAutos Autos",
   description:
     "List your car on Nigeria's trusted marketplace. Reach thousands of verified buyers. Free listing, no hidden fees.",
 };
@@ -36,7 +36,7 @@ export default function SellPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <div className="pt-32 pb-12 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
+      <div className="pt-32 pb-12 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
         <div className="max-w-3xl">
           <span className="t-mono text-[0.5rem] text-dark-400 block mb-4">Sell Your Car</span>
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 leading-[0.95] tracking-tight">
@@ -52,7 +52,7 @@ export default function SellPage() {
       </div>
 
       {/* Content */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Form */}
           <div className="lg:col-span-3">
@@ -115,3 +115,4 @@ export default function SellPage() {
     </div>
   );
 }
+

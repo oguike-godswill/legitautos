@@ -169,7 +169,7 @@ export function MetricsScene() {
 
   return (
     <section ref={sectionRef} className="relative py-32 sm:py-48 bg-dark">
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="max-w-[1400px] mx-auto px-2 sm:px-8 lg:px-12">
         <div ref={headingRef} className="mb-20 sm:mb-28">
           <span className="t-mono text-white/20 text-[0.55rem] tracking-[0.2em] block mb-4">
             By the numbers

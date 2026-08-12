@@ -174,7 +174,7 @@ export function Navbar() {
           scrolled ? "max-h-0 opacity-0" : "max-h-8 opacity-100"
         }`}
       >
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 h-8 flex items-center justify-between border-b border-white/[0.03]">
+        <div className="max-w-[1400px] mx-auto px-2 sm:px-8 lg:px-12 h-8 flex items-center justify-between border-b border-white/[0.03]">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5 t-mono text-[0.48rem] text-white/50">
               <MapPin className="w-2.5 h-2.5" />
@@ -194,7 +194,7 @@ export function Navbar() {
       </div>
 
       {/* Main nav row */}
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 h-[4.5rem] flex items-center justify-between">
+      <div className="max-w-[1400px] mx-auto px-2 sm:px-8 lg:px-12 h-[4.5rem] flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group relative z-10">
           <div className="relative w-10 h-10 rounded-xl bg-white/[0.05] flex items-center justify-center group-hover:bg-white/[0.09] transition-all duration-500 border border-white/[0.05] group-hover:border-white/[0.1] group-hover:scale-[1.03]">
@@ -205,7 +205,7 @@ export function Navbar() {
           </div>
           <div className="hidden sm:flex flex-col">
             <span className="text-[0.72rem] font-bold text-white tracking-[0.18em] leading-none">
-              LEGITVENTURE
+              LegitAutos
             </span>
             <span className="t-mono text-[0.42rem] text-white/35 mt-1 tracking-[0.3em]">
               AUTOS
@@ -490,7 +490,7 @@ export function Navbar() {
               </div>
               <div>
                 <span className="text-[0.58rem] text-white/35 block">
-                  LegitVenture Autos
+                  LegitAutos Autos
                 </span>
                 <span className="text-[0.42rem] text-white/20 block">
                   &copy; {new Date().getFullYear()} All rights reserved
@@ -503,3 +503,4 @@ export function Navbar() {
     </nav>
   );
 }
+

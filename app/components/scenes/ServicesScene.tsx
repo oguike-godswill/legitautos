@@ -94,7 +94,7 @@ export function ServicesScene() {
               <div className="absolute inset-0 bg-dark/50" />
             </div>
 
-            <div className="relative z-10 h-full flex items-center px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
+            <div className="relative z-10 h-full flex items-center px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
                 <div>
                   <div className="service-num t-mono text-white/30 mb-4 opacity-0">{service.num}</div>

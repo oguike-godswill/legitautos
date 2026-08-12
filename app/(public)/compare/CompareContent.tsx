@@ -68,7 +68,7 @@ export function CompareContent() {
   if (cars.length === 0) {
     return (
       <div className="min-h-screen bg-white">
-        <div className="pt-32 pb-12 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto text-center">
+        <div className="pt-32 pb-12 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto text-center">
           <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Scale className="w-6 h-6 text-dark-300" />
           </div>
@@ -108,7 +108,7 @@ export function CompareContent() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="pt-32 pb-8 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
+      <div className="pt-32 pb-8 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
         <div className="flex items-center justify-between">
           <div>
             <span className="text-[0.65rem] font-bold text-primary uppercase tracking-wider block mb-2">Compare</span>
@@ -140,7 +140,7 @@ export function CompareContent() {
       </div>
 
       {/* Comparison Table */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="overflow-x-auto">
           <div className="min-w-[500px]">
             {/* Car Headers */}

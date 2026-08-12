@@ -135,7 +135,7 @@ export function JourneyScene() {
       {/* Step 1 — Showroom */}
       <div
         ref={step1Ref}
-        className="absolute inset-0 z-10 flex items-end pb-24 sm:pb-32 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto opacity-0"
+        className="absolute inset-0 z-10 flex items-end pb-24 sm:pb-32 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto opacity-0"
       >
         <div>
           <span className="t-mono text-white/25 text-[0.5rem] tracking-[0.2em] block mb-3">
@@ -161,7 +161,7 @@ export function JourneyScene() {
       </div>
       <div
         ref={step2Ref}
-        className="absolute inset-0 z-10 flex items-end pb-24 sm:pb-32 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto opacity-0"
+        className="absolute inset-0 z-10 flex items-end pb-24 sm:pb-32 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto opacity-0"
       >
         <div>
           <span className="t-mono text-white/25 text-[0.5rem] tracking-[0.2em] block mb-3">
@@ -186,7 +186,7 @@ export function JourneyScene() {
       </div>
       <div
         ref={step3Ref}
-        className="absolute inset-0 z-20 flex items-end pb-24 sm:pb-32 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto opacity-0"
+        className="absolute inset-0 z-20 flex items-end pb-24 sm:pb-32 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto opacity-0"
       >
         <div>
           <span className="t-mono text-white/25 text-[0.5rem] tracking-[0.2em] block mb-3">

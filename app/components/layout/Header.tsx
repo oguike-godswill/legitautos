@@ -29,7 +29,7 @@ export function Header() {
   const headerBg = isHome && !scrolled
     ? "bg-transparent"
     : scrolled
-    ? "bg-white/95 backdrop-blur-xl shadow-[0_1px_0_0_rgba(0,0,0,0.04)]"
+    ? "bg-white/80 backdrop-blur-xl shadow-[0_1px_3px_0_rgba(0,0,0,0.05)]"
     : "bg-white";
 
   const textColor = isHome && !scrolled ? "text-white" : "text-dark-900";
@@ -44,7 +44,7 @@ export function Header() {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerBg}`}
       >
-        <div className="px-6 sm:px-8 lg:px-12">
+        <div className="px-2 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-16 max-w-[1400px] mx-auto">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5">
@@ -55,7 +55,7 @@ export function Header() {
               </div>
               <span className={`text-sm font-bold tracking-[0.15em] uppercase transition-colors duration-500 ${textColor}`}
                >
-                LegitVenture
+                LegitAutos
               </span>
             </Link>
 
@@ -175,3 +175,4 @@ export function Header() {
     </>
   );
 }
+

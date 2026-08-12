@@ -15,12 +15,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const brand = await Brand.findOne({ slug }).lean();
 
   if (!brand) {
-    return { title: "Brand Not Found — LegitVenture Autos" };
+    return { title: "Brand Not Found — LegitAutos Autos" };
   }
 
   return {
-    title: `${brand.name} Cars — LegitVenture Autos`,
-    description: `Browse all ${brand.name} cars available on LegitVenture Autos. ${brand.carCount}+ vehicles from Nigeria's trusted car marketplace.`,
+    title: `${brand.name} Cars — LegitAutos Autos`,
+    description: `Browse all ${brand.name} cars available on LegitAutos Autos. ${brand.carCount}+ vehicles from Nigeria's trusted car marketplace.`,
   };
 }
 

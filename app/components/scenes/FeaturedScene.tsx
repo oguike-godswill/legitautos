@@ -85,7 +85,7 @@ export function FeaturedScene() {
 
   return (
     <section ref={sectionRef} className="py-20 bg-dark">
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="max-w-[1400px] mx-auto px-2 sm:px-8 lg:px-12">
         <div ref={headingRef} className="flex items-end justify-between mb-10 opacity-0">
           <div>
             <span className="t-mono text-[0.5rem] text-white/20 block mb-3">

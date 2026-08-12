@@ -128,7 +128,7 @@ export function ImageTransitionsScene() {
       </div>
 
       {/* Text overlays */}
-      <div ref={text1Ref} className="absolute inset-0 z-10 flex items-end pb-24 sm:pb-32 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto opacity-0">
+      <div ref={text1Ref} className="absolute inset-0 z-10 flex items-end pb-24 sm:pb-32 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto opacity-0">
         <div>
           <span className="t-mono text-white/30 text-[0.5rem] tracking-[0.2em] block mb-3">{SLIDES[0].label}</span>
           <h2 className="t-editorial text-white whitespace-pre-line mb-4">{SLIDES[0].title}</h2>
@@ -136,7 +136,7 @@ export function ImageTransitionsScene() {
         </div>
       </div>
 
-      <div ref={text2Ref} className="absolute inset-0 z-10 flex items-end pb-24 sm:pb-32 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto opacity-0">
+      <div ref={text2Ref} className="absolute inset-0 z-10 flex items-end pb-24 sm:pb-32 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto opacity-0">
         <div>
           <span className="t-mono text-white/30 text-[0.5rem] tracking-[0.2em] block mb-3">{SLIDES[1].label}</span>
           <h2 className="t-editorial text-white whitespace-pre-line mb-4">{SLIDES[1].title}</h2>
@@ -144,7 +144,7 @@ export function ImageTransitionsScene() {
         </div>
       </div>
 
-      <div ref={text3Ref} className="absolute inset-0 z-10 flex items-end pb-24 sm:pb-32 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto opacity-0">
+      <div ref={text3Ref} className="absolute inset-0 z-10 flex items-end pb-24 sm:pb-32 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto opacity-0">
         <div>
           <span className="t-mono text-white/30 text-[0.5rem] tracking-[0.2em] block mb-3">{SLIDES[2].label}</span>
           <h2 className="t-editorial text-white whitespace-pre-line mb-4">{SLIDES[2].title}</h2>

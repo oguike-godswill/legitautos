@@ -89,7 +89,7 @@ function CountUp({ target, suffix }: { target: number; suffix: string }) {
   }, [target]);
 
   return (
-    <span ref={ref} className="text-4xl sm:text-5xl font-bold text-white">
+    <span ref={ref} className="text-2xl sm:text-5xl font-bold text-white">
       {count}{suffix}
     </span>
   );
@@ -97,6 +97,8 @@ function CountUp({ target, suffix }: { target: number; suffix: string }) {
 
 export function SearchFirstLanding() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [location, setLocation] = useState("");
+  const [budget, setBudget] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const { data: featuredData } = useCars({ limit: 8, sortBy: "newest" });
   const featuredCars = featuredData?.cars || [];
@@ -121,7 +123,7 @@ export function SearchFirstLanding() {
         </div>
 
         {/* Content */}
-        <div className="relative flex-1 flex flex-col justify-end px-6 sm:px-8 lg:px-12 pb-0">
+        <div className="relative flex-1 flex flex-col justify-end px-2 sm:px-8 lg:px-12 pb-0">
           <div className="flex-1 flex flex-col justify-end max-w-[1400px] mx-auto w-full">
           <div className="max-w-2xl pt-32">
             {/* Location tag */}
@@ -140,7 +142,7 @@ export function SearchFirstLanding() {
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white uppercase leading-[1.05] tracking-[-0.02em] mb-5"
+              className="text-xl sm:text-4xl lg:text-5xl font-bold text-white uppercase leading-[1.05] tracking-[-0.02em] mb-5"
             >
               Find Your<br />Dream Car Today
             </motion.h1>
@@ -189,7 +191,18 @@ export function SearchFirstLanding() {
                   <label className="text-[0.6rem] font-bold text-dark-400 uppercase tracking-wider block mb-2">Location</label>
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-dark-300 shrink-0" />
-                    <span className="text-sm text-dark-700 font-medium">Lagos, Nigeria</span>
+                    <select
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                      className="flex-1 bg-transparent text-dark-900 focus:outline-none text-sm font-medium cursor-pointer"
+                    >
+                      <option value="">All Locations</option>
+                      <option value="Lagos">Lagos</option>
+                      <option value="Abuja">Abuja</option>
+                      <option value="Port Harcourt">Port Harcourt</option>
+                      <option value="Ibadan">Ibadan</option>
+                      <option value="Kano">Kano</option>
+                    </select>
                   </div>
                 </div>
 
@@ -201,14 +214,35 @@ export function SearchFirstLanding() {
                   <label className="text-[0.6rem] font-bold text-dark-400 uppercase tracking-wider block mb-2">Budget</label>
                   <div className="flex items-center gap-2">
                     <TrendingDown className="w-4 h-4 text-dark-300 shrink-0" />
-                    <span className="text-sm text-dark-700 font-medium">Any Price</span>
+                    <select
+                      value={budget}
+                      onChange={(e) => setBudget(e.target.value)}
+                      className="flex-1 bg-transparent text-dark-900 focus:outline-none text-sm font-medium cursor-pointer"
+                    >
+                      <option value="">Any Price</option>
+                      <option value="0-2000000">Under ₦2M</option>
+                      <option value="2000000-5000000">₦2M - ₦5M</option>
+                      <option value="5000000-10000000">₦5M - ₦10M</option>
+                      <option value="10000000-20000000">₦10M - ₦20M</option>
+                      <option value="20000000-999999999">₦20M+</option>
+                    </select>
                   </div>
                 </div>
 
               {/* Search Button */}
               <div className="flex items-end">
                 <Link
-                  href={searchQuery ? `/cars?search=${encodeURIComponent(searchQuery)}` : "/cars"}
+                  href={(() => {
+                    const params = new URLSearchParams();
+                    if (searchQuery) params.set("search", searchQuery);
+                    if (location) params.set("location", location);
+                    if (budget) {
+                      const [min, max] = budget.split("-");
+                      params.set("minPrice", min);
+                      params.set("maxPrice", max);
+                    }
+                    return `/cars${params.toString() ? `?${params.toString()}` : ""}`;
+                  })()}
                   className="w-full lg:w-auto px-8 py-3.5 bg-[#0a0a0a] text-white text-sm font-bold rounded-xl hover:bg-dark-800 transition-all duration-300 flex items-center justify-center gap-2 shrink-0"
                  
                 >
@@ -237,22 +271,8 @@ export function SearchFirstLanding() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════ BRANDS MARQUEE ═══════════════════════════════════════════ */}
-      <section className="py-10 border-b border-gray-100 overflow-hidden">
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 mb-6">
-          <p className="text-[0.6rem] text-dark-400 font-medium uppercase tracking-wider text-center">Trusted by leading brands</p>
-        </div>
-        <div className="relative">
-          <div className="flex gap-16 items-center anim-marquee whitespace-nowrap">
-            {["Toyota", "Honda", "Mercedes-Benz", "BMW", "Lexus", "Hyundai", "Kia", "Ford", "Audi", "Toyota", "Honda", "Mercedes-Benz", "BMW", "Lexus", "Hyundai", "Kia", "Ford", "Audi"].map((brand, i) => (
-              <span key={i} className="text-xl font-bold text-dark-200 shrink-0">{brand}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ═══════════════════════════════════════════ SHOP BY CATEGORY ═══════════════════════════════════════════ */}
-      <section className="py-20 px-6 sm:px-8 lg:px-12">
+      <section className="py-20 px-2 sm:px-8 lg:px-12">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-end justify-between mb-10">
             <div>
@@ -269,7 +289,7 @@ export function SearchFirstLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]"
+                className="text-base sm:text-3xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]"
                
               >
                 By Category
@@ -314,7 +334,7 @@ export function SearchFirstLanding() {
       </section>
 
       {/* ═══════════════════════════════════════════ STATS ═══════════════════════════════════════════ */}
-      <section className="py-16 px-6 sm:px-8 lg:px-12 bg-[#0a0a0a]">
+      <section className="py-16 px-2 sm:px-8 lg:px-12 bg-[#0a0a0a]">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
@@ -340,7 +360,7 @@ export function SearchFirstLanding() {
       </section>
 
       {/* ═══════════════════════════════════════════ WHY CHOOSE US ═══════════════════════════════════════════ */}
-      <section className="py-24 px-6 sm:px-8 lg:px-12 relative overflow-hidden">
+      <section className="py-24 px-2 sm:px-8 lg:px-12 relative overflow-hidden">
         {/* Orange gradient edges */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-0 w-80 h-80 bg-gradient-to-br from-primary/40 to-transparent rounded-full blur-[120px]" />
@@ -356,7 +376,7 @@ export function SearchFirstLanding() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl sm:text-5xl font-bold text-dark-900"
+              className="text-base sm:text-3xl font-bold text-dark-900"
             >
               why choose <span className="font-light">us?</span>
             </motion.h2>
@@ -439,7 +459,7 @@ export function SearchFirstLanding() {
 
       {/* ═══════════════════════════════════════════ FEATURED VEHICLES ═══════════════════════════════════════════ */}
       {featuredCars.length > 0 && (
-        <section className="py-20 px-6 sm:px-8 lg:px-12 border-t border-gray-100">
+        <section className="py-20 px-2 sm:px-8 lg:px-12 border-t border-gray-100">
           <div className="max-w-[1400px] mx-auto">
             <div className="flex items-end justify-between mb-10">
               <div>
@@ -456,7 +476,7 @@ export function SearchFirstLanding() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
-                  className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]"
+                  className="text-base sm:text-3xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]"
                  
                 >
                   Vehicles
@@ -539,7 +559,7 @@ export function SearchFirstLanding() {
       )}
 
       {/* ═══════════════════════════════════════════ TESTIMONIALS ═══════════════════════════════════════════ */}
-      <section className="py-24 px-6 sm:px-8 lg:px-12 bg-[#f5f5f5]">
+      <section className="py-24 px-2 sm:px-8 lg:px-12 bg-[#f5f5f5]">
         <div className="max-w-[1400px] mx-auto">
           {/* Header */}
           <div className="mb-14">
@@ -655,7 +675,7 @@ export function SearchFirstLanding() {
       </section>
 
       {/* ═══════════════════════════════════════════ SELL + WHATSAPP ═══════════════════════════════════════════ */}
-      <section className="py-20 px-6 sm:px-8 lg:px-12 border-t border-gray-100">
+      <section className="py-20 px-2 sm:px-8 lg:px-12 border-t border-gray-100">
         <div className="max-w-[1400px] mx-auto grid md:grid-cols-2 gap-5">
           <div className="bg-[#0a0a0a] rounded-2xl p-6 sm:p-10 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-80 h-80 bg-primary/15 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 group-hover:bg-primary/25 transition-colors duration-700" />
@@ -663,7 +683,7 @@ export function SearchFirstLanding() {
               <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6">
                 <Car className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 uppercase">Sell Your Car</h3>
+              <h3 className="text-lg sm:text-3xl font-bold text-white mb-3 uppercase">Sell Your Car</h3>
               <p className="text-white/35 mb-8 max-w-sm leading-relaxed text-sm">List on Nigeria&apos;s largest marketplace. Reach thousands of buyers instantly.</p>
               <Link href="/sell" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-dark-900 text-sm font-bold rounded-lg hover:bg-gray-100 transition-colors">
                 List Your Car <ArrowRight className="w-4 h-4" />
@@ -674,7 +694,7 @@ export function SearchFirstLanding() {
             <div className="w-12 h-12 bg-[#128C7E]/15 rounded-xl flex items-center justify-center mb-6">
               <MessageCircle className="w-6 h-6 text-[#25D366]" />
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-dark-900 mb-3 uppercase">Need Help?</h3>
+            <h3 className="text-lg sm:text-3xl font-bold text-dark-900 mb-3 uppercase">Need Help?</h3>
             <p className="text-dark-500 mb-8 max-w-sm leading-relaxed text-sm">Chat with our team on WhatsApp. We&apos;ll help you find the perfect car.</p>
             <a
               href="https://wa.me/2348000000000?text=Hello%2C%20I%27m%20looking%20for%20a%20car"
@@ -690,7 +710,7 @@ export function SearchFirstLanding() {
       </section>
 
       {/* ═══════════════════════════════════════════ HOW IT WORKS ═══════════════════════════════════════════ */}
-      <section className="py-20 px-6 sm:px-8 lg:px-12 border-t border-gray-100">
+      <section className="py-20 px-2 sm:px-8 lg:px-12 border-t border-gray-100">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-12">
             <motion.span

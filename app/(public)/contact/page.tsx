@@ -17,16 +17,16 @@ import Link from "next/link";
 import { ContactForm } from "@/app/components/sections/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Support — LegitVenture Autos",
+  title: "Support — LegitAutos Autos",
   description:
-    "Get in touch with LegitVenture Autos. We're here to help with buying, selling, or any questions about our car marketplace.",
+    "Get in touch with LegitAutos Autos. We're here to help with buying, selling, or any questions about our car marketplace.",
 };
 
 const CONTACT_METHODS = [
   {
     icon: Phone,
     label: "Call Us",
-    value: "+234 800 LEGITVENTURE",
+    value: "+234 800 LegitAutos",
     description: "Mon - Sat, 8am - 6pm WAT",
     action: "tel:+2348000000000",
     color: "bg-blue-50 text-blue-500",
@@ -42,9 +42,9 @@ const CONTACT_METHODS = [
   {
     icon: Mail,
     label: "Email",
-    value: "info@legitventures.com",
+    value: "info@LegitAutoss.com",
     description: "We reply within 24 hours",
-    action: "mailto:info@legitventures.com",
+    action: "mailto:info@LegitAutoss.com",
     color: "bg-orange-50 text-orange-500",
   },
   {
@@ -66,15 +66,15 @@ const QUICK_LINKS = [
 
 const FAQ = [
   {
-    question: "How do I buy a car on LegitVenture?",
+    question: "How do I buy a car on LegitAutos?",
     answer: "Browse our inventory, find a car you like, and contact the seller directly through WhatsApp or phone. We verify all cars before listing.",
   },
   {
-    question: "Can I sell my car on LegitVenture?",
+    question: "Can I sell my car on LegitAutos?",
     answer: "Yes! Listing your car is free. Just visit our Sell page, fill in the details, and your car will be visible to thousands of buyers.",
   },
   {
-    question: "Are all cars on LegitVenture verified?",
+    question: "Are all cars on LegitAutos verified?",
     answer: "We verify every car listed on our platform to ensure authenticity and quality. Our team inspects vehicles for accuracy of information.",
   },
   {
@@ -87,7 +87,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <div className="relative pt-32 pb-20 px-6 sm:px-8 lg:px-12 overflow-hidden">
+      <div className="relative pt-32 pb-20 px-2 sm:px-8 lg:px-12 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]" />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/3 rounded-full blur-[120px]" />
@@ -107,7 +107,7 @@ export default function ContactPage() {
       </div>
 
       {/* Contact Methods */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {CONTACT_METHODS.map((method) => (
             <a
@@ -129,7 +129,7 @@ export default function ContactPage() {
       </div>
 
       {/* Quick Links */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">Quick Links</span>
           <h2 className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
@@ -160,7 +160,7 @@ export default function ContactPage() {
       </div>
 
       {/* Contact Form */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">Get in Touch</span>
           <h2 className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
@@ -173,7 +173,7 @@ export default function ContactPage() {
       </div>
 
       {/* FAQ */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">FAQ</span>
           <h2 className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
@@ -200,7 +200,7 @@ export default function ContactPage() {
       </div>
 
       {/* Find Us + WhatsApp */}
-      <div id="locations" className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div id="locations" className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="grid lg:grid-cols-2 gap-4">
           {/* Find Us */}
           <div className="rounded-2xl bg-[#0a0a0a] p-8 sm:p-10 relative overflow-hidden">
@@ -221,7 +221,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-primary shrink-0" />
-                  <span className="text-sm text-white/60">+234 800 LEGITVENTURE</span>
+                  <span className="text-sm text-white/60">+234 800 LegitAutos</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock className="w-4 h-4 text-primary shrink-0" />
@@ -264,3 +264,4 @@ export default function ContactPage() {
     </div>
   );
 }
+

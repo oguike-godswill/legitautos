@@ -111,7 +111,7 @@ export function FinalScene() {
         <div ref={copyRef} className="mt-8 max-w-md opacity-0">
           <p className="text-sm text-white/40 leading-relaxed">
             Whether you&apos;re buying your first car, upgrading your ride, or
-            selling to a trusted buyer &mdash; LegitVenture Autos is where
+            selling to a trusted buyer &mdash; LegitAutos Autos is where
             it happens.
           </p>
         </div>
@@ -159,3 +159,4 @@ export function FinalScene() {
     </section>
   );
 }
+

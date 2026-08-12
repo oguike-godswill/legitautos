@@ -21,15 +21,15 @@ const SERVICES = [
 
 const CONTACT_INFO = [
   { icon: MapPin, text: "Lagos, Nigeria" },
-  { icon: Phone, text: "+234 800 LEGITVENTURE" },
-  { icon: Mail, text: "info@legitventures.com" },
+  { icon: Phone, text: "+234 800 LegitAutos" },
+  { icon: Mail, text: "info@LegitAutoss.com" },
   { icon: Clock, text: "Mon - Sat: 8AM - 6PM WAT" },
 ];
 
 export function Footer() {
   return (
     <footer className="bg-[#0a0a0a]">
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="max-w-[1400px] mx-auto px-2 sm:px-8 lg:px-12">
         {/* Main Footer */}
         <div className="py-16 lg:py-20">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
@@ -41,7 +41,7 @@ export function Footer() {
                 </div>
                 <div>
                   <span className="text-base font-bold text-white tracking-wide block leading-tight">
-                    LegitVenture
+                    LegitAutos
                   </span>
                   <span className="text-[0.55rem] text-white uppercase tracking-widest">Auto Marketplace</span>
                 </div>
@@ -109,7 +109,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-white/10 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="text-xs text-white">
-            &copy; {new Date().getFullYear()} LegitVenture Autos. All Rights Reserved.
+            &copy; {new Date().getFullYear()} LegitAutos Autos. All Rights Reserved.
           </span>
           <div className="flex items-center gap-6 text-xs text-white">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
@@ -120,3 +120,4 @@ export function Footer() {
     </footer>
   );
 }
+

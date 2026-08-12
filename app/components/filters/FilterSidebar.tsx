@@ -289,7 +289,7 @@ export function MobileFilterDrawer() {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed left-0 top-0 bottom-0 w-[85vw] max-w-sm bg-white z-50 overflow-y-auto lg:hidden border-r border-gray-200/80"
+            className="fixed left-0 top-0 bottom-0 w-[90vw] max-w-sm bg-white z-50 overflow-y-auto lg:hidden border-r border-gray-200/80"
           >
             <div className="p-5">
               <div className="flex items-center justify-between mb-6">

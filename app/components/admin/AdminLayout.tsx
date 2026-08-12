@@ -38,7 +38,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
             <Car className="w-4 h-4 text-white" />
           </div>
           <span className="font-bold text-dark-900">
-            LegitVenture<span className="text-primary-600">Auto</span>
+            LegitAutos<span className="text-primary-600">Auto</span>
           </span>
         </Link>
         <button
@@ -122,3 +122,4 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+

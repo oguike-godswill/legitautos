@@ -110,7 +110,7 @@ export default function BrandsGridClient({ brands }: BrandsGridClientProps) {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="pt-32 pb-12 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
+      <div className="pt-32 pb-12 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-xs text-dark-400 hover:text-primary transition-colors mb-8"
@@ -195,7 +195,7 @@ export default function BrandsGridClient({ brands }: BrandsGridClientProps) {
 
       {/* Featured Brands */}
       {!searchQuery && !selectedCountry && (
-        <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto mb-16">
+        <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto mb-16">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xs font-semibold text-dark-500 uppercase tracking-wider">
               Popular Brands
@@ -242,7 +242,7 @@ export default function BrandsGridClient({ brands }: BrandsGridClientProps) {
       )}
 
       {/* All Brands */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xs font-semibold text-dark-500 uppercase tracking-wider">
             {searchQuery || selectedCountry ? "Results" : "All Brands"}
@@ -326,7 +326,7 @@ export default function BrandsGridClient({ brands }: BrandsGridClientProps) {
       </div>
 
       {/* Bottom CTA */}
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-5 p-6 rounded-xl bg-gray-50 border border-gray-200">
           <div>
             <h3 className="text-sm font-semibold text-dark-700 mb-0.5">

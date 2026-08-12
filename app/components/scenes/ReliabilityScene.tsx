@@ -119,10 +119,11 @@ export function ReliabilityScene() {
       >
         <p className="text-sm text-white/35 max-w-sm leading-relaxed">
           We don&apos;t just list cars — we stand behind every transaction.
-          LegitVenture Autos is built on trust, transparency, and the belief
+          LegitAutos Autos is built on trust, transparency, and the belief
           that every Nigerian deserves a reliable vehicle.
         </p>
       </div>
     </section>
   );
 }
+

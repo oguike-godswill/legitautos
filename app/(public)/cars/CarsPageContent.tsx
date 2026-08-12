@@ -92,7 +92,7 @@ export default function CarsPageContent() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="pt-32 pb-12 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
+      <div className="pt-28 pb-6 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
         <Link
           href="/"
           className="inline-flex items-center gap-2 t-mono text-[0.5rem] text-dark-400 hover:text-dark-600 transition-colors mb-8"
@@ -113,7 +113,7 @@ export default function CarsPageContent() {
         </div>
       </div>
 
-      <div className="px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="flex gap-8">
           {/* Desktop Sidebar */}
           <aside className="hidden lg:block w-64 shrink-0">

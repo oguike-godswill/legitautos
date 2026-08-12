@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <head>
-        <title>LegitVenture Autos — Nigeria&apos;s #1 Car Marketplace</title>
+        <title>LegitAutos Autos — Nigeria&apos;s #1 Car Marketplace</title>
         <meta
           name="description"
           content="Browse thousands of verified vehicles from trusted sellers across Nigeria. Buy, sell, or request cars — all in one place."
@@ -42,3 +42,4 @@ export default function RootLayout({
     </html>
   );
 }
+
