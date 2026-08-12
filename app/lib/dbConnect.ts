@@ -15,8 +15,7 @@ declare global {
 
 let cached = global._mongooseConn;
 
-console.log("URI exists:", !!process.env.MONGODB_URI);
-console.log("URI:", MONGODB_URI);
+
 
 export async function dbConnect(): Promise<typeof mongoose> {
   if (!cached) {
