@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { MetadataRoute } from "next";
 import { dbConnect } from "@/app/lib/dbConnect";
 import { Car } from "@/app/models/Car";
