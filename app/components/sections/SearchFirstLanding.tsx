@@ -31,8 +31,11 @@ import {
   RotateCw,
   LayoutGrid,
   ChevronDown,
+  Zap,
+  Clock,
+  Send,
 } from "lucide-react";
-import { useCars } from "@/app/hooks/useCars";
+import { useCars, useFeaturedCars, useBrands } from "@/app/hooks/useCars";
 import { formatPrice, formatMileage } from "@/app/utils/format";
 
 const VEHICLE_CATEGORIES = [
@@ -100,8 +103,13 @@ export function SearchFirstLanding() {
   const [location, setLocation] = useState("");
   const [budget, setBudget] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const { data: featuredData } = useCars({ limit: 8, sortBy: "newest" });
+  const [email, setEmail] = useState("");
+  const { data: featuredData } = useFeaturedCars();
   const featuredCars = featuredData?.cars || [];
+  const { data: latestData } = useCars({ limit: 4, sortBy: "newest" });
+  const latestCars = latestData?.cars || [];
+  const { data: brandsData } = useBrands();
+  const brands = brandsData?.brands || [];
 
   return (
     <div className="min-h-screen bg-white">
@@ -142,19 +150,11 @@ export function SearchFirstLanding() {
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-xl sm:text-4xl lg:text-5xl font-bold text-white uppercase leading-[1.05] tracking-[-0.02em] mb-5"
+              className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white uppercase leading-[1.05] tracking-[-0.02em] mb-5"
             >
               Find Your<br />Dream Car Today
             </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="text-sm text-white/40 max-w-md leading-relaxed"
-            >
-              Browse premium vehicles from trusted sellers across Nigeria.
-            </motion.p>
           </div>
 
           {/* Search Panel */}
@@ -244,7 +244,7 @@ export function SearchFirstLanding() {
                     return `/cars${params.toString() ? `?${params.toString()}` : ""}`;
                   })()}
                   className="w-full lg:w-auto px-8 py-3.5 bg-[#0a0a0a] text-white text-sm font-bold rounded-xl hover:bg-dark-800 transition-all duration-300 flex items-center justify-center gap-2 shrink-0"
-                 
+
                 >
                   Search cars
                   <ArrowRight className="w-4 h-4" />
@@ -272,7 +272,7 @@ export function SearchFirstLanding() {
       </section>
 
       {/* ═══════════════════════════════════════════ SHOP BY CATEGORY ═══════════════════════════════════════════ */}
-      <section className="py-20 px-2 sm:px-8 lg:px-12">
+      <section className="py-16 px-2 sm:px-8 lg:px-12">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-end justify-between mb-10">
             <div>
@@ -333,6 +333,253 @@ export function SearchFirstLanding() {
         </div>
       </section>
 
+      {/* ═══════════════════════════════════════════ FEATURED VEHICLES ═══════════════════════════════════════════ */}
+      {featuredCars.length > 0 && (
+        <section className="py-16 px-2 sm:px-8 lg:px-12 border-t border-gray-100">
+          <div className="max-w-[1400px] mx-auto">
+            <div className="flex items-end justify-between mb-10">
+              <div>
+                <motion.span
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]"
+                >
+                  Handpicked
+                </motion.span>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-base sm:text-3xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]"
+                >
+                  Featured Cars
+                </motion.h2>
+                <motion.p
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.15 }}
+                  className="text-sm text-dark-400 mt-2"
+                >
+                  Curated selection of premium vehicles, verified by our team.
+                </motion.p>
+              </div>
+              <Link href="/cars?featured=true" className="flex items-center gap-1.5 text-xs font-bold text-dark-500 hover:text-primary transition-colors group">
+                View All <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {featuredCars.slice(0, 8).map((car, i) => (
+                <motion.div
+                  key={car._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05, duration: 0.4 }}
+                >
+                  <Link
+                    href={`/cars/${car._id}`}
+                    className="group block bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:shadow-gray-200/50 hover:border-gray-300 transition-all duration-400"
+                  >
+                    <div className="relative aspect-[16/10] bg-gray-100 overflow-hidden">
+                      <Image
+                        src={car.images[0] || "/images/placeholder-car.jpg"}
+                        alt={car.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                      {/* Badges */}
+                      <div className="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5">
+                        <span className="px-2 py-0.5 bg-primary text-white text-[0.5rem] font-bold rounded-md uppercase tracking-wider flex items-center gap-1">
+                          <Star className="w-2.5 h-2.5 fill-white" />
+                          Featured
+                        </span>
+                        {car.condition === "new" && (
+                          <span className="px-2 py-0.5 bg-emerald-500 text-white text-[0.5rem] font-bold rounded-md uppercase tracking-wider">New</span>
+                        )}
+                        {car.condition === "certified" && (
+                          <span className="px-2 py-0.5 bg-blue-500 text-white text-[0.5rem] font-bold rounded-md uppercase tracking-wider flex items-center gap-1">
+                            <ShieldCheck className="w-2.5 h-2.5" />
+                            Certified
+                          </span>
+                        )}
+                      </div>
+                      {car.originalPrice && car.originalPrice > car.price && (
+                        <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-rose-500 text-white text-[0.5rem] font-bold rounded-md flex items-center gap-1">
+                          <TrendingDown className="w-2.5 h-2.5" />
+                          -{Math.round(((car.originalPrice - car.price) / car.originalPrice) * 100)}%
+                        </span>
+                      )}
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-500" />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="text-sm font-semibold text-dark-900 group-hover:text-primary truncate transition-colors">{car.title}</h3>
+                      <div className="flex items-center gap-2 mt-2 text-[0.6rem] text-dark-400">
+                        <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{car.year}</span>
+                        <span className="w-0.5 h-0.5 rounded-full bg-dark-300" />
+                        <span className="flex items-center gap-1"><Gauge className="w-3 h-3" />{formatMileage(car.mileage)}</span>
+                        <span className="w-0.5 h-0.5 rounded-full bg-dark-300" />
+                        <span className="flex items-center gap-1 capitalize"><Fuel className="w-3 h-3" />{car.fuelType}</span>
+                      </div>
+                      <div className="flex items-center gap-1 mt-2 text-[0.6rem] text-dark-400">
+                        <MapPin className="w-3 h-3" />
+                        {car.location}
+                      </div>
+                      <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
+                        <span className="text-base font-bold text-dark-900">{formatPrice(car.price)}</span>
+                        <span className="flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                          View <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ═══════════════════════════════════════════ HOW IT WORKS ═══════════════════════════════════════════ */}
+      <section className="py-16 px-2 sm:px-8 lg:px-12 border-t border-gray-100">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center mb-12">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]"
+            >
+              Process
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-base sm:text-3xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]"
+            >
+              How It Works
+            </motion.h2>
+          </div>
+          <div className="grid md:grid-cols-4 gap-6 relative">
+            <div className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+            {[
+              { step: "01", title: "Search", desc: "Browse thousands of verified cars", icon: Search },
+              { step: "02", title: "Connect", desc: "Chat with sellers on WhatsApp", icon: MessageCircle },
+              { step: "03", title: "Inspect", desc: "Verify the car in person", icon: ShieldCheck },
+              { step: "04", title: "Drive", desc: "Take your new car home", icon: Car },
+            ].map((item, i) => (
+              <motion.div
+                key={item.step}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.4 }}
+                className="flex flex-col items-center text-center group"
+              >
+                <div className="w-20 h-20 bg-white border-2 border-gray-100 rounded-2xl flex items-center justify-center mb-3 relative z-10 group-hover:border-primary group-hover:shadow-xl group-hover:shadow-primary/15 group-hover:scale-110 transition-all duration-400">
+                  <item.icon className="w-8 h-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+                </div>
+                <span className="text-[0.5rem] font-bold text-primary tracking-[0.2em] mb-1">STEP {item.step}</span>
+                <h3 className="font-semibold text-dark-900 text-base">{item.title}</h3>
+                <p className="text-xs text-dark-500 mt-0.5 max-w-[150px]">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════ WHY CHOOSE US ═══════════════════════════════════════════ */}
+      <section className="py-16 px-2 sm:px-8 lg:px-12 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 w-80 h-80 bg-gradient-to-br from-primary/40 to-transparent rounded-full blur-[120px]" />
+          <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-primary/40 to-transparent rounded-full blur-[120px]" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-primary/40 to-transparent rounded-full blur-[120px]" />
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-primary/40 to-transparent rounded-full blur-[120px]" />
+        </div>
+        <div className="max-w-[1400px] mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-base sm:text-3xl font-bold text-dark-900"
+            >
+              why choose <span className="font-light">us?</span>
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-base text-dark-500 mt-5 max-w-lg mx-auto leading-relaxed"
+            >
+              From verified listings to transparent pricing, we make car buying in Nigeria seamless and trustworthy.
+            </motion.p>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-center">
+            <div className="space-y-12">
+              {WHY_CHOOSE_US.slice(0, 2).map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.15 + i * 0.12 }}
+                  className="text-center lg:text-right"
+                >
+                  <div className="w-12 h-12 mx-auto lg:ml-auto lg:mr-0 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+                    <item.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-bold text-dark-900 mb-2">{item.title}</h3>
+                  <p className="text-sm text-dark-500 leading-relaxed max-w-[280px] mx-auto lg:ml-auto lg:mr-0">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="relative mx-auto"
+            >
+              <div className="relative w-full max-w-[300px] h-[360px] mx-auto rounded-2xl overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=700&fit=crop"
+                  alt="Luxury car"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-3 -right-3 w-full h-full bg-primary/10 rounded-2xl -z-10" />
+            </motion.div>
+            <div className="space-y-12">
+              {WHY_CHOOSE_US.slice(2, 4).map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.15 + i * 0.12 }}
+                  className="text-center lg:text-left"
+                >
+                  <div className="w-12 h-12 mx-auto lg:mr-auto lg:ml-0 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+                    <item.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-bold text-dark-900 mb-2">{item.title}</h3>
+                  <p className="text-sm text-dark-500 leading-relaxed max-w-[280px] mx-auto lg:mr-auto lg:ml-0">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════════════════════════════════ STATS ═══════════════════════════════════════════ */}
       <section className="py-16 px-2 sm:px-8 lg:px-12 bg-[#0a0a0a]">
         <div className="max-w-[1400px] mx-auto">
@@ -359,107 +606,9 @@ export function SearchFirstLanding() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════ WHY CHOOSE US ═══════════════════════════════════════════ */}
-      <section className="py-24 px-2 sm:px-8 lg:px-12 relative overflow-hidden">
-        {/* Orange gradient edges */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-0 w-80 h-80 bg-gradient-to-br from-primary/40 to-transparent rounded-full blur-[120px]" />
-          <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-primary/40 to-transparent rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-primary/40 to-transparent rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-primary/40 to-transparent rounded-full blur-[120px]" />
-        </div>
-
-        <div className="max-w-[1400px] mx-auto relative z-10">
-          {/* Centered Header */}
-          <div className="text-center mb-16">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-base sm:text-3xl font-bold text-dark-900"
-            >
-              why choose <span className="font-light">us?</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-base text-dark-500 mt-5 max-w-lg mx-auto leading-relaxed"
-             
-            >
-              From verified listings to transparent pricing, we make car buying in Nigeria seamless and trustworthy.
-            </motion.p>
-          </div>
-
-          {/* Features + Image Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-center">
-            {/* Left features */}
-            <div className="space-y-12">
-              {WHY_CHOOSE_US.slice(0, 2).map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.15 + i * 0.12 }}
-                  className="text-center lg:text-right"
-                >
-                  <div className="w-12 h-12 mx-auto lg:ml-auto lg:mr-0 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
-                    <item.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-bold text-dark-900 mb-2">{item.title}</h3>
-                  <p className="text-sm text-dark-500 leading-relaxed max-w-[280px] mx-auto lg:ml-auto lg:mr-0">{item.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Center Image */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="relative mx-auto"
-            >
-              <div className="relative w-full max-w-[300px] h-[360px] mx-auto rounded-2xl overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=700&fit=crop"
-                  alt="Luxury car"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              {/* Decorative offset */}
-              <div className="absolute -bottom-3 -right-3 w-full h-full bg-primary/10 rounded-2xl -z-10" />
-            </motion.div>
-
-            {/* Right features */}
-            <div className="space-y-12">
-              {WHY_CHOOSE_US.slice(2, 4).map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.15 + i * 0.12 }}
-                  className="text-center lg:text-left"
-                >
-                  <div className="w-12 h-12 mx-auto lg:mr-auto lg:ml-0 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
-                    <item.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-bold text-dark-900 mb-2">{item.title}</h3>
-                  <p className="text-sm text-dark-500 leading-relaxed max-w-[280px] mx-auto lg:mr-auto lg:ml-0">{item.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════ FEATURED VEHICLES ═══════════════════════════════════════════ */}
-      {featuredCars.length > 0 && (
-        <section className="py-20 px-2 sm:px-8 lg:px-12 border-t border-gray-100">
+      {/* ═══════════════════════════════════════════ SHOP BY BRAND ═══════════════════════════════════════════ */}
+      {brands.length > 0 && (
+        <section className="py-16 px-2 sm:px-8 lg:px-12 bg-[#f5f5f5]">
           <div className="max-w-[1400px] mx-auto">
             <div className="flex items-end justify-between mb-10">
               <div>
@@ -469,7 +618,7 @@ export function SearchFirstLanding() {
                   viewport={{ once: true }}
                   className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]"
                 >
-                  Featured
+                  Manufacturers
                 </motion.span>
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
@@ -477,17 +626,93 @@ export function SearchFirstLanding() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
                   className="text-base sm:text-3xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]"
-                 
                 >
-                  Vehicles
+                  Shop by Brand
                 </motion.h2>
               </div>
-              <Link href="/cars" className="flex items-center gap-1.5 text-xs font-bold text-dark-500 hover:text-primary transition-colors group">
+              <Link href="/brands" className="flex items-center gap-1.5 text-xs font-bold text-dark-500 hover:text-primary transition-colors group">
+                All Brands <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3">
+              {brands.slice(0, 12).map((brand, i) => (
+                <motion.div
+                  key={brand._id}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.04, duration: 0.35 }}
+                >
+                  <Link
+                    href={`/brands/${brand.slug}`}
+                    className="group flex flex-col items-center gap-3 p-5 bg-white rounded-xl border border-gray-200/80 hover:shadow-lg hover:shadow-gray-200/50 hover:border-gray-300/80 hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    <div className="w-14 h-14 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-primary/5 transition-colors duration-300 overflow-hidden">
+                      {brand.logo ? (
+                        <Image
+                          src={brand.logo}
+                          alt={brand.name}
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
+                      ) : (
+                        <span className="text-lg font-bold text-dark-300 group-hover:text-primary transition-colors">
+                          {brand.name.charAt(0)}
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-center">
+                      <h3 className="text-xs font-semibold text-dark-800 group-hover:text-primary transition-colors truncate w-full">{brand.name}</h3>
+                      <p className="text-[0.55rem] text-dark-400 mt-0.5">{brand.carCount}+ cars</p>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ═══════════════════════════════════════════ LATEST ARRIVALS ═══════════════════════════════════════════ */}
+      {latestCars.length > 0 && (
+        <section className="py-16 px-2 sm:px-8 lg:px-12">
+          <div className="max-w-[1400px] mx-auto">
+            <div className="flex items-end justify-between mb-10">
+              <div>
+                <motion.span
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]"
+                >
+                  Fresh Stock
+                </motion.span>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-base sm:text-3xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]"
+                >
+                  Latest Arrivals
+                </motion.h2>
+                <motion.p
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.15 }}
+                  className="text-sm text-dark-400 mt-2"
+                >
+                  Just listed — be the first to check them out.
+                </motion.p>
+              </div>
+              <Link href="/cars?sortBy=newest" className="flex items-center gap-1.5 text-xs font-bold text-dark-500 hover:text-primary transition-colors group">
                 View All <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {featuredCars.slice(0, 8).map((car, i) => (
+              {latestCars.map((car, i) => (
                 <motion.div
                   key={car._id}
                   initial={{ opacity: 0, y: 20 }}
@@ -507,14 +732,26 @@ export function SearchFirstLanding() {
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       />
-                      {i < 2 && (
-                        <span className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-primary text-white text-[0.55rem] font-bold rounded-md uppercase tracking-wider">Featured</span>
-                      )}
-                      {car.condition === "new" && (
-                        <span className={`absolute top-2.5 ${i < 2 ? 'left-[5.5rem]' : 'left-2.5'} px-2 py-0.5 bg-emerald-500 text-white text-[0.55rem] font-bold rounded-md uppercase tracking-wider`}>New</span>
-                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                      {/* Badges */}
+                      <div className="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5">
+                        <span className="px-2 py-0.5 bg-[#0a0a0a] text-white text-[0.5rem] font-bold rounded-md uppercase tracking-wider flex items-center gap-1">
+                          <Clock className="w-2.5 h-2.5" />
+                          New
+                        </span>
+                        {car.condition === "new" && (
+                          <span className="px-2 py-0.5 bg-emerald-500 text-white text-[0.5rem] font-bold rounded-md uppercase tracking-wider">Brand New</span>
+                        )}
+                        {car.condition === "certified" && (
+                          <span className="px-2 py-0.5 bg-blue-500 text-white text-[0.5rem] font-bold rounded-md uppercase tracking-wider flex items-center gap-1">
+                            <ShieldCheck className="w-2.5 h-2.5" />
+                            Certified
+                          </span>
+                        )}
+                      </div>
                       {car.originalPrice && car.originalPrice > car.price && (
-                        <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-rose-500 text-white text-[0.55rem] font-bold rounded-md flex items-center gap-1">
+                        <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-rose-500 text-white text-[0.5rem] font-bold rounded-md flex items-center gap-1">
+                          <TrendingDown className="w-2.5 h-2.5" />
                           -{Math.round(((car.originalPrice - car.price) / car.originalPrice) * 100)}%
                         </span>
                       )}
@@ -522,44 +759,29 @@ export function SearchFirstLanding() {
                     <div className="p-4">
                       <h3 className="text-sm font-semibold text-dark-900 group-hover:text-primary truncate transition-colors">{car.title}</h3>
                       <div className="flex items-center gap-2 mt-2 text-[0.6rem] text-dark-400">
-                        <span>{car.year}</span>
+                        <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{car.year}</span>
                         <span className="w-0.5 h-0.5 rounded-full bg-dark-300" />
-                        <span>{formatMileage(car.mileage)}</span>
+                        <span className="flex items-center gap-1"><Gauge className="w-3 h-3" />{formatMileage(car.mileage)}</span>
                         <span className="w-0.5 h-0.5 rounded-full bg-dark-300" />
-                        <span className="capitalize">{car.transmission}</span>
+                        <span className="flex items-center gap-1 capitalize"><Fuel className="w-3 h-3" />{car.fuelType}</span>
                       </div>
                       <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
                         <span className="text-base font-bold text-dark-900">{formatPrice(car.price)}</span>
-                        <ArrowRight className="w-4 h-4 text-dark-300 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+                        <span className="flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                          View <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
                       </div>
                     </div>
                   </Link>
                 </motion.div>
               ))}
-        </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center gap-1.5"
-          >
-            <span className="text-[0.6rem] text-white/30 uppercase tracking-[0.2em]">Scroll</span>
-            <ChevronDown className="w-4 h-4 text-white/30" />
-          </motion.div>
-        </motion.div>
-      </section>
+            </div>
+          </div>
+        </section>
       )}
 
       {/* ═══════════════════════════════════════════ TESTIMONIALS ═══════════════════════════════════════════ */}
-      <section className="py-24 px-2 sm:px-8 lg:px-12 bg-[#f5f5f5]">
+      <section className="py-16 px-2 sm:px-8 lg:px-12 bg-[#f5f5f5]">
         <div className="max-w-[1400px] mx-auto">
           {/* Header */}
           <div className="mb-14">
@@ -576,7 +798,7 @@ export function SearchFirstLanding() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]"
+              className="text-base sm:text-3xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]"
             >
               What Clients Say
             </motion.h2>
@@ -675,7 +897,7 @@ export function SearchFirstLanding() {
       </section>
 
       {/* ═══════════════════════════════════════════ SELL + WHATSAPP ═══════════════════════════════════════════ */}
-      <section className="py-20 px-2 sm:px-8 lg:px-12 border-t border-gray-100">
+      <section className="py-16 px-2 sm:px-8 lg:px-12 border-t border-gray-100">
         <div className="max-w-[1400px] mx-auto grid md:grid-cols-2 gap-5">
           <div className="bg-[#0a0a0a] rounded-2xl p-6 sm:p-10 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-80 h-80 bg-primary/15 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 group-hover:bg-primary/25 transition-colors duration-700" />
@@ -683,7 +905,7 @@ export function SearchFirstLanding() {
               <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6">
                 <Car className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-lg sm:text-3xl font-bold text-white mb-3 uppercase">Sell Your Car</h3>
+              <h3 className="text-base sm:text-3xl font-bold text-white mb-3 uppercase">Sell Your Car</h3>
               <p className="text-white/35 mb-8 max-w-sm leading-relaxed text-sm">List on Nigeria&apos;s largest marketplace. Reach thousands of buyers instantly.</p>
               <Link href="/sell" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-dark-900 text-sm font-bold rounded-lg hover:bg-gray-100 transition-colors">
                 List Your Car <ArrowRight className="w-4 h-4" />
@@ -694,7 +916,7 @@ export function SearchFirstLanding() {
             <div className="w-12 h-12 bg-[#128C7E]/15 rounded-xl flex items-center justify-center mb-6">
               <MessageCircle className="w-6 h-6 text-[#25D366]" />
             </div>
-            <h3 className="text-lg sm:text-3xl font-bold text-dark-900 mb-3 uppercase">Need Help?</h3>
+            <h3 className="text-base sm:text-3xl font-bold text-dark-900 mb-3 uppercase">Need Help?</h3>
             <p className="text-dark-500 mb-8 max-w-sm leading-relaxed text-sm">Chat with our team on WhatsApp. We&apos;ll help you find the perfect car.</p>
             <a
               href="https://wa.me/2348000000000?text=Hello%2C%20I%27m%20looking%20for%20a%20car"
@@ -709,53 +931,78 @@ export function SearchFirstLanding() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════ HOW IT WORKS ═══════════════════════════════════════════ */}
-      <section className="py-20 px-2 sm:px-8 lg:px-12 border-t border-gray-100">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-12">
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
+      {/* ═══════════════════════════════════════════ NEWSLETTER ═══════════════════════════════════════════ */}
+      <section className="py-16 px-2 sm:px-8 lg:px-12 bg-[#0a0a0a] relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px]" />
+        </div>
+        <div className="max-w-[1400px] mx-auto relative z-10">
+          <div className="max-w-2xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]"
+              className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6"
             >
-              Process
-            </motion.span>
+              <Send className="w-7 h-7 text-primary" />
+            </motion.div>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]"
-             
+              className="text-base sm:text-3xl font-bold text-white uppercase tracking-[-0.01em]"
             >
-              How It Works
+              Stay in the Loop
             </motion.h2>
-          </div>
-          <div className="grid md:grid-cols-4 gap-6 relative">
-            <div className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-            {[
-              { step: "01", title: "Search", desc: "Browse thousands of verified cars", icon: Search },
-              { step: "02", title: "Connect", desc: "Chat with sellers on WhatsApp", icon: MessageCircle },
-              { step: "03", title: "Inspect", desc: "Verify the car in person", icon: ShieldCheck },
-              { step: "04", title: "Drive", desc: "Take your new car home", icon: Car },
-            ].map((item, i) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.4 }}
-                className="text-center relative"
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15 }}
+              className="text-sm text-white/40 mt-4 mb-8 max-w-md mx-auto leading-relaxed"
+            >
+              Get notified about new arrivals, price drops, and exclusive deals. No spam — just the best cars.
+            </motion.p>
+            <motion.form
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (email) {
+                  window.open(`https://wa.me/2348000000000?text=Hi!%20I%27d%20like%20to%20subscribe%20for%20updates.%20My%20email%20is%20${encodeURIComponent(email)}`, "_blank");
+                  setEmail("");
+                }
+              }}
+              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+            >
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email address"
+                required
+                className="flex-1 px-5 py-3.5 bg-white/[0.06] border border-white/[0.08] rounded-xl text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all"
+              />
+              <button
+                type="submit"
+                className="px-8 py-3.5 bg-primary text-white text-sm font-bold rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shrink-0"
               >
-                <div className="w-20 h-20 bg-white border-2 border-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4 relative z-10 group-hover:border-primary group-hover:shadow-xl group-hover:shadow-primary/15 group-hover:scale-110 transition-all duration-400">
-                  <item.icon className="w-8 h-8 text-primary group-hover:scale-110 transition-transform duration-300" />
-                </div>
-                <span className="text-[0.5rem] font-bold text-primary tracking-[0.2em]">STEP {item.step}</span>
-                <h3 className="font-semibold text-dark-900 mt-1.5 text-base">{item.title}</h3>
-                <p className="text-xs text-dark-500 mt-1">{item.desc}</p>
-              </motion.div>
-            ))}
+                Subscribe
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </motion.form>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="text-[0.6rem] text-white/20 mt-4"
+            >
+              Join 2,000+ car enthusiasts. Unsubscribe anytime.
+            </motion.p>
           </div>
         </div>
       </section>
