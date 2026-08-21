@@ -182,7 +182,7 @@ export function Navbar() {
             </span>
             <span className="hidden sm:flex items-center gap-1.5 t-mono text-[0.48rem] text-white/50">
               <Phone className="w-2.5 h-2.5" />
-              +234 800 000 0000
+              +234 817 101 7509
             </span>
           </div>
           <div className="flex items-center gap-3">

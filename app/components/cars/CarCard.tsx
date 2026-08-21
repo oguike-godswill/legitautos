@@ -36,7 +36,7 @@ export function CarCard({ car, index = 0 }: CarCardProps) {
     e.stopPropagation();
     const message = `Hello, I'm interested in the ${car.title} (${car.year}) listed for ${formatPrice(car.price)} on LegitAutos Autos. Is it still available?`;
     window.open(
-      generateWhatsAppLink(car.seller?.whatsapp || car.seller?.phone || "+2348000000000", message),
+      generateWhatsAppLink(car.seller?.whatsapp || car.seller?.phone || "+2348171017509", message),
       "_blank"
     );
   };

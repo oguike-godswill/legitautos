@@ -21,8 +21,8 @@ const SERVICES = [
 
 const CONTACT_INFO = [
   { icon: MapPin, text: "Lagos, Nigeria" },
-  { icon: Phone, text: "+234 800 LegitAutos" },
-  { icon: Mail, text: "info@LegitAutoss.com" },
+  { icon: Phone, text: "+234 817 101 7509" },
+  { icon: Mail, text: "legitventure04@gmail.com" },
   { icon: Clock, text: "Mon - Sat: 8AM - 6PM WAT" },
 ];
 

@@ -1,19 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=TikTok+Sans:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
-  --foreground: #0a0a0a;
+  --foreground: #000000;
   --primary: #0016CB;
   --secondary: #f50;
-  --black: #0a0a0a;
+  --black: #000000;
   --white: #ffffff;
   --surface: #f5f5f5;
   --surface-light: #fafafa;
-  --text-main: #0a0a0a;
-  --text-sub: #0a0a0acc;
-  --text-soft: #0a0a0a80;
-  --text-note: #0a0a0a40;
+  --text-main: #000000;
+  --text-sub: #000000cc;
+  --text-soft: #00000099;
+  --text-note: #00000066;
   --border-main: #00000014;
   --border-light: #0000000d;
   --border-bold: #00000029;
@@ -22,14 +22,14 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #EA580C;
+  --color-primary: #2457D7;
   --color-secondary: #f50;
   --color-surface: #f5f5f5;
   --color-surface-light: #fafafa;
-  --color-text-main: #0a0a0a;
-  --color-text-sub: #0a0a0acc;
-  --color-text-soft: #0a0a0a80;
-  --color-text-note: #0a0a0a40;
+  --color-text-main: #000000;
+  --color-text-sub: #000000cc;
+  --color-text-soft: #00000099;
+  --color-text-note: #00000066;
   --color-border-main: #00000014;
   --color-border-light: #0000000d;
   --color-border-bold: #00000029;
@@ -39,21 +39,21 @@
   --font-body: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'Space Mono', 'Courier New', monospace;
 
-  --color-primary-50: #fff7ed;
-  --color-primary-500: #EA580C;
-  --color-primary-600: #c2410c;
+  --color-primary-50: #eff6ff;
+  --color-primary-500: #2457D7;
+  --color-primary-600: #1d4ed8;
 
-  --color-dark-50: #fafafa;
-  --color-dark-100: #f5f5f5;
-  --color-dark-200: #e5e5e5;
-  --color-dark-300: #d4d4d4;
-  --color-dark-400: #a3a3a3;
-  --color-dark-500: #737373;
-  --color-dark-600: #525252;
-  --color-dark-700: #404040;
-  --color-dark-800: #262626;
-  --color-dark-900: #171717;
-  --color-dark-950: #0a0a0a;
+  --color-dark-50: #f5f5f5;
+  --color-dark-100: #e5e5e5;
+  --color-dark-200: #d4d4d4;
+  --color-dark-300: #a3a3a3;
+  --color-dark-400: #737373;
+  --color-dark-500: #525252;
+  --color-dark-600: #404040;
+  --color-dark-700: #262626;
+  --color-dark-800: #171717;
+  --color-dark-900: #0a0a0a;
+  --color-dark-950: #000000;
 }
 
 * { box-sizing: border-box; }
@@ -61,15 +61,15 @@ html { scroll-behavior: auto; }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  color: #000000;
+  font-family: 'TikTok Sans';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'TikTok Sans';
 }
 
 input, textarea, select, label, span, p, a, li, td, th {
@@ -162,7 +162,7 @@ html.lenis, html.lenis body { height: auto; }
 
 /* Glow accent */
 .glow-primary {
-  box-shadow: 0 0 60px -10px rgba(234, 88, 12, 0.15);
+  box-shadow: 0 0 60px -10px rgba(36, 87, 215, 0.15);
 }
 .glow-white {
   box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.08);

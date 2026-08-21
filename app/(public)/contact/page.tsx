@@ -17,18 +17,27 @@ import Link from "next/link";
 import { ContactForm } from "@/app/components/sections/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Support — LegitAutos Autos",
+  title: "Contact Us",
   description:
-    "Get in touch with LegitAutos Autos. We're here to help with buying, selling, or any questions about our car marketplace.",
+    "Get in touch with LegitAutos. We're here to help with buying, selling, or any questions about our car marketplace.",
+  openGraph: {
+    title: "Contact Us | LegitAutos",
+    description: "Get in touch with LegitAutos.",
+    url: "https://legitautomobile.com/contact",
+    images: ["/og-image.jpg"],
+  },
+  alternates: {
+    canonical: "https://legitautomobile.com/contact",
+  },
 };
 
 const CONTACT_METHODS = [
   {
     icon: Phone,
     label: "Call Us",
-    value: "+234 800 LegitAutos",
+    value: "+234 817 101 7509",
     description: "Mon - Sat, 8am - 6pm WAT",
-    action: "tel:+2348000000000",
+    action: "tel:+2348171017509",
     color: "bg-blue-50 text-blue-500",
   },
   {
@@ -36,16 +45,16 @@ const CONTACT_METHODS = [
     label: "WhatsApp",
     value: "Chat with us",
     description: "Quick responses, usually within minutes",
-    action: "https://wa.me/2348000000000",
+    action: "https://wa.me/2348171017509",
     color: "bg-emerald-50 text-emerald-500",
   },
   {
     icon: Mail,
     label: "Email",
-    value: "info@LegitAutoss.com",
+    value: "legitventure04@gmail.com",
     description: "We reply within 24 hours",
-    action: "mailto:info@LegitAutoss.com",
-    color: "bg-orange-50 text-orange-500",
+    action: "mailto:legitventure04@gmail.com",
+    color: "bg-blue-50 text-blue-500",
   },
   {
     icon: MapPin,
@@ -83,9 +92,27 @@ const FAQ = [
   },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <div className="min-h-screen bg-white">
       {/* Hero */}
       <div className="relative pt-32 pb-20 px-2 sm:px-8 lg:px-12 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
@@ -95,7 +122,7 @@ export default function ContactPage() {
         <div className="max-w-[1400px] mx-auto relative z-10">
           <div className="max-w-3xl">
             <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em] block mb-4">Support</span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-dark-900 leading-[1.05] tracking-[-0.02em]">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 leading-[0.95] tracking-tight">
               How can we <span className="italic text-dark-400">help?</span>
             </h1>
             <p className="mt-5 text-sm sm:text-base text-dark-500 leading-relaxed max-w-xl">
@@ -107,7 +134,7 @@ export default function ContactPage() {
       </div>
 
       {/* Contact Methods */}
-      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20 mt-4">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {CONTACT_METHODS.map((method) => (
             <a
@@ -132,7 +159,7 @@ export default function ContactPage() {
       <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">Quick Links</span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 mt-2 uppercase tracking-[-0.01em]">
             How Can We Help?
           </h2>
         </div>
@@ -163,7 +190,7 @@ export default function ContactPage() {
       <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">Get in Touch</span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 mt-2 uppercase tracking-[-0.01em]">
             Send Us a Message
           </h2>
         </div>
@@ -176,7 +203,7 @@ export default function ContactPage() {
       <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">FAQ</span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 mt-2 uppercase tracking-[-0.01em]">
             Common Questions
           </h2>
         </div>
@@ -207,7 +234,7 @@ export default function ContactPage() {
             <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-[80px]" />
             <div className="relative z-10">
               <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">Locations</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2 uppercase tracking-[-0.01em] mb-8">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mt-2 uppercase tracking-[-0.01em] mb-8">
                 Find Us
               </h2>
               <div className="flex items-center gap-2 mb-4">
@@ -221,7 +248,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-primary shrink-0" />
-                  <span className="text-sm text-white/60">+234 800 LegitAutos</span>
+                  <span className="text-sm text-white/60">+234 817 101 7509</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock className="w-4 h-4 text-primary shrink-0" />
@@ -239,7 +266,7 @@ export default function ContactPage() {
             </div>
             <div className="relative z-10 h-full flex flex-col justify-center">
               <MessageCircle className="w-8 h-8 text-white/80 mb-4" />
-              <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight uppercase tracking-[-0.01em] mb-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-[0.95] tracking-tight uppercase mb-4">
                 Prefer to Message Us?
               </h2>
               <p className="text-sm text-white/70 leading-relaxed max-w-md mb-8">
@@ -248,7 +275,7 @@ export default function ContactPage() {
               </p>
               <div>
                 <a
-                  href="https://wa.me/2348000000000?text=Hello%2C%20I%27m%20interested%20in%20your%20car%20marketplace."
+                  href="https://wa.me/2348171017509?text=Hello%2C%20I%27m%20interested%20in%20your%20car%20marketplace."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#075E54] font-bold rounded-xl hover:bg-white/90 transition-colors text-sm shadow-lg shadow-black/20"
@@ -261,7 +288,8 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 

@@ -4,9 +4,18 @@ import { Camera, Shield, Clock, CheckCircle, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Sell Your Car — LegitAutos Autos",
+  title: "Sell Your Car",
   description:
     "List your car on Nigeria's trusted marketplace. Reach thousands of verified buyers. Free listing, no hidden fees.",
+  openGraph: {
+    title: "Sell Your Car | LegitAutos",
+    description: "List your car on Nigeria's trusted marketplace. Free listing.",
+    url: "https://legitautomobile.com/sell",
+    images: ["/og-image.jpg"],
+  },
+  alternates: {
+    canonical: "https://legitautomobile.com/sell",
+  },
 };
 
 const benefits = [

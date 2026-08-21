@@ -7,9 +7,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Car, ChevronDown, ArrowRight } from "lucide-react";
 
 const navLinks = [
-  { href: "/cars", label: "Vehicles" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Support" },
+  { href: "/cars", label: "Browse Cars" },
+  { href: "/request", label: "Request a Car" },
+  { href: "/about", label: "About Us" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export function Header() {
@@ -44,20 +45,24 @@ export function Header() {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerBg}`}
       >
-        <div className="px-2 sm:px-8 lg:px-12">
-          <div className="flex items-center justify-between h-16 max-w-[1400px] mx-auto">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5">
+        <div className="px-1.5 sm:px-8 lg:px-12">
+          <div className="flex items-center justify-between h-12 md:h-16 gap-4 max-w-[1400px] mx-auto">
+            {/* Logo - left on desktop, hidden text on mobile */}
+            <Link href="/" className="flex items-center gap-2.5 md:relative">
               <div className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-500 ${
                 isHome && !scrolled ? "bg-white/10 border border-white/15" : "bg-dark"
               }`}>
                 <Car className="w-4.5 h-4.5 text-white" />
               </div>
-              <span className={`text-sm font-bold tracking-[0.15em] uppercase transition-colors duration-500 ${textColor}`}
-               >
+              <span className={`hidden md:block text-sm font-bold tracking-[0.15em] uppercase transition-colors duration-500 ${textColor}`}>
                 LegitAutos
               </span>
             </Link>
+
+            {/* Brand name - centered on mobile */}
+            <span className={`md:hidden absolute left-1/2 -translate-x-1/2 text-sm font-bold tracking-[0.15em] uppercase transition-colors duration-500 ${textColor}`}>
+              LegitAutos
+            </span>
 
             {/* Desktop Nav - center */}
             <nav className="hidden md:flex items-center gap-8">
@@ -92,8 +97,8 @@ export function Header() {
 
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className={`md:hidden p-2 rounded-lg transition-colors ${
-                  isHome && !scrolled ? "text-white hover:bg-white/10" : "text-dark-700 hover:bg-gray-100"
+                className={`md:hidden p-2 transition-colors ${
+                  isHome && !scrolled ? "text-white" : "text-dark-700"
                 }`}
               >
                 {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -146,7 +151,7 @@ export function Header() {
                         onClick={() => setMobileOpen(false)}
                         className={`flex items-center justify-between py-3 px-3 rounded-lg transition-all ${
                           pathname === link.href
-                            ? "bg-orange-50 text-primary font-semibold"
+                            ? "bg-blue-50 text-primary font-semibold"
                             : "text-dark-600 hover:bg-gray-50"
                         }`}
                        

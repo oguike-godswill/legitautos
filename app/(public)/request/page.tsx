@@ -3,12 +3,17 @@ import { RequestForm } from "@/app/components/requests/RequestForm";
 import { Search, Clock, MessageCircle, Car } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Request a Car — LegitAutos Autos",
+  title: "Request a Car",
   description:
     "Can't find the car you want? Tell us what you're looking for and we'll find it for you. Free car sourcing service across Nigeria.",
   openGraph: {
-    title: "Request a Car — LegitAutos Autos",
+    title: "Request a Car | LegitAutos",
     description: "Can't find your dream car? We'll source it for you.",
+    url: "https://legitautomobile.com/request",
+    images: ["/og-image.jpg"],
+  },
+  alternates: {
+    canonical: "https://legitautomobile.com/request",
   },
 };
 
@@ -39,24 +44,29 @@ export default function RequestCarPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <div className="pt-32 pb-16 px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto">
-        <div className="max-w-3xl">
-          <span className="t-mono text-[0.5rem] text-dark-400 block mb-4">Request a Car</span>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 leading-[0.95] tracking-tight">
-            Can&apos;t Find Your
-            <br />
-            <span className="text-dark-400">Dream Car?</span>
-          </h1>
-          <p className="mt-6 text-xs sm:text-sm text-dark-500 leading-relaxed max-w-xl">
-            Tell us exactly what you&apos;re looking for — brand, model, budget, year — and our team
-            will search our nationwide network of dealers and private sellers to find it for you.
-            <span className="text-dark-800 font-semibold"> Completely free.</span>
-          </p>
+      <div className="relative pt-32 pb-16 px-1.5 sm:px-8 lg:px-12 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]" />
+        </div>
+        <div className="max-w-[1400px] mx-auto relative z-10">
+          <div className="max-w-3xl">
+            <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em] block mb-4">Request a Car</span>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 leading-[0.95] tracking-tight">
+              Can&apos;t Find Your
+              <br />
+              <span className="italic text-dark-400">Dream Car?</span>
+            </h1>
+            <p className="mt-5 text-sm sm:text-base text-dark-500 leading-relaxed max-w-xl">
+              Tell us exactly what you&apos;re looking for — brand, model, budget, year — and our team
+              will search our nationwide network of dealers and private sellers to find it for you.
+              <span className="text-dark-800 font-semibold"> Completely free.</span>
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
+      <div className="px-1.5 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Form */}
           <div className="lg:col-span-3">

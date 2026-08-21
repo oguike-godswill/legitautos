@@ -112,7 +112,7 @@ export function SearchFirstLanding() {
   const brands = brandsData?.brands || [];
 
   return (
-    <div className="min-h-screen bg-white">
+    <>
       {/* ═══════════════════════════════════════════ HERO ═══════════════════════════════════════════ */}
       <section className="relative min-h-[85vh] flex flex-col overflow-hidden bg-[#0a0a0a] pb-8">
         {/* Background Video */}
@@ -271,6 +271,7 @@ export function SearchFirstLanding() {
         </div>
       </section>
 
+      <div className="px-1.5">
       {/* ═══════════════════════════════════════════ SHOP BY CATEGORY ═══════════════════════════════════════════ */}
       <section className="py-16 px-2 sm:px-8 lg:px-12">
         <div className="max-w-[1400px] mx-auto">
@@ -356,15 +357,6 @@ export function SearchFirstLanding() {
                 >
                   Featured Cars
                 </motion.h2>
-                <motion.p
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.15 }}
-                  className="text-sm text-dark-400 mt-2"
-                >
-                  Curated selection of premium vehicles, verified by our team.
-                </motion.p>
               </div>
               <Link href="/cars?featured=true" className="flex items-center gap-1.5 text-xs font-bold text-dark-500 hover:text-primary transition-colors group">
                 View All <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -697,15 +689,6 @@ export function SearchFirstLanding() {
                 >
                   Latest Arrivals
                 </motion.h2>
-                <motion.p
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.15 }}
-                  className="text-sm text-dark-400 mt-2"
-                >
-                  Just listed — be the first to check them out.
-                </motion.p>
               </div>
               <Link href="/cars?sortBy=newest" className="flex items-center gap-1.5 text-xs font-bold text-dark-500 hover:text-primary transition-colors group">
                 View All <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -919,7 +902,7 @@ export function SearchFirstLanding() {
             <h3 className="text-base sm:text-3xl font-bold text-dark-900 mb-3 uppercase">Need Help?</h3>
             <p className="text-dark-500 mb-8 max-w-sm leading-relaxed text-sm">Chat with our team on WhatsApp. We&apos;ll help you find the perfect car.</p>
             <a
-              href="https://wa.me/2348000000000?text=Hello%2C%20I%27m%20looking%20for%20a%20car"
+              href="https://wa.me/2348171017509?text=Hello%2C%20I%27m%20looking%20for%20a%20car"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-[#128C7E] text-white text-sm font-bold rounded-lg hover:bg-[#0e7a6e] transition-colors"
@@ -930,82 +913,7 @@ export function SearchFirstLanding() {
           </div>
         </div>
       </section>
-
-      {/* ═══════════════════════════════════════════ NEWSLETTER ═══════════════════════════════════════════ */}
-      <section className="py-16 px-2 sm:px-8 lg:px-12 bg-[#0a0a0a] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px]" />
-        </div>
-        <div className="max-w-[1400px] mx-auto relative z-10">
-          <div className="max-w-2xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6"
-            >
-              <Send className="w-7 h-7 text-primary" />
-            </motion.div>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-base sm:text-3xl font-bold text-white uppercase tracking-[-0.01em]"
-            >
-              Stay in the Loop
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.15 }}
-              className="text-sm text-white/40 mt-4 mb-8 max-w-md mx-auto leading-relaxed"
-            >
-              Get notified about new arrivals, price drops, and exclusive deals. No spam — just the best cars.
-            </motion.p>
-            <motion.form
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (email) {
-                  window.open(`https://wa.me/2348000000000?text=Hi!%20I%27d%20like%20to%20subscribe%20for%20updates.%20My%20email%20is%20${encodeURIComponent(email)}`, "_blank");
-                  setEmail("");
-                }
-              }}
-              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-            >
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address"
-                required
-                className="flex-1 px-5 py-3.5 bg-white/[0.06] border border-white/[0.08] rounded-xl text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all"
-              />
-              <button
-                type="submit"
-                className="px-8 py-3.5 bg-primary text-white text-sm font-bold rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shrink-0"
-              >
-                Subscribe
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </motion.form>
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="text-[0.6rem] text-white/20 mt-4"
-            >
-              Join 2,000+ car enthusiasts. Unsubscribe anytime.
-            </motion.p>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </>
   );
 }

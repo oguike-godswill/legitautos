@@ -15,9 +15,18 @@ import {
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Us — LegitAutos Autos",
+  title: "About Us",
   description:
-    "Learn about LegitAutos Autos — Nigeria's trusted car marketplace connecting buyers and sellers since 2018.",
+    "Learn about LegitAutos — Nigeria's trusted car marketplace connecting buyers and sellers since 2018.",
+  openGraph: {
+    title: "About Us | LegitAutos",
+    description: "Learn about LegitAutos — Nigeria's trusted car marketplace.",
+    url: "https://legitautomobile.com/about",
+    images: ["/og-image.jpg"],
+  },
+  alternates: {
+    canonical: "https://legitautomobile.com/about",
+  },
 };
 
 const VALUES = [
@@ -82,28 +91,34 @@ const TIMELINE = [
 
 const TEAM_MEMBERS = [
   {
-    name: "Adebayo Johnson",
-    role: "Founder & CEO",
-    description: "15+ years in the Nigerian automotive industry. Passionate about making car ownership accessible to every Nigerian.",
+    name: "Abiodun Emmanuel",
+    role: "CEO & MD",
+    description: "Leading the vision and strategy behind LegitAutos, driving growth and innovation in Nigeria's car marketplace.",
     image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face",
   },
   {
-    name: "Chioma Okafor",
-    role: "Head of Operations",
-    description: "Former logistics director at a leading Nigerian firm. Manages our nationwide network of dealers and delivery partners.",
+    name: "Uwaje Wisdom",
+    role: "Chief Operating Officer",
+    description: "Oversees daily operations and strategy execution, driving efficiency and growth across the business.",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+  },
+  {
+    name: "Bello Halimat Omopelumi",
+    role: "Secretary / Social Media Manager",
+    description: "Manages communications and social media presence, keeping our community engaged and informed.",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face",
   },
   {
-    name: "Emeka Nwosu",
-    role: "Head of Technology",
-    description: "Full-stack engineer building the tools that power Nigeria's car marketplace. Focused on speed, reliability, and user experience.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+    name: "Bolanle Precious",
+    role: "Human Resources Manager",
+    description: "Oversees talent acquisition and team development, building a strong and dedicated workforce.",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
   },
   {
-    name: "Fatima Abdullahi",
-    role: "Head of Customer Experience",
-    description: "Dedicated to making every interaction with LegitAutos exceptional. Leads our 24/7 support and verification teams.",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
+    name: "Anthony Somto Blessing",
+    role: "Logistics Manager",
+    description: "Coordinates vehicle logistics and delivery operations, ensuring seamless experiences across Nigeria.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
   },
 ];
 
@@ -145,7 +160,7 @@ export default function AboutPage() {
         <div className="max-w-[1400px] mx-auto relative z-10">
           <div className="max-w-3xl">
             <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em] block mb-4">About Us</span>
-            <h1 className="text-2xl sm:text-5xl lg:text-6xl font-bold text-dark-900 leading-[1.05] tracking-[-0.02em]">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 leading-[0.95] tracking-tight">
               Every Car, Every
               <br />
               <span className="italic text-dark-400">Dream.</span>
@@ -164,7 +179,7 @@ export default function AboutPage() {
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-20">
           <div>
             <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em] block mb-2">Our Story</span>
-            <h2 className="text-xl sm:text-4xl font-bold text-dark-900 leading-tight mb-3">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 leading-[0.95] tracking-tight mb-3">
               Born from a simple belief:
               <br />
               <span className="italic text-dark-400">Nigerians deserve better.</span>
@@ -199,10 +214,10 @@ export default function AboutPage() {
           <div className="relative z-10 grid lg:grid-cols-2 gap-10 items-center">
             <div className="order-2 lg:order-1">
               <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em] block mb-4">Meet Our CEO</span>
-              <h2 className="text-xl sm:text-4xl font-bold text-white leading-tight mb-4">
-                Adebayo Johnson
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-[0.95] tracking-tight mb-4">
+                Abiodun Emmanuel
               </h2>
-              <p className="text-sm text-primary mb-4">Founder & Chief Executive Officer</p>
+              <p className="text-sm text-primary mb-4">Chief Executive Officer & Managing Director</p>
               <div className="flex items-start gap-3 mb-6">
                 <Quote className="w-6 h-6 text-primary/40 shrink-0 mt-1" />
                 <p className="text-sm text-white/60 leading-relaxed italic">
@@ -231,14 +246,14 @@ export default function AboutPage() {
                 <div className="w-80 h-80 rounded-2xl overflow-hidden relative">
                   <Image
                     src={TEAM_MEMBERS[0].image}
-                    alt="Adebayo Johnson - CEO"
+                    alt="Abiodun Emmanuel - CEO"
                     fill
                     className="object-cover"
                     sizes="256px"
                   />
                 </div>
                 <div className="absolute -bottom-4 -right-4 bg-primary rounded-xl px-4 py-2 shadow-lg">
-                  <p className="text-xs font-bold text-white">CEO & Founder</p>
+                  <p className="text-xs font-bold text-white">CEO & MD</p>
                 </div>
               </div>
             </div>
@@ -250,7 +265,7 @@ export default function AboutPage() {
       <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">The Team</span>
-          <h2 className="text-xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 mt-2 uppercase tracking-[-0.01em]">
             People Behind LegitAutos
           </h2>
         </div>
@@ -284,7 +299,7 @@ export default function AboutPage() {
       <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">What We Stand For</span>
-          <h2 className="text-xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 mt-2 uppercase tracking-[-0.01em]">
             Our Values
           </h2>
         </div>
@@ -309,7 +324,7 @@ export default function AboutPage() {
       <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">Our Journey</span>
-          <h2 className="text-xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 mt-2 uppercase tracking-[-0.01em]">
             From Lagos to Nationwide
           </h2>
         </div>
@@ -337,7 +352,7 @@ export default function AboutPage() {
       <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
         <div className="text-center mb-10">
           <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">How It Works</span>
-          <h2 className="text-xl sm:text-4xl font-bold text-dark-900 mt-2 uppercase tracking-[-0.01em]">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 mt-2 uppercase tracking-[-0.01em]">
             Four Steps to Your Next Car
           </h2>
         </div>
@@ -366,7 +381,7 @@ export default function AboutPage() {
             <div className="absolute top-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-[120px]" />
           </div>
           <div className="relative z-10">
-            <h2 className="text-lg sm:text-3xl font-bold text-white leading-tight mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-[0.95] tracking-tight mb-4">
               Ready to Find Your Car?
             </h2>
             <p className="text-sm text-white/60 leading-relaxed max-w-md mx-auto mb-8">

@@ -1,6 +1,22 @@
+import { Metadata } from "next";
 import { dbConnect } from "@/app/lib/dbConnect";
 import { Brand } from "@/app/models/Brand";
 import BrandsGridClient, { BrandType } from "./BrandsGridClient";
+
+export const metadata: Metadata = {
+  title: "Car Brands",
+  description:
+    "Browse all car brands available on LegitAutos. Find vehicles from Toyota, Honda, Mercedes-Benz, BMW, Lexus and more trusted manufacturers in Nigeria.",
+  openGraph: {
+    title: "Car Brands | LegitAutos",
+    description: "Browse all car brands available on LegitAutos.",
+    url: "https://legitautomobile.com/brands",
+    images: ["/og-image.jpg"],
+  },
+  alternates: {
+    canonical: "https://legitautomobile.com/brands",
+  },
+};
 
 export const dynamic = "force-dynamic";
 

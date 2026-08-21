@@ -10,7 +10,7 @@ interface StickyContactProps {
 }
 
 export function StickyContact({ phone, whatsapp, carTitle }: StickyContactProps) {
-  const contactPhone = phone || "+2348000000000";
+  const contactPhone = phone || "+2348171017509";
   const contactWhatsapp = whatsapp || contactPhone;
   const message = carTitle
     ? `Hello, I'm interested in the ${carTitle}. Is it still available?`
