@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Car, ChevronDown, ArrowRight } from "lucide-react";
+import { Menu, X, Car, ArrowRight } from "lucide-react";
+import { dealership } from "@/app/config/dealership";
 
 const navLinks = [
   { href: "/cars", label: "Browse Cars" },
   { href: "/request", label: "Request a Car" },
+  { href: "/compare", label: "Compare" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
 ];
@@ -26,6 +28,15 @@ export function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [mobileOpen]);
 
   const headerBg = isHome && !scrolled
     ? "bg-transparent"
@@ -55,13 +66,13 @@ export function Header() {
                 <Car className="w-4.5 h-4.5 text-white" />
               </div>
               <span className={`hidden md:block text-sm font-bold tracking-[0.15em] uppercase transition-colors duration-500 ${textColor}`}>
-                LegitAutos
+                {dealership.name}
               </span>
             </Link>
 
             {/* Brand name - centered on mobile */}
             <span className={`md:hidden absolute left-1/2 -translate-x-1/2 text-sm font-bold tracking-[0.15em] uppercase transition-colors duration-500 ${textColor}`}>
-              LegitAutos
+              {dealership.name}
             </span>
 
             {/* Desktop Nav - center */}
@@ -72,10 +83,10 @@ export function Header() {
                   href={link.href}
                   className={`text-[0.8rem] font-medium transition-colors duration-300 ${
                     pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href))
-                      ? "text-primary"
+                      ? "text-teal"
                       : `${textNav}`
                   }`}
-                 
+                  
                 >
                   {link.label}
                 </Link>
@@ -88,11 +99,11 @@ export function Header() {
                 href="/sell"
                 className={`hidden md:flex items-center gap-2 px-5 py-2.5 text-xs font-bold rounded-lg transition-all duration-300 ${
                   isHome && !scrolled
-                    ? "bg-white text-dark-900 hover:bg-white/90"
-                    : "bg-primary text-white hover:bg-primary/90"
+                    ? "bg-white text-ink hover:bg-white/90"
+                    : "bg-teal text-white hover:bg-teal-700"
                 }`}
               >
-                Sell Your Car
+                Sell or Trade In
               </Link>
 
               <button
@@ -130,7 +141,7 @@ export function Header() {
                   <div className="w-8 h-8 rounded-lg bg-dark flex items-center justify-center">
                     <Car className="w-4 h-4 text-white" />
                   </div>
-                  <span className="text-xs font-bold text-dark-900 tracking-[0.15em] uppercase">LV</span>
+                  <span className="text-xs font-bold text-dark-900 tracking-[0.15em] uppercase">LA</span>
                 </Link>
                 <button onClick={() => setMobileOpen(false)} className="p-2 rounded-lg hover:bg-gray-100">
                   <X className="w-5 h-5 text-dark-700" />
@@ -151,13 +162,13 @@ export function Header() {
                         onClick={() => setMobileOpen(false)}
                         className={`flex items-center justify-between py-3 px-3 rounded-lg transition-all ${
                           pathname === link.href
-                            ? "bg-blue-50 text-primary font-semibold"
+                            ? "bg-teal/10 text-teal font-semibold"
                             : "text-dark-600 hover:bg-gray-50"
                         }`}
                        
                       >
                         <span className="text-sm">{link.label}</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-dark-300 group-hover:text-primary transition-colors" />
+                        <ArrowRight className="w-3.5 h-3.5 text-dark-300" />
                       </Link>
                     </motion.div>
                   ))}
@@ -167,9 +178,9 @@ export function Header() {
                   <Link
                     href="/sell"
                     onClick={() => setMobileOpen(false)}
-                    className="flex items-center justify-center gap-2 w-full py-3 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary/90 transition-colors"
+                    className="flex items-center justify-center gap-2 w-full py-3 bg-teal text-white text-sm font-bold rounded-lg hover:bg-teal-700 transition-colors"
                   >
-                    Sell Your Car
+                    Sell or Trade In
                   </Link>
                 </div>
               </div>

@@ -4,6 +4,7 @@ import { dbConnect } from "@/app/lib/dbConnect";
 import { Car } from "@/app/models/Car";
 import { isValidObjectId } from "mongoose";
 import CarDetailClient from "./CarDetailClient";
+import { dealership } from "@/app/config/dealership";
 
 async function getCar(id: string) {
   try {
@@ -34,8 +35,8 @@ export async function generateMetadata({
   }
 
   const title = `${car.title} (${car.year})`;
-  const description = `${car.year} ${car.brand} ${car.model} for sale in ${car.location}. ${car.mileage.toLocaleString()} km, ${car.transmission}, ${car.fuelType}. Price: ₦${(car.price / 1000000).toFixed(1)}M.`;
-  const url = `https://legitautomobile.com/cars/${car._id}`;
+  const description = `${car.year} ${car.brand} ${car.model} for sale at ${dealership.name}. ${car.mileage.toLocaleString()} km, ${car.transmission}, ${car.fuelType}. Price: ₦${(car.price / 1000000).toFixed(1)}M.`;
+  const url = `${dealership.siteUrl}/cars/${car._id}`;
 
   return {
     title,
@@ -44,7 +45,7 @@ export async function generateMetadata({
       title,
       description,
       url,
-      siteName: "LegitAutos",
+      siteName: dealership.name,
       type: "website",
       images: car.images?.[0]
         ? [{ url: car.images[0], width: 1200, height: 630, alt: car.title }]
@@ -104,14 +105,17 @@ export default async function CarDetailPage({
       availability:
         car.status === "available"
           ? "https://schema.org/InStock"
+          : car.status === "reserved"
+          ? "https://schema.org/PreOrder"
           : "https://schema.org/SoldOut",
       seller: {
         "@type": "AutoDealer",
-        name: car.seller.name,
+        name: dealership.name,
+        url: dealership.siteUrl,
       },
     },
     image: car.images?.[0] || undefined,
-    url: `https://legitautomobile.com/cars/${car._id}`,
+    url: `${dealership.siteUrl}/cars/${car._id}`,
   };
 
   return (
