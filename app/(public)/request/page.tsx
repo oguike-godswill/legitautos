@@ -1,19 +1,21 @@
 import { Metadata } from "next";
 import { RequestForm } from "@/app/components/requests/RequestForm";
 import { Search, Clock, MessageCircle, Car } from "lucide-react";
+import { dealership, dealershipWhatsApp } from "@/app/config/dealership";
 
 export const metadata: Metadata = {
   title: "Request a Car",
   description:
-    "Can't find the car you want? Tell us what you're looking for and we'll find it for you. Free car sourcing service across Nigeria.",
+    "Can't find the car you want in our inventory? Tell us what you're looking for and the LegitAutos team will follow up.",
   openGraph: {
     title: "Request a Car | LegitAutos",
-    description: "Can't find your dream car? We'll source it for you.",
-    url: "https://legitautomobile.com/request",
+    description:
+      "Tell us what you're looking for and the LegitAutos team will follow up.",
+    url: `${dealership.siteUrl}/request`,
     images: ["/og-image.jpg"],
   },
   alternates: {
-    canonical: "https://legitautomobile.com/request",
+    canonical: `${dealership.siteUrl}/request`,
   },
 };
 
@@ -21,22 +23,26 @@ const howItWorks = [
   {
     icon: Search,
     title: "Tell Us What You Want",
-    description: "Fill out the form with your preferred brand, model, budget, and other requirements.",
+    description:
+      "Fill out the form with your preferred brand, model, budget, and other requirements.",
   },
   {
     icon: Clock,
-    title: "We Search Our Network",
-    description: "Our team searches through our dealer network and private sellers across Nigeria.",
+    title: "We Review Your Request",
+    description:
+      "Our team reviews your request against our current and incoming stock.",
   },
   {
     icon: MessageCircle,
-    title: "Get Matches in 24 Hours",
-    description: "We'll contact you with matching cars, photos, and pricing within 24 hours.",
+    title: "We Follow Up",
+    description:
+      "If we have a match or an update, we contact you with details and pricing.",
   },
   {
     icon: Car,
-    title: "Buy with Confidence",
-    description: "Inspect the car, negotiate, and drive away. We handle the paperwork.",
+    title: "View and Decide",
+    description:
+      "Arrange a viewing, inspect the car in person, and decide with no pressure.",
   },
 ];
 
@@ -57,9 +63,9 @@ export default function RequestCarPage() {
               <span className="italic text-dark-400">Dream Car?</span>
             </h1>
             <p className="mt-5 text-sm sm:text-base text-dark-500 leading-relaxed max-w-xl">
-              Tell us exactly what you&apos;re looking for — brand, model, budget, year — and our team
-              will search our nationwide network of dealers and private sellers to find it for you.
-              <span className="text-dark-800 font-semibold"> Completely free.</span>
+              Tell us exactly what you&apos;re looking for — brand, model, budget,
+              year — and the {dealership.name} team will follow up when we have a
+              match in our stock or upcoming inventory.
             </p>
           </div>
         </div>
@@ -104,40 +110,32 @@ export default function RequestCarPage() {
             {/* Trust Badge */}
             <div className="rounded-xl bg-gray-50 border border-gray-200/80 p-5">
               <h3 className="text-sm font-semibold text-dark-800 mb-3">
-                Why Request Through Us?
+                What Happens Next?
               </h3>
               <ul className="space-y-2">
                 {[
-                  "Access to 500+ dealer partners",
-                  "Negotiated wholesale pricing",
-                  "Full vehicle inspection report",
-                  "Secure payment escrow",
-                  "Paperwork handled for you",
+                  "Our team reviews every request personally.",
+                  "You hear from us only when we have something relevant.",
+                  "No obligation — a request is not a commitment to buy.",
+                  "Prefer to talk? Message us on WhatsApp instead.",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-2 text-sm text-dark-600">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-teal shrink-0" />
                     {item}
                   </li>
                 ))}
               </ul>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { value: "2,500+", label: "Cars Listed" },
-                { value: "24h", label: "Avg. Response" },
-                { value: "98%", label: "Success Rate" },
-                { value: "0", label: "Service Fee" },
-              ].map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-xl bg-gray-50 border border-gray-200/80 p-4 text-center"
-                >
-                  <div className="text-xl font-bold text-dark-900">{stat.value}</div>
-                  <div className="t-mono text-[0.45rem] text-dark-400 mt-0.5">{stat.label}</div>
-                </div>
-              ))}
+              <a
+                href={dealershipWhatsApp(
+                  `Hello, I'm looking for a car and would like to request it from ${dealership.name}.`
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#128C7E] text-white text-sm font-semibold hover:bg-[#0e7a6e] transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Request on WhatsApp
+              </a>
             </div>
           </div>
         </div>

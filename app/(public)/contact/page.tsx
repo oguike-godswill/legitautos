@@ -15,19 +15,20 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { ContactForm } from "@/app/components/sections/ContactForm";
+import { dealership, dealershipWhatsApp } from "@/app/config/dealership";
 
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with LegitAutos. We're here to help with buying, selling, or any questions about our car marketplace.",
+    "Get in touch with LegitAutos. We're here to help with buying, selling, trading in, or any questions about our cars.",
   openGraph: {
     title: "Contact Us | LegitAutos",
     description: "Get in touch with LegitAutos.",
-    url: "https://legitautomobile.com/contact",
+    url: `${dealership.siteUrl}/contact`,
     images: ["/og-image.jpg"],
   },
   alternates: {
-    canonical: "https://legitautomobile.com/contact",
+    canonical: `${dealership.siteUrl}/contact`,
   },
 };
 
@@ -35,60 +36,60 @@ const CONTACT_METHODS = [
   {
     icon: Phone,
     label: "Call Us",
-    value: "+234 817 101 7509",
-    description: "Mon - Sat, 8am - 6pm WAT",
-    action: "tel:+2348171017509",
+    value: dealership.phone,
+    description: dealership.openingHours,
+    action: `tel:${dealership.phone.replace(/\D/g, "")}`,
     color: "bg-blue-50 text-blue-500",
   },
   {
     icon: MessageCircle,
     label: "WhatsApp",
     value: "Chat with us",
-    description: "Quick responses, usually within minutes",
-    action: "https://wa.me/2348171017509",
+    description: "Quick responses during opening hours",
+    action: dealershipWhatsApp(),
     color: "bg-emerald-50 text-emerald-500",
   },
   {
     icon: Mail,
     label: "Email",
-    value: "legitventure04@gmail.com",
-    description: "We reply within 24 hours",
-    action: "mailto:legitventure04@gmail.com",
+    value: dealership.email,
+    description: "We reply within one business day",
+    action: `mailto:${dealership.email}`,
     color: "bg-blue-50 text-blue-500",
   },
   {
     icon: MapPin,
     label: "Visit Us",
-    value: "Lagos, Nigeria",
-    description: "By appointment only",
+    value: dealership.address.city,
+    description: "By appointment — contact us first",
     action: "#locations",
     color: "bg-purple-50 text-purple-500",
   },
 ];
 
 const QUICK_LINKS = [
-  { icon: Car, label: "Browse Cars", href: "/cars", description: "Explore our inventory of verified vehicles" },
-  { icon: Send, label: "Request a Car", href: "/request", description: "Can't find what you want? We'll find it" },
-  { icon: Headphones, label: "Sell Your Car", href: "/sell", description: "List your car for free today" },
-  { icon: Shield, label: "About Us", href: "/about", description: "Learn about our mission and team" },
+  { icon: Car, label: "Browse Cars", href: "/cars", description: "Explore our current inventory" },
+  { icon: Send, label: "Request a Car", href: "/request", description: "Tell us what you're looking for and we'll follow up" },
+  { icon: Headphones, label: "Sell or Trade In", href: "/sell", description: "Get an enquiry started on your car" },
+  { icon: Shield, label: "About Us", href: "/about", description: "Learn about our dealership" },
 ];
 
 const FAQ = [
   {
-    question: "How do I buy a car on LegitAutos?",
-    answer: "Browse our inventory, find a car you like, and contact the seller directly through WhatsApp or phone. We verify all cars before listing.",
+    question: "How do I buy a car from LegitAutos?",
+    answer: "Browse our inventory, find a car you like, and contact our team by phone or WhatsApp from the car's page. We'll confirm availability, share details, and arrange a viewing.",
   },
   {
-    question: "Can I sell my car on LegitAutos?",
-    answer: "Yes! Listing your car is free. Just visit our Sell page, fill in the details, and your car will be visible to thousands of buyers.",
+    question: "Can I sell or trade in my car to LegitAutos?",
+    answer: "Yes. Visit our Sell or Trade In page and share your car's details. Our team will review it and get back to you to discuss purchase or trade-in options.",
   },
   {
-    question: "Are all cars on LegitAutos verified?",
-    answer: "We verify every car listed on our platform to ensure authenticity and quality. Our team inspects vehicles for accuracy of information.",
+    question: "Are the cars on the website available?",
+    answer: "Every car page shows its current status — available, reserved, or sold. If a car is marked available, contact us to confirm it's still in stock before visiting.",
   },
   {
-    question: "What areas do you deliver to?",
-    answer: "We offer nationwide delivery across Nigeria. Delivery fees vary based on distance and are discussed upfront with no hidden charges.",
+    question: "Where are you located?",
+    answer: `${dealership.address.display}. Viewings are by appointment — call or message us on WhatsApp to arrange a time during ${dealership.openingHours}.`,
   },
 ];
 
@@ -126,8 +127,9 @@ export default function ContactPage() {
               How can we <span className="italic text-dark-400">help?</span>
             </h1>
             <p className="mt-5 text-sm sm:text-base text-dark-500 leading-relaxed max-w-xl">
-              Have a question, need help finding a car, or want to list your vehicle?
-              We&apos;re here for you. Reach out through any of the channels below.
+              Have a question, need help finding a car, or want to sell or trade
+              in your vehicle? We&apos;re here for you. Reach out through any of
+              the channels below.
             </p>
           </div>
         </div>
@@ -238,21 +240,21 @@ export default function ContactPage() {
                 Find Us
               </h2>
               <div className="flex items-center gap-2 mb-4">
-                <h3 className="text-lg font-bold text-white">Lagos</h3>
-                <span className="text-[0.5rem] font-bold text-primary bg-primary/20 px-2 py-0.5 rounded-full uppercase">HQ</span>
+                <h3 className="text-lg font-bold text-white">{dealership.address.city}</h3>
+                <span className="text-[0.5rem] font-bold text-teal bg-teal/20 px-2 py-0.5 rounded-full uppercase">HQ</span>
               </div>
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  <span className="text-sm text-white/60">Victoria Island, Lagos, Nigeria</span>
+                  <MapPin className="w-4 h-4 text-teal mt-0.5 shrink-0" />
+                  <span className="text-sm text-white/60">{dealership.address.display}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-primary shrink-0" />
-                  <span className="text-sm text-white/60">+234 817 101 7509</span>
+                  <Phone className="w-4 h-4 text-teal shrink-0" />
+                  <span className="text-sm text-white/60">{dealership.phone}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Clock className="w-4 h-4 text-primary shrink-0" />
-                  <span className="text-xs text-white/40">Mon - Sat: 8am - 6pm WAT</span>
+                  <Clock className="w-4 h-4 text-teal shrink-0" />
+                  <span className="text-xs text-white/40">{dealership.openingHours}</span>
                 </div>
               </div>
             </div>
@@ -270,12 +272,14 @@ export default function ContactPage() {
                 Prefer to Message Us?
               </h2>
               <p className="text-sm text-white/70 leading-relaxed max-w-md mb-8">
-                Send us a message on WhatsApp and we&apos;ll get back to you within minutes.
-                Available Mon - Sat, 8am - 6pm WAT.
+                Send us a message on WhatsApp and we&apos;ll get back to you during
+                opening hours. Available {dealership.openingHours}.
               </p>
               <div>
                 <a
-                  href="https://wa.me/2348171017509?text=Hello%2C%20I%27m%20interested%20in%20your%20car%20marketplace."
+                  href={dealershipWhatsApp(
+                    `Hello, I'm interested in a car on the ${dealership.name} website.`
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#075E54] font-bold rounded-xl hover:bg-white/90 transition-colors text-sm shadow-lg shadow-black/20"

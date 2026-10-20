@@ -38,8 +38,12 @@ export function ContactForm() {
 
       setIsSuccess(true);
       form.reset();
-    } catch (err: any) {
-      setError(err.message || "Something went wrong. Please try again.");
+    } catch (err) {
+      setError(
+        err instanceof Error && err.message
+          ? err.message
+          : "Something went wrong. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -53,7 +57,8 @@ export function ContactForm() {
         </div>
         <h3 className="text-lg font-bold text-dark-900 mb-2">Message Sent!</h3>
         <p className="text-sm text-dark-500 max-w-sm mx-auto mb-6">
-          Thank you for reaching out. We&apos;ll get back to you within 24 hours.
+          Thank you for reaching out. Our team will review your message and get
+          back to you as soon as possible.
         </p>
         <button
           onClick={() => setIsSuccess(false)}
