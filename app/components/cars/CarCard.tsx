@@ -5,7 +5,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Gauge, Fuel, Calendar, MapPin, Eye, Scale, Check, MessageCircle, TrendingDown } from "lucide-react";
 import { Car } from "@/app/types";
-import { formatPrice, formatMileage, generateWhatsAppLink } from "@/app/utils/format";
+import { formatPrice, formatMileage } from "@/app/utils/format";
+import { dealership, dealershipWhatsApp } from "@/app/config/dealership";
 import { useCompare } from "@/app/stores/compareStore";
 
 interface CarCardProps {
@@ -34,11 +35,8 @@ export function CarCard({ car, index = 0 }: CarCardProps) {
   const handleWhatsApp = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const message = `Hello, I'm interested in the ${car.title} (${car.year}) listed for ${formatPrice(car.price)} on LegitAutos Autos. Is it still available?`;
-    window.open(
-      generateWhatsAppLink(car.seller?.whatsapp || car.seller?.phone || "+2348171017509", message),
-      "_blank"
-    );
+    const message = `Hello, I'm interested in the ${car.title} (${car.year}) listed for ${formatPrice(car.price)} on the ${dealership.name} website. Is it still available?`;
+    window.open(dealershipWhatsApp(message), "_blank");
   };
 
   return (
@@ -74,6 +72,16 @@ export function CarCard({ car, index = 0 }: CarCardProps) {
             {car.featured && (
               <span className="px-2 py-0.5 bg-amber-500 text-white t-mono text-[0.45rem] rounded-full font-medium">
                 Featured
+              </span>
+            )}
+            {car.status === "sold" && (
+              <span className="px-2 py-0.5 bg-danger text-white t-mono text-[0.45rem] rounded-full font-medium">
+                Sold
+              </span>
+            )}
+            {car.status === "reserved" && (
+              <span className="px-2 py-0.5 bg-warning text-white t-mono text-[0.45rem] rounded-full font-medium">
+                Reserved
               </span>
             )}
             {discount && discount > 0 && (
@@ -150,13 +158,20 @@ export function CarCard({ car, index = 0 }: CarCardProps) {
 
           {/* WhatsApp Button */}
           <div className="pt-2 border-t border-gray-100">
-            <button
-              onClick={handleWhatsApp}
-              className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#128C7E]/10 hover:bg-[#128C7E]/20 text-[#25D366] text-xs font-semibold rounded-lg transition-colors"
-            >
-              <MessageCircle className="w-4 h-4" />
-              Chat on WhatsApp
-            </button>
+            {car.status === "sold" ? (
+              <span className="flex items-center justify-center gap-2 w-full py-2.5 bg-gray-100 text-dark-400 text-xs font-semibold rounded-lg">
+                <Check className="w-4 h-4" />
+                This car has been sold
+              </span>
+            ) : (
+              <button
+                onClick={handleWhatsApp}
+                className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#128C7E]/10 hover:bg-[#128C7E]/20 text-[#25D366] text-xs font-semibold rounded-lg transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Ask about this car
+              </button>
+            )}
           </div>
         </div>
       </Link>
