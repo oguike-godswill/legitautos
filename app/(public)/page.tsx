@@ -1,41 +1,53 @@
 import { Metadata } from "next";
 import { SearchFirstLanding } from "@/app/components/sections/SearchFirstLanding";
+import { dealership } from "@/app/config/dealership";
 
 export const metadata: Metadata = {
-  title: "LegitAutos — Nigeria's #1 Car Marketplace",
+  title: `${dealership.name} — Buy Quality Used Cars in Nigeria`,
   description:
-    "Browse thousands of verified vehicles from trusted sellers across Nigeria. Buy, sell, or request cars — all in one place.",
+    "LegitAutos is a car dealership offering quality used and new vehicles. Browse our inventory, compare cars, and talk to our team about any vehicle.",
   openGraph: {
-    title: "LegitAutos — Nigeria's #1 Car Marketplace",
-    description: "Browse thousands of verified vehicles from trusted sellers across Nigeria.",
-    url: "https://legitautomobile.com",
+    title: `${dealership.name} — Buy Quality Used Cars in Nigeria`,
+    description:
+      "Quality used and new vehicles from the LegitAutos dealership. Browse inventory and talk to our team.",
+    url: dealership.siteUrl,
     images: ["/og-image.jpg"],
   },
   alternates: {
-    canonical: "https://legitautomobile.com",
+    canonical: dealership.siteUrl,
   },
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "AutoDealer",
-  name: "LegitAutos",
-  url: "https://legitautomobile.com",
-  logo: "https://legitautomobile.com/logo.png",
-  description:
-    "Nigeria's trusted car marketplace connecting buyers and sellers since 2018.",
+  name: dealership.name,
+  url: dealership.siteUrl,
+  logo: `${dealership.siteUrl}/logo.png`,
+  description: dealership.description,
+  telephone: dealership.phone,
+  email: dealership.email,
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Lagos",
+    streetAddress: dealership.address.area,
+    addressLocality: dealership.address.city,
     addressRegion: "Lagos State",
     addressCountry: "NG",
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    opens: "08:00",
+    closes: "18:00",
   },
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
+    telephone: dealership.phone,
+    email: dealership.email,
     availableLanguage: ["English"],
   },
-  sameAs: [],
+  sameAs: dealership.socials.map((s) => s.url),
 };
 
 export default function HomePage() {

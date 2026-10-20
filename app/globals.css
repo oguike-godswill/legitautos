@@ -54,6 +54,17 @@
   --color-dark-800: #171717;
   --color-dark-900: #0a0a0a;
   --color-dark-950: #000000;
+
+  /* Revamp palette (spec §4) — mixed light/dark automotive theme */
+  --color-ink: #171a1e; /* primary text, dark panels, header/footer */
+  --color-graphite: #262b31; /* dark section surfaces, elevated panels */
+  --color-ivory: #f5f4f0; /* main light page background */
+  --color-teal: #167d78; /* primary actions, links, active states */
+  --color-teal-700: #11615d;
+  --color-muted: #737a82; /* secondary text, metadata, separators */
+  --color-success: #247a52; /* available/success states */
+  --color-warning: #a56a16; /* reserved/attention states */
+  --color-danger: #b33b35; /* validation/destructive states */
 }
 
 * { box-sizing: border-box; }

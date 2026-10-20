@@ -26,12 +26,14 @@ interface CarData {
 
 export function CompareContent() {
   const { compareList, removeFromCompare, clearCompare } = useCompare();
-  const [cars, setCars] = useState<CarData[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [fetchedCars, setFetchedCars] = useState<CarData[]>([]);
+  const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
+    if (compareList.length === 0) return;
+
     const fetchCars = async () => {
-      setLoading(true);
+      setFetching(true);
       const results: CarData[] = [];
       for (const id of compareList) {
         try {
@@ -42,17 +44,16 @@ export function CompareContent() {
           // skip
         }
       }
-      setCars(results);
-      setLoading(false);
+      setFetchedCars(results);
+      setFetching(false);
     };
 
-    if (compareList.length > 0) {
-      fetchCars();
-    } else {
-      setCars([]);
-      setLoading(false);
-    }
+    fetchCars();
   }, [compareList]);
+
+  // Derive the empty-list case during render instead of setting it in the effect.
+  const cars = compareList.length === 0 ? [] : fetchedCars;
+  const loading = compareList.length > 0 && fetching;
 
   if (loading) {
     return (

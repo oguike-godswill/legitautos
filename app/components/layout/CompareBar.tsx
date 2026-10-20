@@ -3,15 +3,16 @@
 import Link from "next/link";
 import { useCompare } from "@/app/stores/compareStore";
 import { Scale, X, ArrowRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 export function CompareBar() {
   const { compareList, removeFromCompare, clearCompare } = useCompare();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // Hydration-safe "mounted" flag: server snapshot is false, client is true.
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   if (!mounted || compareList.length === 0) return null;
 

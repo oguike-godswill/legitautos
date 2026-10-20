@@ -1,20 +1,20 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import CarsPageContent from "./CarsPageContent";
+import { dealership } from "@/app/config/dealership";
 
 export const metadata: Metadata = {
   title: "Browse Cars",
   description:
-    "Explore thousands of verified cars from trusted sellers across Nigeria. Filter by brand, price, location, body type and more.",
+    "Explore the current LegitAutos inventory. Filter by brand, price, year, transmission, fuel type and condition.",
   openGraph: {
     title: "Browse Cars | LegitAutos",
-    description:
-      "Explore thousands of verified cars from trusted sellers across Nigeria.",
-    url: "https://legitautomobile.com/cars",
+    description: "Explore the current LegitAutos dealership inventory.",
+    url: `${dealership.siteUrl}/cars`,
     images: ["/og-image.jpg"],
   },
   alternates: {
-    canonical: "https://legitautomobile.com/cars",
+    canonical: `${dealership.siteUrl}/cars`,
   },
 };
 

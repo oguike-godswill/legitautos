@@ -4,6 +4,7 @@ import { dbConnect } from "@/app/lib/dbConnect";
 import { Brand } from "@/app/models/Brand";
 import { Car } from "@/app/models/Car";
 import { BrandCarsClient } from "./BrandCarsClient";
+import { dealership } from "@/app/config/dealership";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -15,12 +16,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const brand = await Brand.findOne({ slug }).lean();
 
   if (!brand) {
-    return { title: "Brand Not Found — LegitAutos Autos" };
+    return { title: `Brand Not Found — ${dealership.name}` };
   }
 
+  const availableCount = await Car.countDocuments({
+    brand: { $regex: new RegExp(`^${brand.name}$`, "i") },
+    status: "available",
+  });
+
   return {
-    title: `${brand.name} Cars — LegitAutos Autos`,
-    description: `Browse all ${brand.name} cars available on LegitAutos Autos. ${brand.carCount}+ vehicles from Nigeria's trusted car marketplace.`,
+    title: `${brand.name} Cars`,
+    description: availableCount > 0
+      ? `Browse ${availableCount} available ${brand.name} ${availableCount === 1 ? "car" : "cars"} for sale at the ${dealership.name} dealership.`
+      : `View ${brand.name} cars previously sold by ${dealership.name}, or request the ${brand.name} you're looking for.`,
   };
 }
 

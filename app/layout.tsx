@@ -5,37 +5,39 @@ import { Header } from "@/app/components/layout/Header";
 import { Footer } from "@/app/components/layout/Footer";
 import { BackToTop } from "@/app/components/layout/BackToTop";
 import { CompareBar } from "@/app/components/layout/CompareBar";
+import { dealership } from "@/app/config/dealership";
+
+const TITLE = `${dealership.name} — Buy Quality Used Cars in Nigeria`;
+const DESCRIPTION =
+  "LegitAutos is a car dealership offering quality used and new vehicles. Browse our inventory, compare cars, and talk to our team about any vehicle.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://legitautomobile.com"),
+  metadataBase: new URL(dealership.siteUrl),
   title: {
-    default: "LegitAutos — Nigeria's #1 Car Marketplace",
-    template: "%s | LegitAutos",
+    default: TITLE,
+    template: `%s | ${dealership.name}`,
   },
-  description:
-    "Browse thousands of verified vehicles from trusted sellers across Nigeria. Buy, sell, or request cars — all in one place.",
+  description: DESCRIPTION,
   openGraph: {
     type: "website",
     locale: "en_NG",
-    url: "https://legitautomobile.com",
-    siteName: "LegitAutos",
-    title: "LegitAutos — Nigeria's #1 Car Marketplace",
-    description:
-      "Browse thousands of verified vehicles from trusted sellers across Nigeria. Buy, sell, or request cars — all in one place.",
+    url: dealership.siteUrl,
+    siteName: dealership.name,
+    title: TITLE,
+    description: DESCRIPTION,
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "LegitAutos — Nigeria's #1 Car Marketplace",
+        alt: `${dealership.name} — quality used cars`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "LegitAutos — Nigeria's #1 Car Marketplace",
-    description:
-      "Browse thousands of verified vehicles from trusted sellers across Nigeria.",
+    title: TITLE,
+    description: DESCRIPTION,
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -50,7 +52,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://legitautomobile.com",
+    canonical: dealership.siteUrl,
   },
 };
 
