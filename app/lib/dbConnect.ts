@@ -3,10 +3,6 @@ import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI || "";
 
-if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable in .env.local");
-}
-
 // A cached connection across hot-reloads in development to prevent connections from growing exponentially.
 declare global {
   // eslint-disable-next-line no-var
@@ -18,6 +14,9 @@ let cached = global._mongooseConn;
 
 
 export async function dbConnect(): Promise<typeof mongoose> {
+  if (!MONGODB_URI) {
+    throw new Error("Please define the MONGODB_URI environment variable in .env.local");
+  }
   if (!cached) {
     cached = mongoose.connect(MONGODB_URI);
     global._mongooseConn = cached;
@@ -28,8 +27,8 @@ export async function dbConnect(): Promise<typeof mongoose> {
           console.log("✅ MongoDB connected");
         }
       })
-      .catch((err : any) => {
-        console.error("❌ MongoDB connection error:", err.message || err);
+      .catch((err: unknown) => {
+        console.error("❌ MongoDB connection error:", err instanceof Error ? err.message : err);
         global._mongooseConn = undefined;
         console.dir(err, { depth: null });
       });
