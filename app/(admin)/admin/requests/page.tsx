@@ -59,10 +59,23 @@ const urgencyLabels: Record<string, string> = {
   flexible: "Flexible",
 };
 
+function handleUnauthorized() {
+  if (typeof window === "undefined") return;
+  if (window.location.pathname.startsWith("/admin/login")) return;
+  window.location.href = "/admin/login";
+}
+
 function fetchRequests(status?: string) {
   const params = new URLSearchParams();
   if (status && status !== "all") params.set("status", status);
-  return fetch(`/api/requests?${params.toString()}`).then((r) => r.json());
+  return fetch(`/api/requests?${params.toString()}`).then(async (r) => {
+    if (r.status === 401) {
+      handleUnauthorized();
+      throw new Error("Your session expired. Please sign in again.");
+    }
+    if (!r.ok) throw new Error("Failed to load requests");
+    return r.json();
+  });
 }
 
 export default function AdminRequestsPage() {
@@ -75,11 +88,15 @@ export default function AdminRequestsPage() {
   });
 
   const updateStatus = async (id: string, status: string) => {
-    await fetch(`/api/requests/${id}`, {
+    const res = await fetch(`/api/requests/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status }),
     });
+    if (res.status === 401) {
+      handleUnauthorized();
+      return;
+    }
     refetch();
     if (selectedRequest?._id === id) {
       setSelectedRequest({ ...selectedRequest, status: status as CarRequest["status"] });
@@ -88,7 +105,11 @@ export default function AdminRequestsPage() {
 
   const deleteRequest = async (id: string) => {
     if (!confirm("Delete this request?")) return;
-    await fetch(`/api/requests/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/requests/${id}`, { method: "DELETE" });
+    if (res.status === 401) {
+      handleUnauthorized();
+      return;
+    }
     refetch();
     if (selectedRequest?._id === id) setSelectedRequest(null);
   };
