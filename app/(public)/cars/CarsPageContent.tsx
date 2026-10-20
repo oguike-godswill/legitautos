@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useRef } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useFilterStore } from "@/app/stores/filterStore";
+import { CarFilters } from "@/app/types";
 import { useCars } from "@/app/hooks/useCars";
 import { SearchBar } from "@/app/components/filters/SearchBar";
 import {
@@ -19,6 +20,8 @@ import { ArrowLeft } from "lucide-react";
 
 export default function CarsPageContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const {
     search,
     brand,
@@ -31,18 +34,15 @@ export default function CarsPageContent() {
     condition,
     sortBy,
     page,
-    setSearch,
-    setBrand,
-    setPriceRange,
-    setYearRange,
-    setTransmission,
-    setFuelType,
-    setCondition,
-    setSortBy,
-    setPage,
   } = useFilterStore();
 
+  // Seed filters from the URL once, so shared links like /cars?brand=bmw
+  // work without clobbering choices the visitor makes afterwards.
+  const seededFromUrl = useRef(false);
   useEffect(() => {
+    if (seededFromUrl.current) return;
+    seededFromUrl.current = true;
+
     const s = searchParams.get("search");
     const b = searchParams.get("brand");
     const minP = searchParams.get("minPrice");
@@ -55,24 +55,37 @@ export default function CarsPageContent() {
     const sort = searchParams.get("sortBy");
     const p = searchParams.get("page");
 
-    if (s) setSearch(s);
-    if (b) setBrand(b.split(","));
-    if (minP || maxP)
-      setPriceRange(
+    const store = useFilterStore.getState();
+
+    if (s) store.setSearch(s);
+    if (b) store.setBrand(b.split(","));
+    if (minP || maxP) {
+      store.setPriceRange(
         minP ? Number(minP) : undefined,
         maxP ? Number(maxP) : undefined
       );
-    if (minY || maxY)
-      setYearRange(
+    }
+    if (minY || maxY) {
+      store.setYearRange(
         minY ? Number(minY) : undefined,
         maxY ? Number(maxY) : undefined
       );
-    if (t) setTransmission(t.split(","));
-    if (f) setFuelType(f.split(","));
-    if (c) setCondition(c.split(","));
-    if (sort) setSortBy(sort as typeof sortBy);
-    if (p) setPage(Number(p));
-  }, []);
+    }
+    if (t) store.setTransmission(t.split(","));
+    if (f) store.setFuelType(f.split(","));
+    if (c) store.setCondition(c.split(","));
+    if (sort) store.setSortBy(sort as CarFilters["sortBy"]);
+    if (p) store.setPage(Number(p));
+  }, [searchParams]);
+
+  // Mirror filter changes back into the URL (replaceState, no navigation) so
+  // the current view is shareable and survives a reload.
+  const queryString = useFilterStore((state) => state.getQueryString());
+  useEffect(() => {
+    if (!seededFromUrl.current) return;
+    const target = queryString ? `${pathname}?${queryString}` : pathname;
+    router.replace(target, { scroll: false });
+  }, [queryString, pathname, router]);
 
   const { data, isLoading, isError, refetch } = useCars({
     search,
@@ -105,7 +118,8 @@ export default function CarsPageContent() {
           Browse Cars
         </h1>
         <p className="text-sm text-dark-500 max-w-md leading-relaxed mb-8">
-          Find your perfect car from our collection of verified listings.
+          Browse the cars currently in our inventory. Filter by brand, price and
+          year to narrow things down.
         </p>
 
         <div className="max-w-xl">

@@ -16,8 +16,6 @@ import {
   Car,
   Calendar,
   Gauge,
-  Fuel,
-  Palette,
   DollarSign,
   Clock,
   CheckCircle2,

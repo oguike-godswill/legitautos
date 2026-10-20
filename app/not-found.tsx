@@ -1,12 +1,5 @@
 import Link from "next/link";
 import { Home, Car, Users, ArrowRight } from "lucide-react";
-import { Bungee } from "next/font/google";
-
-const bungee = Bungee({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export default function NotFound() {
   return (
