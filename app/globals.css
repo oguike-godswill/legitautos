@@ -4,7 +4,7 @@
 :root {
   --background: #ffffff;
   --foreground: #000000;
-  --primary: #0016CB;
+  --primary: #167d78;
   --secondary: #f50;
   --black: #000000;
   --white: #ffffff;
@@ -22,7 +22,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #2457D7;
+  --color-primary: #167d78;
   --color-secondary: #f50;
   --color-surface: #f5f5f5;
   --color-surface-light: #fafafa;
@@ -39,9 +39,16 @@
   --font-body: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'Space Mono', 'Courier New', monospace;
 
-  --color-primary-50: #eff6ff;
-  --color-primary-500: #2457D7;
-  --color-primary-600: #1d4ed8;
+  /* Primary scale remapped to the revamp teal so existing bg-primary/text-primary
+     utility usages match the rest of the design system. Shades previously used in
+     components but never defined (100/300/400/700) are included here. */
+  --color-primary-50: #eef7f6;
+  --color-primary-100: #d6ebe9;
+  --color-primary-300: #7fbfbb;
+  --color-primary-400: #4d9f9a;
+  --color-primary-500: #167d78;
+  --color-primary-600: #11615d;
+  --color-primary-700: #0d4c49;
 
   --color-dark-50: #f5f5f5;
   --color-dark-100: #e5e5e5;
@@ -173,7 +180,7 @@ html.lenis, html.lenis body { height: auto; }
 
 /* Glow accent */
 .glow-primary {
-  box-shadow: 0 0 60px -10px rgba(36, 87, 215, 0.15);
+  box-shadow: 0 0 60px -10px rgba(22, 125, 120, 0.15);
 }
 .glow-white {
   box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.08);

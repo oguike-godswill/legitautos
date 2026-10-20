@@ -23,7 +23,7 @@ const jsonLd = {
   "@type": "AutoDealer",
   name: dealership.name,
   url: dealership.siteUrl,
-  logo: `${dealership.siteUrl}/logo.png`,
+  logo: `${dealership.siteUrl}/logo-blue.png`,
   description: dealership.description,
   telephone: dealership.phone,
   email: dealership.email,

@@ -64,7 +64,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        {/* Icons are served from the app/ file conventions (icon.png,
+            apple-icon.png), so no manual link tag is needed here. */}
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className="antialiased bg-white text-dark-900">

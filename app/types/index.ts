@@ -18,7 +18,8 @@ export interface Car {
   features: string[];
   images: string[];
   location: string;
-  seller: {
+  /** Legacy multi-vendor field, optional. See the Car model for details. */
+  seller?: {
     name: string;
     phone: string;
     whatsapp?: string;

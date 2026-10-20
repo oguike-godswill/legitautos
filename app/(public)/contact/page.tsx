@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import { ContactForm } from "@/app/components/sections/ContactForm";
 import { dealership, dealershipWhatsApp } from "@/app/config/dealership";
+import { faqs } from "@/app/config/faq";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -74,29 +75,10 @@ const QUICK_LINKS = [
   { icon: Shield, label: "About Us", href: "/about", description: "Learn about our dealership" },
 ];
 
-const FAQ = [
-  {
-    question: "How do I buy a car from LegitAutos?",
-    answer: "Browse our inventory, find a car you like, and contact our team by phone or WhatsApp from the car's page. We'll confirm availability, share details, and arrange a viewing.",
-  },
-  {
-    question: "Can I sell or trade in my car to LegitAutos?",
-    answer: "Yes. Visit our Sell or Trade In page and share your car's details. Our team will review it and get back to you to discuss purchase or trade-in options.",
-  },
-  {
-    question: "Are the cars on the website available?",
-    answer: "Every car page shows its current status — available, reserved, or sold. If a car is marked available, contact us to confirm it's still in stock before visiting.",
-  },
-  {
-    question: "Where are you located?",
-    answer: `${dealership.address.display}. Viewings are by appointment — call or message us on WhatsApp to arrange a time during ${dealership.openingHours}.`,
-  },
-];
-
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
+  mainEntity: faqs.map((item) => ({
     "@type": "Question",
     name: item.question,
     acceptedAnswer: {
@@ -211,7 +193,7 @@ export default function ContactPage() {
         </div>
 
         <div className="max-w-3xl mx-auto space-y-3">
-          {FAQ.map((item, i) => (
+          {faqs.map((item, i) => (
             <details key={i} className="group rounded-2xl bg-white border border-gray-200 overflow-hidden">
               <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-gray-50 transition-colors">
                 <div className="flex items-center gap-3">

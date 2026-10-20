@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Car, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { dealership } from "@/app/config/dealership";
 
 const navLinks = [
@@ -17,17 +18,7 @@ const navLinks = [
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const isHome = pathname === "/";
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -38,15 +29,6 @@ export function Header() {
     return () => window.removeEventListener("keydown", handleKey);
   }, [mobileOpen]);
 
-  const headerBg = isHome && !scrolled
-    ? "bg-transparent"
-    : scrolled
-    ? "bg-white/80 backdrop-blur-xl shadow-[0_1px_3px_0_rgba(0,0,0,0.05)]"
-    : "bg-white";
-
-  const textColor = isHome && !scrolled ? "text-white" : "text-dark-900";
-  const textNav = isHome && !scrolled ? "text-white/60 hover:text-white" : "text-dark-500 hover:text-dark-900";
-
   return (
     <>
       {/* Main Header */}
@@ -54,26 +36,23 @@ export function Header() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerBg}`}
+        className="fixed top-0 left-0 right-0 z-50 border-b border-dark-900/[0.06] bg-white"
       >
-        <div className="px-1.5 sm:px-8 lg:px-12">
-          <div className="flex items-center justify-between h-12 md:h-16 gap-4 max-w-[1400px] mx-auto">
-            {/* Logo - left on desktop, hidden text on mobile */}
-            <Link href="/" className="flex items-center gap-2.5 md:relative">
-              <div className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-500 ${
-                isHome && !scrolled ? "bg-white/10 border border-white/15" : "bg-dark"
-              }`}>
-                <Car className="w-4.5 h-4.5 text-white" />
-              </div>
-              <span className={`hidden md:block text-sm font-bold tracking-[0.15em] uppercase transition-colors duration-500 ${textColor}`}>
-                {dealership.name}
-              </span>
+        <div className="px-1 sm:px-4 lg:px-6">
+          <div className="flex items-center justify-between h-[3.5rem] md:h-[4.25rem] gap-4 max-w-[1400px] mx-auto">
+            {/* Logo only — no wordmark. The source PNG is 279x156 (~1.8:1)
+                with the transparent padding already cropped out, so it is
+                sized directly: the rendered image is exactly this tall. */}
+            <Link href="/" aria-label={`${dealership.name} home`} className="flex items-center md:relative">
+              <Image
+                src="/logo-blue.png"
+                alt={`${dealership.name} logo`}
+                width={279}
+                height={156}
+                className="h-[2.75rem] w-auto object-contain md:h-[3.5rem]"
+                priority
+              />
             </Link>
-
-            {/* Brand name - centered on mobile */}
-            <span className={`md:hidden absolute left-1/2 -translate-x-1/2 text-sm font-bold tracking-[0.15em] uppercase transition-colors duration-500 ${textColor}`}>
-              {dealership.name}
-            </span>
 
             {/* Desktop Nav - center */}
             <nav className="hidden md:flex items-center gap-8">
@@ -81,12 +60,11 @@ export function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-[0.8rem] font-medium transition-colors duration-300 ${
+                  className={`text-[0.8rem] font-bold uppercase tracking-[0.08em] transition-colors duration-300 ${
                     pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href))
                       ? "text-teal"
-                      : `${textNav}`
+                      : "text-dark-900 hover:text-teal"
                   }`}
-                  
                 >
                   {link.label}
                 </Link>
@@ -97,20 +75,16 @@ export function Header() {
             <div className="flex items-center gap-4">
               <Link
                 href="/sell"
-                className={`hidden md:flex items-center gap-2 px-5 py-2.5 text-xs font-bold rounded-lg transition-all duration-300 ${
-                  isHome && !scrolled
-                    ? "bg-white text-ink hover:bg-white/90"
-                    : "bg-teal text-white hover:bg-teal-700"
-                }`}
+                className="hidden md:flex items-center gap-2 px-5 py-2.5 text-xs font-bold uppercase tracking-[0.08em] rounded-lg transition-all duration-300 bg-teal text-white hover:bg-teal-700"
               >
                 Sell or Trade In
               </Link>
 
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className={`md:hidden p-2 transition-colors ${
-                  isHome && !scrolled ? "text-white" : "text-dark-700"
-                }`}
+                className="md:hidden p-2 transition-colors text-dark-900"
+                aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileOpen}
               >
                 {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -137,11 +111,14 @@ export function Header() {
               className="absolute right-0 top-0 bottom-0 w-[80vw] max-w-sm bg-white shadow-2xl"
             >
               <div className="flex items-center justify-between p-6 border-b border-gray-100">
-                <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-dark flex items-center justify-center">
-                    <Car className="w-4 h-4 text-white" />
-                  </div>
-                  <span className="text-xs font-bold text-dark-900 tracking-[0.15em] uppercase">LA</span>
+                <Link href="/" onClick={() => setMobileOpen(false)} aria-label={`${dealership.name} home`} className="flex items-center">
+                  <Image
+                    src="/logo-blue.png"
+                    alt={`${dealership.name} logo`}
+                    width={279}
+                    height={156}
+                    className="h-11 w-auto object-contain"
+                  />
                 </Link>
                 <button onClick={() => setMobileOpen(false)} className="p-2 rounded-lg hover:bg-gray-100">
                   <X className="w-5 h-5 text-dark-700" />
@@ -167,7 +144,7 @@ export function Header() {
                         }`}
                        
                       >
-                        <span className="text-sm">{link.label}</span>
+                        <span className="text-sm font-bold uppercase tracking-[0.08em]">{link.label}</span>
                         <ArrowRight className="w-3.5 h-3.5 text-dark-300" />
                       </Link>
                     </motion.div>
@@ -178,7 +155,7 @@ export function Header() {
                   <Link
                     href="/sell"
                     onClick={() => setMobileOpen(false)}
-                    className="flex items-center justify-center gap-2 w-full py-3 bg-teal text-white text-sm font-bold rounded-lg hover:bg-teal-700 transition-colors"
+                    className="flex items-center justify-center gap-2 w-full py-3 bg-teal text-white text-sm font-bold uppercase tracking-[0.08em] rounded-lg hover:bg-teal-700 transition-colors"
                   >
                     Sell or Trade In
                   </Link>

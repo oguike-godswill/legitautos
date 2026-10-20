@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -43,9 +44,13 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
       {/* Mobile Header */}
       <div className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-30">
         <Link href="/admin" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-            <Car className="w-4 h-4 text-white" />
-          </div>
+          <Image
+            src="/logo-blue.png"
+            alt="LegitAutos logo"
+            width={279}
+            height={156}
+            className="h-9 w-auto object-contain"
+          />
           <span className="font-bold text-dark-900">
             Legit<span className="text-primary-600">Autos</span>
           </span>
@@ -70,9 +75,13 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         >
           <div className="p-6">
             <Link href="/admin" className="hidden lg:flex items-center gap-2 mb-8">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <Car className="w-4 h-4 text-white" />
-              </div>
+              <Image
+                src="/logo-blue.png"
+                alt="LegitAutos logo"
+                width={279}
+                height={156}
+                className="h-10 w-auto object-contain"
+              />
               <span className="font-bold text-dark-900">
                 Legit<span className="text-primary-600">Autos</span>
               </span>

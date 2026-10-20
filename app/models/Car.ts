@@ -18,7 +18,12 @@ export interface ICar {
   features: string[];
   images: string[];
   location: string;
-  seller: {
+  /**
+   * Legacy multi-vendor field. Single-dealership inventory no longer records a
+   * per-car seller — enquiries go to the dealership. Retained as optional so
+   * older documents still validate.
+   */
+  seller?: {
     name: string;
     phone: string;
     whatsapp?: string;
@@ -51,10 +56,13 @@ const CarSchema = new Schema<ICar>(
     images: [{ type: String }],
     location: { type: String, required: true, index: true },
     seller: {
-      name: { type: String, required: true },
-      phone: { type: String, required: true },
-      whatsapp: { type: String },
-      email: { type: String },
+      type: {
+        name: { type: String },
+        phone: { type: String },
+        whatsapp: { type: String },
+        email: { type: String },
+      },
+      required: false,
     },
     status: { type: String, enum: ["available", "sold", "reserved"], default: "available", index: true },
     featured: { type: Boolean, default: false, index: true },

@@ -55,7 +55,7 @@ export function Pagination({
                 onClick={() => setPage(page)}
                 className={`w-10 h-10 rounded-lg t-mono text-[0.5rem] transition-colors ${
                   page === currentPage
-                    ? "bg-primary text-white"
+                    ? "bg-teal text-white"
                     : "text-dark-500 hover:text-dark-700 hover:bg-gray-100"
                 }`}
                 aria-label={`Page ${page}`}

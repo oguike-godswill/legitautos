@@ -7,7 +7,7 @@ import { ProcessSection } from "@/app/components/sections/home/ProcessSection";
 import { TrustSection } from "@/app/components/sections/home/TrustSection";
 import { StatsBand } from "@/app/components/sections/home/StatsBand";
 import { BrandsRow } from "@/app/components/sections/home/BrandsRow";
-import { SellCtaSection } from "@/app/components/sections/home/SellCtaSection";
+import { FaqSection } from "@/app/components/sections/home/FaqSection";
 
 /**
  * Homepage composer. Sections live in ./home/* and read all inventory,
@@ -17,7 +17,7 @@ export function SearchFirstLanding() {
   const { data: featuredData } = useFeaturedCars();
   const featuredCars = featuredData?.cars || [];
 
-  const { data: latestData } = useCars({ limit: 8, sortBy: "newest" });
+  const { data: latestData } = useCars({ limit: 10, sortBy: "newest" });
   const latestCars = latestData?.cars || [];
 
   const { data: brandsData } = useBrands();
@@ -32,18 +32,19 @@ export function SearchFirstLanding() {
           title="Featured Cars"
           viewAllHref="/cars?featured=true"
           cars={featuredCars}
+          className="pt-8 sm:pt-10 lg:pt-12"
+        />
+        <BrandsRow brands={brands} />
+        <InventoryRow
+          eyebrow="Fresh Stock"
+          title="New Arrivals"
+          viewAllHref="/cars?sortBy=newest"
+          cars={latestCars}
         />
         <ProcessSection />
         <TrustSection />
         <StatsBand carsInStock={latestData?.total} brandCount={brands.length} />
-        <BrandsRow brands={brands} />
-        <InventoryRow
-          eyebrow="Fresh Stock"
-          title="Latest Arrivals"
-          viewAllHref="/cars?sortBy=newest"
-          cars={latestCars}
-        />
-        <SellCtaSection />
+        <FaqSection />
       </div>
     </>
   );

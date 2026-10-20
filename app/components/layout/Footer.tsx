@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Car, MapPin, Phone, Mail, Clock } from "lucide-react";
+import Image from "next/image";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { dealership, dealershipShortLabel } from "@/app/config/dealership";
 
 const QUICK_LINKS = [
@@ -33,9 +34,15 @@ export function Footer() {
             {/* Brand Column */}
             <div className="lg:col-span-4">
               <Link href="/" className="inline-flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-teal flex items-center justify-center">
-                  <Car className="w-5 h-5 text-white" />
-                </div>
+                {/* Footer sits on the dark ink background, so the light logo
+                    shows directly without a chip. */}
+                <Image
+                  src="/logo.png"
+                  alt={`${dealership.name} logo`}
+                  width={279}
+                  height={156}
+                  className="h-12 w-auto object-contain"
+                />
                 <div>
                   <span className="text-base font-bold text-white tracking-wide block leading-tight">
                     {dealership.name}
