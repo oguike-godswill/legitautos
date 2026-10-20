@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { Car } from "@/types";
 import { formatPrice, formatDate } from "@/utils/format";
 import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
 import { Pencil, Trash2, Eye } from "lucide-react";
 import { useDeleteCar } from "@/hooks/useCars";
 import { useState } from "react";

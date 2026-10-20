@@ -2,6 +2,16 @@ import { Car, CarFilters, PaginatedCars, Brand } from "@/app/types";
 
 const API_BASE = process.env.NEXT_PUBLIC_APP_URL || "";
 
+/**
+ * Admin API calls return 401 once the session cookie expires. Send the user
+ * back to the login page instead of surfacing a generic failure.
+ */
+function handleUnauthorized() {
+  if (typeof window === "undefined") return;
+  if (window.location.pathname.startsWith("/admin/login")) return;
+  window.location.href = "/admin/login";
+}
+
 export async function fetchCars(filters?: CarFilters): Promise<PaginatedCars> {
   const params = new URLSearchParams();
 
@@ -60,6 +70,10 @@ export async function createCar(data: unknown): Promise<{ car: Car }> {
     body: JSON.stringify(data),
   });
 
+  if (res.status === 401) {
+    handleUnauthorized();
+    throw new Error("Your session expired. Please sign in again.");
+  }
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.error || "Failed to create car");
@@ -74,6 +88,10 @@ export async function updateCar(id: string, data: unknown): Promise<{ car: Car }
     body: JSON.stringify(data),
   });
 
+  if (res.status === 401) {
+    handleUnauthorized();
+    throw new Error("Your session expired. Please sign in again.");
+  }
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.error || "Failed to update car");
@@ -86,6 +104,10 @@ export async function deleteCar(id: string): Promise<void> {
     method: "DELETE",
   });
 
+  if (res.status === 401) {
+    handleUnauthorized();
+    throw new Error("Your session expired. Please sign in again.");
+  }
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.error || "Failed to delete car");
@@ -110,6 +132,10 @@ export async function uploadImage(file: File): Promise<{ url: string; publicId: 
     body: formData,
   });
 
+  if (res.status === 401) {
+    handleUnauthorized();
+    throw new Error("Your session expired. Please sign in again.");
+  }
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.error || "Failed to upload image");

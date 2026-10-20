@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/app/lib/dbConnect";
 import { CarRequest } from "@/app/models/CarRequest";
+import { requireAdmin } from "@/app/lib/auth";
+import { rateLimit } from "@/app/lib/rateLimit";
 import { z } from "zod";
 
 const toOptionalNum = z.preprocess(
@@ -30,6 +32,13 @@ const CreateRequestSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  const limited = rateLimit(request, {
+    name: "requests",
+    limit: 5,
+    windowMs: 10 * 60 * 1000,
+  });
+  if (limited) return limited;
+
   try {
     await dbConnect();
 
@@ -69,6 +78,9 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
+  const unauthorized = await requireAdmin();
+  if (unauthorized) return unauthorized;
+
   try {
     await dbConnect();
 

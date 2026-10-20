@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/app/lib/dbConnect";
 import { CarRequest } from "@/app/models/CarRequest";
+import { requireAdmin } from "@/app/lib/auth";
 import { z } from "zod";
 
 const UpdateRequestSchema = z.object({
@@ -10,7 +11,10 @@ const UpdateRequestSchema = z.object({
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
-) {
+): Promise<NextResponse> {
+  const unauthorized = await requireAdmin();
+  if (unauthorized) return unauthorized;
+
   try {
     await dbConnect();
     const { id } = await params;
@@ -54,6 +58,9 @@ export async function DELETE(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const unauthorized = await requireAdmin();
+  if (unauthorized) return unauthorized;
+
   try {
     await dbConnect();
     const { id } = await params;

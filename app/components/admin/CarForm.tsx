@@ -32,8 +32,6 @@ export function CarForm({ car, mode = "create" }: CarFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
-    watch,
   } = useForm<CarFormInput, unknown, CarFormData>({
     resolver: zodResolver(carFormSchema),
     defaultValues: car
@@ -53,10 +51,6 @@ export function CarForm({ car, mode = "create" }: CarFormProps) {
           description: car.description,
           features: car.features.join(", "),
           location: car.location,
-          sellerName: car.seller.name,
-          sellerPhone: car.seller.phone,
-          sellerWhatsapp: car.seller.whatsapp,
-          sellerEmail: car.seller.email,
           status: car.status,
           featured: car.featured,
         }
@@ -271,42 +265,12 @@ export function CarForm({ car, mode = "create" }: CarFormProps) {
 
         {/* Sidebar */}
         <div className="space-y-6">
-          {/* Seller Info */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-5">
-            <h2 className="text-lg font-semibold text-dark-900">Seller Information</h2>
-            <div className="space-y-4">
-              <Input
-                label="Seller Name"
-                error={errors.sellerName?.message}
-                {...register("sellerName")}
-              />
-              <Input
-                label="Phone Number"
-                placeholder="+234..."
-                error={errors.sellerPhone?.message}
-                {...register("sellerPhone")}
-              />
-              <Input
-                label="WhatsApp Number"
-                placeholder="+234..."
-                error={errors.sellerWhatsapp?.message}
-                {...register("sellerWhatsapp")}
-              />
-              <Input
-                label="Email"
-                type="email"
-                error={errors.sellerEmail?.message}
-                {...register("sellerEmail")}
-              />
-            </div>
-          </div>
-
           {/* Location */}
           <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-5">
             <h2 className="text-lg font-semibold text-dark-900">Location</h2>
             <Input
               label="Location"
-              placeholder="e.g., Lagos, Victoria Island"
+              placeholder="e.g., Victoria Island, Lagos"
               error={errors.location?.message}
               {...register("location")}
             />

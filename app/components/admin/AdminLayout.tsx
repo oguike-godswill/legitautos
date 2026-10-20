@@ -1,19 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard,
   Car,
   Plus,
-  Settings,
   Menu,
   X,
   LogOut,
-  BarChart3,
   ClipboardList,
+  Eye,
 } from "lucide-react";
 
 const navItems = [
@@ -21,13 +20,23 @@ const navItems = [
   { href: "/admin/cars", label: "All Cars", icon: Car },
   { href: "/admin/cars/new", label: "Add Car", icon: Plus },
   { href: "/admin/requests", label: "Car Requests", icon: ClipboardList },
-  { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
-  { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    setIsSigningOut(true);
+    try {
+      await fetch("/api/admin/logout", { method: "POST" });
+    } finally {
+      router.replace("/admin/login");
+      router.refresh();
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 text-black">
@@ -38,12 +47,13 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
             <Car className="w-4 h-4 text-white" />
           </div>
           <span className="font-bold text-dark-900">
-            LegitAutos<span className="text-primary-600">Auto</span>
+            Legit<span className="text-primary-600">Autos</span>
           </span>
         </Link>
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="p-2 rounded-lg hover:bg-gray-100"
+          aria-label={sidebarOpen ? "Close menu" : "Open menu"}
         >
           {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
@@ -59,12 +69,12 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
           `}
         >
           <div className="p-6">
-            <Link href="/" className="hidden lg:flex items-center gap-2 mb-8">
+            <Link href="/admin" className="hidden lg:flex items-center gap-2 mb-8">
               <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
                 <Car className="w-4 h-4 text-white" />
               </div>
               <span className="font-bold text-dark-900">
-                Auto<span className="text-primary-600">Naija</span>
+                Legit<span className="text-primary-600">Autos</span>
               </span>
             </Link>
 
@@ -90,14 +100,22 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
             </nav>
           </div>
 
-          <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100">
+          <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100 space-y-1">
             <Link
               href="/"
               className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-dark-600 hover:bg-gray-50 transition-colors"
             >
-              <LogOut className="w-5 h-5 text-dark-400" />
-              Back to Site
+              <Eye className="w-5 h-5 text-dark-400" />
+              View Website
             </Link>
+            <button
+              onClick={handleSignOut}
+              disabled={isSigningOut}
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-dark-600 hover:bg-gray-50 disabled:opacity-60 transition-colors"
+            >
+              <LogOut className="w-5 h-5 text-dark-400" />
+              {isSigningOut ? "Signing out..." : "Sign Out"}
+            </button>
           </div>
         </aside>
 

@@ -15,10 +15,10 @@ const SORT_OPTIONS = [
 interface SortBarProps {
   total: number;
   currentPage: number;
-  totalPages: number;
+  totalPages?: number;
 }
 
-export function SortBar({ total, currentPage, totalPages }: SortBarProps) {
+export function SortBar({ total, currentPage }: SortBarProps) {
   const { sortBy, setSortBy, setFilterDrawerOpen } = useFilterStore();
 
   return (

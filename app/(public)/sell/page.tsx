@@ -29,7 +29,7 @@ const steps = [
   {
     title: "We review your enquiry",
     description:
-      "Our team looks at the details and contacts you — usually within one business day.",
+      "Our team looks at the details and replies to you from our inbox and WhatsApp.",
   },
   {
     title: "We discuss the next step",
@@ -107,7 +107,7 @@ export default function SellPage() {
               <ul className="space-y-2">
                 {[
                   "No obligation — an enquiry is just a conversation.",
-                  "Have your documents ready (ownership, service history).",
+                  "If we ask for your documents, share ownership and service history.",
                   "Photos of the car can be shared on WhatsApp after we contact you.",
                 ].map((item) => (
                   <li key={item} className="flex gap-2 text-sm text-dark-500 leading-relaxed">

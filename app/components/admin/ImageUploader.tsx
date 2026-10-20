@@ -31,7 +31,7 @@ export function ImageUploader({ images, onImagesChange }: ImageUploaderProps) {
           const result = await uploadImage(files[i]);
           newImages.push(result.url);
           setUploadProgress(Math.round(((i + 1) / totalFiles) * 100));
-        } catch (error) {
+        } catch {
           toast.error(`Failed to upload image ${i + 1}`);
         }
       }

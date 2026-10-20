@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/app/lib/dbConnect";
 import { ContactMessage } from "@/app/models/ContactMessage";
+import { rateLimit } from "@/app/lib/rateLimit";
 import { z } from "zod";
 
 const ContactSchema = z.object({
@@ -12,6 +13,13 @@ const ContactSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  const limited = rateLimit(request, {
+    name: "contact",
+    limit: 5,
+    windowMs: 10 * 60 * 1000,
+  });
+  if (limited) return limited;
+
   try {
     await dbConnect();
 

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/app/lib/dbConnect";
 import { Car } from "@/app/models/Car";
 import { Brand } from "@/app/models/Brand";
+import { requireAdmin } from "@/app/lib/auth";
 import { z } from "zod";
 import slugify from "slugify";
 
@@ -144,15 +145,14 @@ const CreateCarSchema = z.object({
   features: z.array(z.string()).default([]),
   images: z.array(z.string()).default([]),
   location: z.string().min(1),
-  sellerName: z.string().min(1),
-  sellerPhone: z.string().min(10),
-  sellerWhatsapp: z.string().optional(),
-  sellerEmail: z.string().email().optional().or(z.literal("")),
   status: z.enum(["available", "sold", "reserved"]).default("available"),
   featured: z.boolean().default(false),
 });
 
 export async function POST(request: NextRequest) {
+  const unauthorized = await requireAdmin();
+  if (unauthorized) return unauthorized;
+
   try {
     await dbConnect();
 
@@ -175,12 +175,6 @@ export async function POST(request: NextRequest) {
     const car = await Car.create({
       ...data,
       slug,
-      seller: {
-        name: data.sellerName,
-        phone: data.sellerPhone,
-        whatsapp: data.sellerWhatsapp,
-        email: data.sellerEmail,
-      },
     });
 
     // Update brand car count

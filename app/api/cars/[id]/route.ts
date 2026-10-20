@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/app/lib/dbConnect";
 import { Car } from "@/app/models/Car";
+import { requireAdmin } from "@/app/lib/auth";
 import { z } from "zod";
 import { isValidObjectId } from "mongoose";
 
@@ -47,10 +48,6 @@ const UpdateCarSchema = z.object({
   features: z.array(z.string()).optional(),
   images: z.array(z.string()).optional(),
   location: z.string().min(1).optional(),
-  sellerName: z.string().min(1).optional(),
-  sellerPhone: z.string().min(10).optional(),
-  sellerWhatsapp: z.string().optional(),
-  sellerEmail: z.string().email().optional().or(z.literal("")),
   status: z.enum(["available", "sold", "reserved"]).optional(),
   featured: z.boolean().optional(),
 });
@@ -59,6 +56,9 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const unauthorized = await requireAdmin();
+  if (unauthorized) return unauthorized;
+
   try {
     await dbConnect();
     const { id } = await params;
@@ -76,26 +76,7 @@ export async function PUT(
       );
     }
 
-    const data = result.data;
-    const updateData: Record<string, unknown> = { ...data };
-
-    if (data.sellerName || data.sellerPhone || data.sellerWhatsapp || data.sellerEmail) {
-      const existingCar = await Car.findById(id).lean();
-      if (existingCar) {
-        updateData.seller = {
-          name: data.sellerName ?? existingCar.seller.name,
-          phone: data.sellerPhone ?? existingCar.seller.phone,
-          whatsapp: data.sellerWhatsapp ?? existingCar.seller.whatsapp,
-          email: data.sellerEmail ?? existingCar.seller.email,
-        };
-      }
-      delete updateData.sellerName;
-      delete updateData.sellerPhone;
-      delete updateData.sellerWhatsapp;
-      delete updateData.sellerEmail;
-    }
-
-    const car = await Car.findByIdAndUpdate(id, updateData, { new: true }).lean();
+    const car = await Car.findByIdAndUpdate(id, result.data, { new: true }).lean();
 
     if (!car) {
       return NextResponse.json({ error: "Car not found" }, { status: 404 });
@@ -112,6 +93,9 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const unauthorized = await requireAdmin();
+  if (unauthorized) return unauthorized;
+
   try {
     await dbConnect();
     const { id } = await params;

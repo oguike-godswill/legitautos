@@ -5,7 +5,6 @@ const MONGODB_URI = process.env.MONGODB_URI || "";
 
 // A cached connection across hot-reloads in development to prevent connections from growing exponentially.
 declare global {
-  // eslint-disable-next-line no-var
   var _mongooseConn: Promise<typeof mongoose> | undefined;
 }
 
