@@ -40,7 +40,7 @@ const CONTACT_METHODS = [
     value: dealership.phone,
     description: dealership.openingHours,
     action: `tel:${dealership.phone.replace(/\D/g, "")}`,
-    color: "bg-blue-50 text-blue-500",
+    color: "bg-primary-50 text-primary-600",
   },
   {
     icon: MessageCircle,
@@ -48,7 +48,7 @@ const CONTACT_METHODS = [
     value: "Chat with us",
     description: "Quick responses during opening hours",
     action: dealershipWhatsApp(),
-    color: "bg-emerald-50 text-emerald-500",
+    color: "bg-success-soft text-success",
   },
   {
     icon: Mail,
@@ -56,7 +56,7 @@ const CONTACT_METHODS = [
     value: dealership.email,
     description: "We reply within one business day",
     action: `mailto:${dealership.email}`,
-    color: "bg-blue-50 text-blue-500",
+    color: "bg-primary-50 text-primary-600",
   },
   {
     icon: MapPin,
@@ -64,7 +64,7 @@ const CONTACT_METHODS = [
     value: dealership.address.city,
     description: "By appointment — contact us first",
     action: "#locations",
-    color: "bg-purple-50 text-purple-500",
+    color: "bg-warning-soft text-warning",
   },
 ];
 

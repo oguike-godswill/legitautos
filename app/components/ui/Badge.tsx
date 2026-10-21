@@ -9,10 +9,10 @@ interface BadgeProps {
 const variantStyles = {
   default: "bg-gray-100 text-dark-500 border-gray-200",
   primary: "bg-primary/10 text-primary border-primary/20",
-  success: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  warning: "bg-amber-50 text-amber-700 border-amber-200",
-  danger: "bg-rose-50 text-rose-700 border-rose-200",
-  info: "bg-sky-50 text-sky-700 border-sky-200",
+  success: "bg-success-soft text-success border-success/20",
+  warning: "bg-warning-soft text-warning border-warning/20",
+  danger: "bg-danger-soft text-danger border-danger/20",
+  info: "bg-info-soft text-info border-info/20",
 };
 
 const sizeStyles = {

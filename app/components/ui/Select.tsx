@@ -17,7 +17,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         {label && (
           <label className="block text-sm font-medium text-dark-700">
             {label}
-            {props.required && <span className="text-rose-500 ml-0.5">*</span>}
+            {props.required && <span className="text-danger ml-0.5">*</span>}
           </label>
         )}
         <div className="relative">
@@ -29,7 +29,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
               focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40
               disabled:opacity-40 disabled:cursor-not-allowed
               transition-all
-              ${error ? "border-rose-300" : "border-gray-200"}
+              ${error ? "border-danger/40" : "border-gray-200"}
               ${className}
             `}
             {...props}
@@ -42,7 +42,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           </select>
           <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-400 pointer-events-none" />
         </div>
-        {error && <p className="text-xs text-rose-500">{error}</p>}
+        {error && <p className="text-xs text-danger">{error}</p>}
         {helperText && !error && <p className="text-xs text-dark-400">{helperText}</p>}
       </div>
     );

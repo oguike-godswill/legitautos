@@ -72,6 +72,16 @@
   --color-success: #247a52; /* available/success states */
   --color-warning: #a56a16; /* reserved/attention states */
   --color-danger: #b33b35; /* validation/destructive states */
+
+  /* Soft tints for the semantic tokens above. Derived by hand from each
+     base colour so callouts and badges can use bg-success/10-style opacity
+     without the underlying hue drifting, which is what happened when these
+     surfaces were Tailwind's emerald/amber/rose defaults instead. */
+  --color-success-soft: #eaf4ee;
+  --color-warning-soft: #f9f2e6;
+  --color-danger-soft: #fbeceb;
+  --color-info: #2f6f9f;
+  --color-info-soft: #eaf2f8;
 }
 
 * { box-sizing: border-box; }

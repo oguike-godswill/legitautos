@@ -179,7 +179,7 @@ export function InspectionForm({
       </div>
 
       {error && (
-        <div className="flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700">
+        <div className="flex items-center gap-2 rounded-xl border border-danger/20 bg-danger-soft p-3 text-sm text-danger">
           <AlertTriangle className="h-4 w-4 shrink-0" />
           {error}
         </div>
@@ -233,7 +233,7 @@ export function InspectionForm({
                         duration: undefined,
                       }))
                     }
-                    className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-rose-600 transition-colors hover:bg-rose-50"
+                    className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-danger transition-colors hover:bg-danger-soft"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                     Remove file
@@ -293,7 +293,7 @@ export function InspectionForm({
             />
 
             {photoOnlyForCar && (
-              <p className="flex gap-2 rounded-lg bg-amber-50 p-3 text-xs leading-relaxed text-amber-800">
+              <p className="flex gap-2 rounded-lg bg-warning-soft p-3 text-xs leading-relaxed text-warning">
                 <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
                 {INSPECTION_VIDEO_RECOMMENDED_NOTE}
               </p>

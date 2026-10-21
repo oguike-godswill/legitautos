@@ -52,8 +52,8 @@ export function ContactForm() {
   if (isSuccess) {
     return (
       <div className="text-center py-10">
-        <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-5">
-          <CheckCircle2 className="w-7 h-7 text-emerald-500" />
+        <div className="w-14 h-14 bg-success-soft rounded-full flex items-center justify-center mx-auto mb-5">
+          <CheckCircle2 className="w-7 h-7 text-success" />
         </div>
         <h3 className="text-lg font-bold text-dark-900 mb-2">Message Sent!</h3>
         <p className="text-sm text-dark-500 max-w-sm mx-auto mb-6">
@@ -75,7 +75,7 @@ export function ContactForm() {
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-dark-700 mb-1.5">
-            Name <span className="text-rose-500">*</span>
+            Name <span className="text-danger">*</span>
           </label>
           <input
             name="name"
@@ -87,7 +87,7 @@ export function ContactForm() {
         </div>
         <div>
           <label className="block text-sm font-medium text-dark-700 mb-1.5">
-            Email <span className="text-rose-500">*</span>
+            Email <span className="text-danger">*</span>
           </label>
           <input
             name="email"
@@ -111,7 +111,7 @@ export function ContactForm() {
         </div>
         <div>
           <label className="block text-sm font-medium text-dark-700 mb-1.5">
-            Subject <span className="text-rose-500">*</span>
+            Subject <span className="text-danger">*</span>
           </label>
           <input
             name="subject"
@@ -124,7 +124,7 @@ export function ContactForm() {
       </div>
       <div>
         <label className="block text-sm font-medium text-dark-700 mb-1.5">
-          Message <span className="text-rose-500">*</span>
+          Message <span className="text-danger">*</span>
         </label>
         <textarea
           name="message"
@@ -137,7 +137,7 @@ export function ContactForm() {
       </div>
 
       {error && (
-        <p className="text-sm text-rose-500">{error}</p>
+        <p className="text-sm text-danger">{error}</p>
       )}
 
       <button

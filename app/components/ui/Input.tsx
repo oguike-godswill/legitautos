@@ -18,7 +18,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label className="block text-sm font-medium text-dark-700">
             {label}
-            {props.required && <span className="text-rose-500 ml-0.5">*</span>}
+            {props.required && <span className="text-danger ml-0.5">*</span>}
           </label>
         )}
         <div className="relative">
@@ -37,7 +37,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               transition-all
               ${leftIcon ? "pl-10" : ""}
               ${rightIcon ? "pr-10" : ""}
-              ${error ? "border-rose-300 focus:ring-rose-500/20 focus:border-rose-400" : "border-gray-200"}
+              ${error ? "border-danger/40 focus:ring-danger/20 focus:border-danger/50" : "border-gray-200"}
               ${className}
             `}
             {...props}
@@ -49,7 +49,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
         {error && (
-          <div className="flex items-center gap-1 text-xs text-rose-500">
+          <div className="flex items-center gap-1 text-xs text-danger">
             <AlertCircle className="w-3.5 h-3.5" />
             {error}
           </div>

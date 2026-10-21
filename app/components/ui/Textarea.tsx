@@ -15,7 +15,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <label className="block text-sm font-medium text-dark-700">
             {label}
-            {props.required && <span className="text-rose-500 ml-0.5">*</span>}
+            {props.required && <span className="text-danger ml-0.5">*</span>}
           </label>
         )}
         <textarea
@@ -26,12 +26,12 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40
             disabled:opacity-40 disabled:cursor-not-allowed
             transition-all resize-y
-            ${error ? "border-rose-300" : "border-gray-200"}
+            ${error ? "border-danger/40" : "border-gray-200"}
             ${className}
           `}
           {...props}
         />
-        {error && <p className="text-xs text-rose-500">{error}</p>}
+        {error && <p className="text-xs text-danger">{error}</p>}
         {helperText && !error && <p className="text-xs text-dark-400">{helperText}</p>}
       </div>
     );

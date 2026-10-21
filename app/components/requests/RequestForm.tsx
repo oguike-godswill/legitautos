@@ -130,8 +130,8 @@ export function RequestForm({ onSuccess }: RequestFormProps) {
         animate={{ opacity: 1, scale: 1 }}
         className="text-center py-12 px-6"
       >
-        <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
-          <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+        <div className="w-16 h-16 bg-success-soft rounded-full flex items-center justify-center mx-auto mb-6">
+          <CheckCircle2 className="w-8 h-8 text-success" />
         </div>
         <h3 className="text-xl font-bold text-dark-900 mb-3">
           Request Submitted!
@@ -292,7 +292,7 @@ export function RequestForm({ onSuccess }: RequestFormProps) {
             {/* Brand Selection */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-dark-700">
-                Brand <span className="text-rose-500">*</span>
+                Brand <span className="text-danger">*</span>
               </label>
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-64 overflow-y-auto p-1">
                 {BRANDS.map((brand) => {
@@ -317,7 +317,7 @@ export function RequestForm({ onSuccess }: RequestFormProps) {
                 })}
               </div>
               {errors.brand && (
-                <p className="text-xs text-rose-500 mt-1">{errors.brand.message}</p>
+                <p className="text-xs text-danger mt-1">{errors.brand.message}</p>
               )}
             </div>
 

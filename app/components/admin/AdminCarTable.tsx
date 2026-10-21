@@ -118,7 +118,7 @@ export function AdminCarTable({ cars }: AdminCarTableProps) {
                     <button
                       onClick={() => handleDelete(car._id)}
                       disabled={deletingId === car._id}
-                      className="p-2 rounded-lg hover:bg-rose-50 text-dark-400 hover:text-rose-600 transition-colors disabled:opacity-50"
+                      className="p-2 rounded-lg hover:bg-danger-soft text-dark-400 hover:text-danger transition-colors disabled:opacity-50"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

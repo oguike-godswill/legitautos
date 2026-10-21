@@ -16,7 +16,7 @@ const variantStyles = {
   secondary: "bg-primary text-white hover:bg-primary-600 border-primary",
   outline: "bg-transparent text-dark-600 border-gray-300 hover:bg-gray-50 hover:text-dark-800",
   ghost: "bg-transparent text-dark-500 hover:bg-gray-100 border-transparent",
-  danger: "bg-rose-500 text-white hover:bg-rose-600 border-rose-500",
+  danger: "bg-danger text-white hover:bg-danger/90 border-danger",
 };
 
 const sizeStyles = {

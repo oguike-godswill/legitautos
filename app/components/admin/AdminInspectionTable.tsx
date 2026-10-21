@@ -125,7 +125,7 @@ export function AdminInspectionTable({
                     <span
                       className={`inline-flex rounded-full px-2 py-1 text-[0.65rem] font-semibold ${
                         item.published
-                          ? "bg-emerald-50 text-emerald-700"
+                          ? "bg-success-soft text-success"
                           : "bg-gray-100 text-dark-500"
                       }`}
                     >
@@ -146,7 +146,7 @@ export function AdminInspectionTable({
                       <button
                         onClick={() => handleDelete(item._id)}
                         disabled={deletingId === item._id}
-                        className="rounded-lg p-2 text-dark-400 transition-colors hover:bg-rose-50 hover:text-rose-600 disabled:opacity-50"
+                        className="rounded-lg p-2 text-dark-400 transition-colors hover:bg-danger-soft hover:text-danger disabled:opacity-50"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>

@@ -153,8 +153,8 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                     onClick={() => toggleFavorite(car._id)}
                     className={`p-2.5 rounded-lg border transition-all ${
                       isLiked
-                        ? "bg-rose-50 border-rose-200 text-rose-500"
-                        : "border-gray-200 text-dark-400 hover:text-rose-500 hover:bg-rose-50 hover:border-rose-200"
+                        ? "bg-danger-soft border-danger/20 text-danger"
+                        : "border-gray-200 text-dark-400 hover:text-danger hover:bg-danger-soft hover:border-danger/20"
                     }`}
                   >
                     <Heart className={`w-4 h-4 ${isLiked ? "fill-current" : ""}`} />
@@ -312,7 +312,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
               {/* Safety Tips */}
               <div className="mt-6 pt-5 border-t border-gray-200/80">
                 <div className="flex items-start gap-2">
-                  <Shield className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />
+                  <Shield className="w-4 h-4 text-warning mt-0.5 shrink-0" />
                   <p className="text-[0.7rem] text-dark-500 leading-relaxed">
                     <span className="font-semibold text-dark-700">Safety Tip:</span> Always inspect the car in person and verify documents before making payment. Never send money before seeing the car.
                   </p>

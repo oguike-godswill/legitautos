@@ -84,8 +84,8 @@ export function SellForm() {
         animate={{ opacity: 1, scale: 1 }}
         className="text-center py-12 px-6"
       >
-        <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
-          <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+        <div className="w-16 h-16 bg-success-soft rounded-full flex items-center justify-center mx-auto mb-6">
+          <CheckCircle2 className="w-8 h-8 text-success" />
         </div>
         <h3 className="text-xl font-bold text-dark-900 mb-3">Enquiry Received!</h3>
         <p className="text-sm text-dark-500 max-w-md mx-auto mb-8 leading-relaxed">
@@ -116,7 +116,7 @@ export function SellForm() {
       {/* Intent */}
       <fieldset>
         <legend className="block text-sm font-medium text-dark-700 mb-2">
-          I want to <span className="text-rose-500">*</span>
+          I want to <span className="text-danger">*</span>
         </legend>
         <div className="grid grid-cols-2 gap-3">
           {(
@@ -206,7 +206,7 @@ export function SellForm() {
         about your enquiry. We use your details only to respond to you.
       </p>
 
-      {error && <p className="text-sm text-rose-500">{error}</p>}
+      {error && <p className="text-sm text-danger">{error}</p>}
 
       <Button type="submit" isLoading={isSubmitting} leftIcon={<Send className="w-4 h-4" />}>
         Send Enquiry

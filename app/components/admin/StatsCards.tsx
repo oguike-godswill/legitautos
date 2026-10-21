@@ -15,34 +15,33 @@ interface StatsCardsProps {
 }
 
 export function StatsCards({ stats }: StatsCardsProps) {
+  // Counts only. The previous version showed hardcoded "+12% vs last month"
+  // trends beside these real numbers, which presented invented figures as
+  // fact. Restore trends only when they are computed from actual history.
   const cards = [
     {
       title: "Total Cars",
       value: stats.totalCars,
       icon: Car,
       color: "bg-primary-50 text-primary-600",
-      trend: "+12%",
     },
     {
       title: "Total Views",
       value: stats.totalViews.toLocaleString(),
       icon: Eye,
-      color: "bg-emerald-50 text-emerald-600",
-      trend: "+24%",
+      color: "bg-success-soft text-success",
     },
     {
       title: "Available",
       value: stats.availableCars,
       icon: TrendingUp,
-      color: "bg-sky-50 text-sky-600",
-      trend: "+8%",
+      color: "bg-info-soft text-info",
     },
     {
       title: "Sold",
       value: stats.soldCars,
       icon: DollarSign,
-      color: "bg-amber-50 text-amber-600",
-      trend: "+15%",
+      color: "bg-warning-soft text-warning",
     },
   ];
 
@@ -64,10 +63,6 @@ export function StatsCards({ stats }: StatsCardsProps) {
             <div className={`w-10 h-10 rounded-lg ${card.color} flex items-center justify-center`}>
               <card.icon className="w-5 h-5" />
             </div>
-          </div>
-          <div className="mt-3 flex items-center gap-1">
-            <span className="text-xs font-medium text-emerald-600">{card.trend}</span>
-            <span className="text-xs text-dark-400">vs last month</span>
           </div>
         </motion.div>
       ))}
