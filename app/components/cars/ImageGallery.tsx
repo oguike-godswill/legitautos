@@ -26,9 +26,11 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
   return (
     <div className="space-y-2.5">
-      {/* Main Image */}
+      {/* Main Image — 3:2 at every size, matching the ratio uploads are
+          normalised to, so object-cover fills the frame without cropping and
+          without the letterboxing that made the car look zoomed out. */}
       <div
-        className="relative aspect-video rounded-xl overflow-hidden bg-gray-100 cursor-zoom-in group"
+        className="relative aspect-[3/2] rounded-xl overflow-hidden bg-dark-900/[0.04] cursor-zoom-in group"
         onClick={() => setLightboxOpen(true)}
       >
         <Image
@@ -36,7 +38,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
           alt={`${title} - Image ${selectedIndex + 1}`}
           fill
           className="object-cover"
-          sizes="(max-width: 768px) 100vw, 60vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 60vw"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -53,7 +55,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
             <button
               key={index}
               onClick={() => setSelectedIndex(index)}
-              className={`relative shrink-0 w-18 h-12 rounded-lg overflow-hidden transition-all ${
+              className={`relative shrink-0 w-18 h-12 rounded-lg overflow-hidden bg-dark-900/[0.04] transition-all ${
                 index === selectedIndex
                   ? "ring-2 ring-primary ring-offset-2"
                   : "opacity-60 hover:opacity-100"
@@ -104,7 +106,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.97 }}
               transition={{ duration: 0.2 }}
-              className="relative w-full max-w-5xl aspect-video mx-4"
+              className="relative w-full max-w-5xl aspect-[3/2] mx-4"
               onClick={(e) => e.stopPropagation()}
             >
               <Image

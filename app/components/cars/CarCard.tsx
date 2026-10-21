@@ -4,18 +4,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
-  Gauge,
-  Fuel,
   Calendar,
+  Fuel,
   MapPin,
   Scale,
   Check,
   ArrowRight,
-  TrendingDown,
-  Settings2,
 } from "lucide-react";
 import { Car } from "@/app/types";
-import { formatPrice, formatMileage } from "@/app/utils/format";
+import { formatPrice } from "@/app/utils/format";
 import { useCompare } from "@/app/stores/compareStore";
 
 interface CarCardProps {
@@ -60,18 +57,6 @@ export function CarCard({
     else if (!compareFull) addToCompare(carId);
   };
 
-  const discount =
-    car.originalPrice && car.originalPrice > car.price
-      ? Math.round(((car.originalPrice - car.price) / car.originalPrice) * 100)
-      : null;
-
-  const specs = [
-    { icon: Calendar, value: car.year.toString() },
-    { icon: Gauge, value: formatMileage(car.mileage) },
-    { icon: Settings2, value: car.transmission },
-    { icon: Fuel, value: car.fuelType },
-  ];
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 18 }}
@@ -86,10 +71,10 @@ export function CarCard({
           isFeatured ? "lg:flex-row" : ""
         }`}
       >
-        {/* Media */}
+        {/* Media — 3:2 matches the source photos, so nothing is cropped. */}
         <div
           className={`relative shrink-0 overflow-hidden bg-dark-900/[0.04] ${
-            isFeatured ? "aspect-[4/3] lg:aspect-auto lg:w-[58%]" : "aspect-[4/3]"
+            isFeatured ? "aspect-[3/2] lg:aspect-auto lg:w-[58%]" : "aspect-[3/2]"
           }`}
         >
           <Image
@@ -109,7 +94,7 @@ export function CarCard({
 
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-dark-900/45 via-dark-900/0 to-dark-900/5" />
 
-          {/* Status + promo badges */}
+          {/* Status + condition badges */}
           <div className="absolute left-2 top-2 flex max-w-[calc(100%-2.75rem)] flex-wrap items-center gap-1 sm:left-3 sm:top-3 sm:max-w-[calc(100%-3.5rem)] sm:gap-1.5">
             {isUnavailable && (
               <span
@@ -125,43 +110,13 @@ export function CarCard({
                 Featured
               </span>
             )}
-            {!isUnavailable && car.condition === "new" && (
-              <span className="t-mono rounded-full bg-teal px-2 py-1 text-[0.5rem] text-white sm:px-2.5">
-                New
-              </span>
-            )}
-            {!isUnavailable && car.condition === "certified" && (
-              <span className="t-mono rounded-full bg-white/95 px-2 py-1 text-[0.5rem] text-dark-700 sm:px-2.5">
-                Certified
-              </span>
-            )}
-            {discount && discount > 0 && !isUnavailable && (
-              <span className="t-mono flex items-center gap-1 rounded-full bg-rose-500 px-2 py-1 text-[0.5rem] text-white sm:px-2.5">
-                <TrendingDown className="h-2.5 w-2.5" />
-                {discount}%
+            {!isUnavailable && car.condition && (
+              <span className="t-mono rounded-full bg-teal px-2 py-1 text-[0.5rem] capitalize text-white sm:px-2.5">
+                {car.condition}
               </span>
             )}
           </div>
 
-          {/* Price chip on the media */}
-          <div className="absolute bottom-2 left-2 flex items-end sm:bottom-3 sm:left-3">
-            <div className="max-w-full rounded-lg bg-white/95 px-2 py-1.5 backdrop-blur-md shadow-sm sm:rounded-xl sm:px-3 sm:py-2">
-              <div className="flex items-baseline gap-1.5">
-                <span
-                  className={`truncate font-bold leading-none text-dark-900 ${
-                    isFeatured ? "text-xl" : "text-sm sm:text-base"
-                  }`}
-                >
-                  {formatPrice(car.price)}
-                </span>
-                {car.originalPrice && car.originalPrice > car.price && (
-                  <span className="hidden text-[0.65rem] text-dark-400 line-through sm:inline">
-                    {formatPrice(car.originalPrice)}
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Body */}
@@ -183,27 +138,46 @@ export function CarCard({
             <span className="truncate">{car.location}</span>
           </p>
 
+          {/* Price */}
+          <div className="mt-3 flex items-baseline gap-2">
+            <span
+              className={`font-bold leading-none text-dark-900 ${
+                isFeatured ? "text-2xl" : "text-base sm:text-lg"
+              }`}
+            >
+              {formatPrice(car.price)}
+            </span>
+            {car.originalPrice && car.originalPrice > car.price && (
+              <span className="text-[0.7rem] text-dark-400 line-through">
+                {formatPrice(car.originalPrice)}
+              </span>
+            )}
+          </div>
+
           {isFeatured && car.description && (
             <p className="mt-4 hidden text-sm leading-relaxed text-dark-500 lg:line-clamp-3">
               {car.description}
             </p>
           )}
 
-          {/* Spec strip */}
+          {/* Year + engine type */}
           <div
-            className={`mt-4 grid grid-cols-2 gap-x-3 gap-y-2 border-y border-dark-900/[0.06] ${
-              isFeatured ? "py-4 lg:gap-x-6" : "py-3"
+            className={`mt-3 flex items-center gap-x-3 border-t border-dark-900/[0.06] text-[0.7rem] capitalize text-dark-500 ${
+              isFeatured ? "pt-4" : "pt-3"
             }`}
           >
-            {specs.map((spec) => (
-              <span
-                key={spec.value + spec.icon.displayName}
-                className="flex items-center gap-1.5 text-[0.7rem] capitalize text-dark-500"
-              >
-                <spec.icon className="h-3.5 w-3.5 shrink-0 text-dark-300" />
-                <span className="truncate">{spec.value}</span>
-              </span>
-            ))}
+            <span className="flex items-center gap-1.5">
+              <Calendar className="h-3.5 w-3.5 shrink-0 text-dark-300" />
+              {car.year}
+            </span>
+            <span
+              aria-hidden="true"
+              className="h-3 w-px shrink-0 bg-dark-900/10"
+            />
+            <span className="flex min-w-0 items-center gap-1.5">
+              <Fuel className="h-3.5 w-3.5 shrink-0 text-dark-300" />
+              <span className="truncate">{car.fuelType}</span>
+            </span>
           </div>
 
           {/* Footer action */}

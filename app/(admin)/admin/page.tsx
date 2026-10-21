@@ -3,9 +3,11 @@ export const dynamic = "force-dynamic";
 import { AdminLayout } from "@/app/components/admin/AdminLayout";
 import { StatsCards } from "@/app/components/admin/StatsCards";
 import { AdminCarTable } from "@/app/components/admin/AdminCarTable";
+import { AdminInspectionTable } from "@/app/components/admin/AdminInspectionTable";
 import { Button } from "@/app/components/ui/Button";
 import { dbConnect } from "@/app/lib/dbConnect";
 import { Car } from "@/app/models/Car";
+import { Inspection } from "@/app/models/Inspection";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 
@@ -26,9 +28,26 @@ async function getRecentCars() {
   return cars.map((car) => ({ ...car, _id: car._id.toString() }));
 }
 
+async function getRecentInspections() {
+  await dbConnect();
+  const inspections = await Inspection.find({})
+    .sort({ order: -1, createdAt: -1 })
+    .limit(5)
+    .lean();
+
+  return inspections.map((item) => ({
+    ...item,
+    _id: item._id.toString(),
+    car: item.car?.toString(),
+    createdAt: item.createdAt.toISOString(),
+    updatedAt: item.updatedAt.toISOString(),
+  }));
+}
+
 export default async function AdminDashboardPage() {
   const stats = await getStats();
   const recentCars = await getRecentCars();
+  const recentInspections = await getRecentInspections();
 
   return (
     <AdminLayout>
@@ -59,6 +78,27 @@ export default async function AdminDashboardPage() {
             </Link>
           </div>
           <AdminCarTable cars={recentCars} />
+        </div>
+
+        {/* Inspection media */}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-lg font-semibold text-dark-900">
+                Inspection Media
+              </h2>
+              <p className="text-sm text-dark-500 mt-0.5">
+                Walkaround clips and condition photos shown to buyers
+              </p>
+            </div>
+            <Link
+              href="/admin/inspections"
+              className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+            >
+              Manage
+            </Link>
+          </div>
+          <AdminInspectionTable inspections={recentInspections} />
         </div>
       </div>
     </AdminLayout>

@@ -38,13 +38,13 @@ export function SectionHeader({
 
   return (
     <div
-      className={`flex ${
+      className={`mb-10 sm:mb-12 ${
         isCenter
-          ? "flex-col items-center text-center"
-          : "flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
-      } mb-10 sm:mb-12 ${className}`}
+          ? "flex flex-col items-center text-center"
+          : "flex flex-row items-center justify-between gap-4 sm:items-end"
+      } ${className}`}
     >
-      <div className={isCenter ? "max-w-2xl" : ""}>
+      <div className={isCenter ? "max-w-2xl" : "min-w-0"}>
         <motion.span
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -87,11 +87,20 @@ export async function POST(request: NextRequest) {
 
     const dataURI = `data:${mime};base64,${buffer.toString("base64")}`;
 
+    // 1600x1067 is 3:2, the ratio every card and the gallery are built around.
+    // crop:"fill" with gravity:"auto" crops rather than letterboxes, so the
+    // stored image always fills its frame with the car kept in view.
     const uploadResult = await cloudinary.uploader.upload(dataURI, {
       folder: "legitautos/inventory",
       resource_type: "image",
       transformation: [
-        { width: 1600, height: 1200, crop: "limit", quality: "auto" },
+        {
+          width: 1600,
+          height: 1067,
+          crop: "fill",
+          gravity: "auto",
+          quality: "auto",
+        },
       ],
     });
 

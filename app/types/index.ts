@@ -65,6 +65,36 @@ export interface PaginatedCars {
   hasPrevPage: boolean;
 }
 
+/**
+ * Inspection media attached to the dealership's own stock. `car` is present
+ * only when the clip covers a specific listing.
+ */
+export interface Inspection {
+  _id: string;
+  title: string;
+  description?: string;
+  type: "video" | "image";
+  url: string;
+  publicId?: string;
+  thumbnailUrl?: string;
+  duration?: number;
+  car?: string;
+  carTitle?: string;
+  order: number;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PaginatedInspections {
+  inspections: Inspection[];
+  total: number;
+  page: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+}
+
 export interface Testimonial {
   _id: string;
   name: string;

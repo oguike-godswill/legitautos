@@ -154,7 +154,7 @@ export function CompareContent() {
                   >
                     <X className="w-3 h-3" />
                   </button>
-                  <div className="relative aspect-[4/3] bg-gray-100">
+                  <div className="relative aspect-[3/2] bg-gray-100">
                     {car.images?.[0] ? (
                       <Image
                         src={car.images[0]}

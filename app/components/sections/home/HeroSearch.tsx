@@ -106,9 +106,8 @@ export function HeroSearch() {
               transition={{ delay: 0.35, duration: 0.6 }}
               className="mt-7 max-w-xl text-base sm:text-lg text-white/80 leading-relaxed"
             >
-              Browse the cars currently on our lot at {dealership.name}. Every
-              page shows the real asking price, full specifications and whether
-              the car is still available.
+              Browse the cars on our lot. Real prices, full specs, live
+              availability.
             </motion.p>
 
             <motion.ul

@@ -14,12 +14,14 @@ import {
   LogOut,
   ClipboardList,
   Eye,
+  Film,
 } from "lucide-react";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/cars", label: "All Cars", icon: Car },
   { href: "/admin/cars/new", label: "Add Car", icon: Plus },
+  { href: "/admin/inspections", label: "Inspections", icon: Film },
   { href: "/admin/requests", label: "Car Requests", icon: ClipboardList },
 ];
 
@@ -142,7 +144,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         </AnimatePresence>
 
         {/* Main Content */}
-        <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8">
+        <main className="flex-1 min-w-0 px-4 pb-4 pt-12 sm:px-6 sm:pb-6 sm:pt-16 lg:px-8 lg:pb-8 lg:pt-20">
           {children}
         </main>
       </div>

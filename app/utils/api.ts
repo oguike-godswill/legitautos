@@ -1,4 +1,4 @@
-import { Car, CarFilters, PaginatedCars, Brand } from "@/app/types";
+import { Car, CarFilters, PaginatedCars, Brand, Inspection, PaginatedInspections } from "@/app/types";
 
 const API_BASE = process.env.NEXT_PUBLIC_APP_URL || "";
 
@@ -141,4 +141,120 @@ export async function uploadImage(file: File): Promise<{ url: string; publicId: 
     throw new Error(error.error || "Failed to upload image");
   }
   return res.json();
+}
+
+/**
+ * Uploads an inspection video or photo. Kept separate from uploadImage because
+ * inspection media is stored at its own aspect ratio rather than cropped to the
+ * 3:2 shape the inventory cards use.
+ */
+export async function uploadInspectionMedia(file: File): Promise<{
+  type: "video" | "image";
+  url: string;
+  publicId: string;
+  thumbnailUrl?: string;
+  duration?: number;
+}> {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const res = await fetch(`${API_BASE}/api/upload/inspection`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (res.status === 401) {
+    handleUnauthorized();
+    throw new Error("Your session expired. Please sign in again.");
+  }
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.error || "Failed to upload media");
+  }
+  return res.json();
+}
+
+/** Published inspection media, newest or highest-priority first. */
+export async function fetchInspections(filters?: {
+  car?: string;
+  type?: "video" | "image";
+  limit?: number;
+  page?: number;
+}): Promise<PaginatedInspections> {
+  const params = new URLSearchParams();
+
+  if (filters?.car) params.set("car", filters.car);
+  if (filters?.type) params.set("type", filters.type);
+  if (filters?.limit) params.set("limit", filters.limit.toString());
+  if (filters?.page) params.set("page", filters.page.toString());
+
+  const res = await fetch(`${API_BASE}/api/inspections?${params.toString()}`, {
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch inspection media");
+  return res.json();
+}
+
+export async function fetchInspection(id: string): Promise<{ inspection: Inspection }> {
+  const res = await fetch(`${API_BASE}/api/inspections/${id}`, {
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch inspection media");
+  return res.json();
+}
+
+export async function createInspection(data: unknown): Promise<{ inspection: Inspection }> {
+  const res = await fetch(`${API_BASE}/api/inspections`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (res.status === 401) {
+    handleUnauthorized();
+    throw new Error("Your session expired. Please sign in again.");
+  }
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.error || "Failed to save inspection media");
+  }
+  return res.json();
+}
+
+export async function updateInspection(
+  id: string,
+  data: unknown
+): Promise<{ inspection: Inspection }> {
+  const res = await fetch(`${API_BASE}/api/inspections/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (res.status === 401) {
+    handleUnauthorized();
+    throw new Error("Your session expired. Please sign in again.");
+  }
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.error || "Failed to update inspection media");
+  }
+  return res.json();
+}
+
+export async function deleteInspection(id: string): Promise<void> {
+  const res = await fetch(`${API_BASE}/api/inspections/${id}`, {
+    method: "DELETE",
+  });
+
+  if (res.status === 401) {
+    handleUnauthorized();
+    throw new Error("Your session expired. Please sign in again.");
+  }
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.error || "Failed to delete inspection media");
+  }
 }

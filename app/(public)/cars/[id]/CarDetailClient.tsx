@@ -1,7 +1,9 @@
 "use client";
 
 import { useSimilarCars } from "@/app/hooks/useCars";
+import { useInspections } from "@/app/hooks/useInspections";
 import { ImageGallery } from "@/app/components/cars/ImageGallery";
+import { CarInspection } from "@/app/components/cars/CarInspection";
 import { StickyContact } from "@/app/components/layout/StickyContact";
 import { formatPrice, formatMileage } from "@/app/utils/format";
 import { Badge } from "@/app/components/ui/Badge";
@@ -40,6 +42,8 @@ interface CarDetailClientProps {
 
 export default function CarDetailClient({ car }: CarDetailClientProps) {
   const { data: similarData } = useSimilarCars(car._id);
+  const { data: inspectionsData } = useInspections({ car: car._id, limit: 12 });
+  const inspections = inspectionsData?.inspections || [];
   const { toggleFavorite, favorites } = useFavorites();
   const isLiked = favorites.includes(car._id);
   const similarCars = similarData?.cars || [];
@@ -112,11 +116,14 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
             </p>
           </div>
         )}
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="min-w-0 space-y-6 lg:col-span-2">
             {/* Gallery */}
             <ImageGallery images={car.images} title={car.title} />
+
+            {/* Inspection footage for this car — omits itself when none exists */}
+            <CarInspection inspections={inspections} />
 
             {/* Title & Actions */}
             <motion.div
@@ -230,7 +237,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
           </div>
 
           {/* Sidebar */}
-          <div className="block space-y-6">
+          <div className="block min-w-0 space-y-6">
             {/* Contact Card */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -342,7 +349,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                 href={`/cars/${item._id}`}
                 className="group rounded-xl bg-white border border-gray-200/80 overflow-hidden hover:shadow-lg hover:shadow-gray-200/50 hover:border-gray-300/80 transition-all duration-300"
               >
-                <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden">
+                <div className="relative aspect-[3/2] bg-gray-100 overflow-hidden">
                   {item.images?.[0] ? (
                     <Image
                       src={item.images[0]}

@@ -1,8 +1,10 @@
 "use client";
 
 import { useCars, useFeaturedCars, useBrands } from "@/app/hooks/useCars";
+import { useInspections } from "@/app/hooks/useInspections";
 import { HeroSearch } from "@/app/components/sections/home/HeroSearch";
 import { InventoryRow } from "@/app/components/sections/home/InventoryRow";
+import { InspectionRow } from "@/app/components/sections/home/InspectionRow";
 import { ProcessSection } from "@/app/components/sections/home/ProcessSection";
 import { TrustSection } from "@/app/components/sections/home/TrustSection";
 import { StatsBand } from "@/app/components/sections/home/StatsBand";
@@ -23,6 +25,9 @@ export function SearchFirstLanding() {
   const { data: brandsData } = useBrands();
   const brands = brandsData?.brands || [];
 
+  const { data: inspectionsData } = useInspections({ limit: 8 });
+  const inspections = inspectionsData?.inspections || [];
+
   return (
     <>
       <HeroSearch />
@@ -41,6 +46,8 @@ export function SearchFirstLanding() {
           viewAllHref="/cars?sortBy=newest"
           cars={latestCars}
         />
+        {/* Renders nothing until real inspection media exists. */}
+        <InspectionRow inspections={inspections} />
         <ProcessSection />
         <TrustSection />
         <StatsBand carsInStock={latestData?.total} brandCount={brands.length} />

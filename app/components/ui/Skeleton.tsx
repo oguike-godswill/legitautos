@@ -3,7 +3,7 @@
 export function CarCardSkeleton() {
   return (
     <div className="rounded-xl overflow-hidden bg-white border border-gray-200/80 animate-pulse">
-      <div className="aspect-[4/3] bg-gray-100" />
+      <div className="aspect-[3/2] bg-gray-100" />
       <div className="p-4 space-y-2.5">
         <div className="h-5 bg-gray-100 rounded w-1/3" />
         <div className="h-4 bg-gray-100 rounded w-3/4" />
@@ -24,10 +24,10 @@ export function CarCardSkeleton() {
 export function CarDetailSkeleton() {
   return (
     <div className="animate-pulse space-y-6">
-      <div className="aspect-[16/10] bg-gray-100 rounded-xl" />
+      <div className="aspect-[3/2] bg-gray-100 rounded-xl" />
       <div className="grid grid-cols-4 gap-2">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="aspect-video bg-gray-100 rounded-lg" />
+          <div key={i} className="aspect-[3/2] bg-gray-100 rounded-lg" />
         ))}
       </div>
       <div className="space-y-3">
