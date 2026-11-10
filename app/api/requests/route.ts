@@ -24,7 +24,7 @@ const CreateRequestSchema = z.object({
   fuelType: z.enum(["petrol", "diesel", "hybrid", "electric", "any"]).default("any"),
   budgetFrom: toOptionalNum,
   budgetTo: toOptionalNum,
-  condition: z.enum(["new", "used", "certified", "any"]).default("any"),
+  condition: z.enum(["new", "used", "certified", "foreign-used", "nigerian-used", "any"]).default("any"),
   color: z.string().optional().or(z.literal("")),
   mileageMax: toOptionalNum,
   description: z.string().max(500).optional().or(z.literal("")),

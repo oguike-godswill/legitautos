@@ -6,6 +6,7 @@ import { requireAdmin } from "@/app/lib/auth";
 import { z } from "zod";
 import { isValidObjectId } from "mongoose";
 import { v2 as cloudinary } from "cloudinary";
+import { getInspectionPoster } from "@/app/config/media";
 
 /** Looks up an inspection by ObjectId or by id, returning null when absent. */
 async function findInspection(id: string) {
@@ -93,6 +94,14 @@ export async function PUT(
     const data = result.data;
     const update: Record<string, unknown> = { ...data };
 
+    if (data.thumbnailUrl && data.type === "video") {
+      update.thumbnailUrl = getInspectionPoster({
+        type: "video",
+        url: data.url,
+        thumbnailUrl: data.thumbnailUrl,
+      });
+    }
+
     // Re-resolve the car title whenever the link changes, so the denormalised
     // label never points at a stale listing.
     if (data.car !== undefined) {
@@ -113,7 +122,7 @@ export async function PUT(
     }
 
     const inspection = await Inspection.findByIdAndUpdate(id, update, {
-      new: true,
+      returnDocument: "after",
     }).lean();
 
     if (!inspection) {

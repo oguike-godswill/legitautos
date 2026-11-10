@@ -49,7 +49,7 @@ export function SectionHeader({
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="block text-[0.6rem] font-bold uppercase tracking-[0.2em] text-teal"
+          className="block text-xs font-bold uppercase tracking-[0.18em] text-teal"
         >
           {eyebrow}
         </motion.span>
@@ -58,7 +58,7 @@ export function SectionHeader({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.08 }}
-          className={`mt-2 text-xl sm:text-2xl lg:text-3xl font-bold uppercase leading-[1.15] tracking-[-0.02em] ${
+          className={`mt-2 text-2xl sm:text-3xl font-extrabold uppercase leading-[1.12] tracking-[-0.02em] ${
             isDark ? "text-white" : "text-dark-900"
           }`}
         >
@@ -70,9 +70,9 @@ export function SectionHeader({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.14 }}
-            className={`mt-4 text-sm leading-relaxed ${
+            className={`mt-3 text-sm leading-relaxed ${
               isCenter ? "mx-auto max-w-xl" : "max-w-xl"
-            } ${isDark ? "text-white/50" : "text-dark-500"}`}
+            } ${isDark ? "text-white/75" : "text-dark-500"}`}
           >
             {description}
           </motion.p>
@@ -83,7 +83,7 @@ export function SectionHeader({
         <Link
           href={linkHref}
           className={`group inline-flex shrink-0 items-center gap-2 text-xs font-bold transition-colors ${
-            isDark ? "text-white/60 hover:text-teal" : "text-dark-500 hover:text-teal"
+            isDark ? "text-white/80 hover:text-teal" : "text-dark-600 hover:text-teal"
           }`}
         >
           {linkLabel}

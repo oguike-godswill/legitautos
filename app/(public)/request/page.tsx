@@ -1,16 +1,23 @@
 import { Metadata } from "next";
 import { RequestForm } from "@/app/components/requests/RequestForm";
-import { Search, Clock, MessageCircle, Car } from "lucide-react";
+import {
+  Search,
+  Clock,
+  MessageCircle,
+  Car,
+  Compass,
+  CheckCircle2,
+} from "lucide-react";
 import { dealership, dealershipWhatsApp } from "@/app/config/dealership";
 
 export const metadata: Metadata = {
-  title: "Request a Car",
+  title: "Custom Car Sourcing — Request Any Vehicle",
   description:
-    "Can't find the car you want in our inventory? Tell us what you're looking for and the LegitAutos team will follow up.",
+    "Can't find your exact car specification in our inventory? Tell LegitAutos what you want and our Lagos sourcing team will locate and inspect it for you.",
   openGraph: {
     title: "Request a Car | LegitAutos",
     description:
-      "Tell us what you're looking for and the LegitAutos team will follow up.",
+      "Bespoke vehicle sourcing from the LegitAutos dealership in Lagos, Nigeria.",
     url: `${dealership.siteUrl}/request`,
     images: ["/og-image.jpg"],
   },
@@ -22,83 +29,82 @@ export const metadata: Metadata = {
 const howItWorks = [
   {
     icon: Search,
-    title: "Tell Us What You Want",
+    title: "Share Your Exact Spec",
     description:
-      "Fill out the form with your preferred brand, model, budget, and other requirements.",
+      "Select your preferred manufacturer, model, year bracket, condition, and target budget.",
   },
   {
     icon: Clock,
-    title: "We Review Your Request",
+    title: "We Check Incoming & Partner Stock",
     description:
-      "Our team reviews your request against our current and incoming stock.",
+      "Our sourcing team checks our port arrivals and vetted dealership network across Lagos.",
   },
   {
     icon: MessageCircle,
-    title: "We Follow Up",
+    title: "Receive Verified Options",
     description:
-      "If we have a match or an update, we contact you with details and pricing.",
+      "We send you real photos, walkaround videos, and landed pricing on WhatsApp.",
   },
   {
     icon: Car,
-    title: "View and Decide",
+    title: "Inspect at Our Showroom",
     description:
-      "Arrange a viewing, inspect the car in person, and decide with no pressure.",
+      "Inspect the vehicle physically at our Lagos lot before making any commitment.",
   },
 ];
 
 export default function RequestCarPage() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero */}
-      <div className="relative pt-32 pb-16 px-1.5 sm:px-8 lg:px-12 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]" />
-        </div>
-        <div className="max-w-[1400px] mx-auto relative z-10">
+    <div className="min-h-screen bg-[#F6F4EF]">
+      {/* Dark Architectural Hero */}
+      <div className="bg-[#0C0C0E] text-white pt-10 pb-12 px-4 sm:px-6 lg:px-8 border-b border-white/10">
+        <div className="max-w-[1400px] mx-auto">
           <div className="max-w-3xl">
-            <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em] block mb-4">Request a Car</span>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 leading-[0.95] tracking-tight">
-              Can&apos;t Find Your
-              <br />
-              <span className="italic text-dark-400">Dream Car?</span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#D9381E]/40 bg-[#D9381E]/15 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-[#D9381E] mb-4">
+              <Compass className="w-3.5 h-3.5" />
+              Bespoke Vehicle Sourcing
+            </span>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white leading-[1.1] tracking-tight">
+              Tell Us What You Want.{" "}
+              <span className="t-editorial text-[#D9381E]">We&apos;ll Source &amp; Vet It.</span>
             </h1>
-            <p className="mt-5 text-sm sm:text-base text-dark-500 leading-relaxed max-w-xl">
-              Tell us exactly what you&apos;re looking for — brand, model, budget,
-              year — and the {dealership.name} team will follow up when we have a
-              match in our stock or upcoming inventory.
+            <p className="mt-4 text-sm sm:text-base text-white/75 leading-relaxed max-w-xl">
+              Looking for a specific trim, exterior color, or clean Foreign Used import not yet on the showroom floor? Submit your brief below and our Lagos sourcing desk will locate it for you.
             </p>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="px-1.5 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
-        <div className="grid lg:grid-cols-5 gap-12">
+      <div className="px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto py-12 pb-24">
+        <div className="grid lg:grid-cols-12 gap-10">
           {/* Form */}
-          <div className="lg:col-span-3">
-            <div className="rounded-xl bg-white border border-gray-200/80 p-6 sm:p-8">
+          <div className="lg:col-span-7">
+            <div className="rounded-3xl bg-white border border-dark-900/[0.08] p-6 sm:p-8 shadow-xs">
               <RequestForm />
             </div>
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* How It Works */}
-            <div>
-              <h2 className="t-mono text-[0.55rem] text-dark-400 mb-5">
-                How It Works
+          <div className="lg:col-span-5 space-y-6">
+            <div className="rounded-3xl bg-white border border-dark-900/[0.08] p-6 sm:p-7 shadow-xs">
+              <h2 className="text-xs font-extrabold uppercase tracking-wider text-[#D9381E] mb-5">
+                How Custom Sourcing Works
               </h2>
               <div className="space-y-4">
                 {howItWorks.map((step) => (
-                  <div key={step.title} className="flex gap-4">
-                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <step.icon className="w-4 h-4 text-primary" />
+                  <div
+                    key={step.title}
+                    className="flex gap-4 rounded-2xl bg-[#F6F4EF] border border-dark-100 p-4"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-[#D9381E]/10 flex items-center justify-center shrink-0">
+                      <step.icon className="w-5 h-5 text-[#D9381E]" />
                     </div>
                     <div>
-                      <h3 className="text-sm font-semibold text-dark-800">
+                      <h3 className="text-sm font-bold text-dark-900">
                         {step.title}
                       </h3>
-                      <p className="text-sm text-dark-500 mt-0.5 leading-relaxed">
+                      <p className="text-xs text-dark-600 mt-1 leading-relaxed">
                         {step.description}
                       </p>
                     </div>
@@ -107,34 +113,35 @@ export default function RequestCarPage() {
               </div>
             </div>
 
-            {/* Trust Badge */}
-            <div className="rounded-xl bg-gray-50 border border-gray-200/80 p-5">
-              <h3 className="text-sm font-semibold text-dark-800 mb-3">
-                What Happens Next?
+            <div className="rounded-3xl bg-[#0C0C0E] text-white p-6 sm:p-7 border border-white/10">
+              <h3 className="text-base font-extrabold text-white mb-3">
+                Zero-Obligation Sourcing Guarantee
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-2.5 mb-6">
                 {[
-                  "Our team reviews every request personally.",
-                  "You hear from us only when we have something relevant.",
-                  "No obligation — a request is not a commitment to buy.",
-                  "Prefer to talk? Message us on WhatsApp instead.",
+                  "Every request is reviewed personally by our acquisition team.",
+                  "Every sourced car undergoes our 5-pillar mechanical check.",
+                  "Submitting a sourcing brief requires zero upfront deposit.",
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-sm text-dark-600">
-                    <div className="w-1.5 h-1.5 rounded-full bg-teal shrink-0" />
-                    {item}
+                  <li
+                    key={item}
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-white/80"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-[#C89D54] shrink-0 mt-0.5" />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
               <a
                 href={dealershipWhatsApp(
-                  `Hello, I'm looking for a car and would like to request it from ${dealership.name}.`
+                  `Hello ${dealership.name}, I'm looking to source a specific car.`
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#128C7E] text-white text-sm font-semibold hover:bg-[#0e7a6e] transition-colors"
+                className="flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#D9381E] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#B82B14] transition-colors"
               >
                 <MessageCircle className="w-4 h-4" />
-                Request on WhatsApp
+                Request Directly on WhatsApp
               </a>
             </div>
           </div>
@@ -143,4 +150,3 @@ export default function RequestCarPage() {
     </div>
   );
 }
-

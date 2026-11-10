@@ -1,24 +1,24 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Input } from "@/app/components/ui/Input";
 import { Select } from "@/app/components/ui/Select";
 import { Textarea } from "@/app/components/ui/Textarea";
 import { Button } from "@/app/components/ui/Button";
-import { CheckCircle2, Send } from "lucide-react";
+import { CheckCircle2, Send, Repeat } from "lucide-react";
 import Link from "next/link";
 import { dealership } from "@/app/config/dealership";
 
-/**
- * Sell / Trade-In enquiry form.
- *
- * This is a lead to the LegitAutos team — it does NOT create a public car
- * listing. Submissions go to the validated /api/contact endpoint and appear
- * in the dealership's message inbox.
- */
 export function SellForm() {
-  const [intent, setIntent] = useState<"sell" | "trade-in">("sell");
+  const searchParams = useSearchParams();
+  const tradeForParam = searchParams.get("tradeFor") || "";
+
+  const [intent, setIntent] = useState<"sell" | "trade-in">(
+    tradeForParam ? "trade-in" : "sell"
+  );
+  const [targetCar, setTargetCar] = useState(tradeForParam);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -32,13 +32,18 @@ export function SellForm() {
     const fd = new FormData(form);
     const get = (key: string) => (fd.get(key) as string | null)?.trim() || "";
 
-    const carLine = `${get("year")} ${get("brand")} ${get("model")} (${get("condition")}${
-      get("mileage") ? `, ${get("mileage")} km` : ""
-    })`;
+    const carLine = `${get("year")} ${get("brand")} ${get("model")} (${get(
+      "condition"
+    )}${get("mileage") ? `, ${get("mileage")} km` : ""})`;
 
     const lines = [
-      `I would like to ${intent === "sell" ? "sell" : "trade in"} my car with ${dealership.name}.`,
-      `Car: ${carLine}`,
+      `I would like to ${
+        intent === "sell" ? "sell" : "trade in"
+      } my car with ${dealership.name}.`,
+      `Customer Car: ${carLine}`,
+      intent === "trade-in" && targetCar
+        ? `Target Showroom Car for Swap: ${targetCar}`
+        : "",
       get("location") ? `Car location: ${get("location")}` : "",
       get("expectation") ? `Price expectation: ₦${get("expectation")}` : "",
       get("notes") ? `Notes: ${get("notes")}` : "",
@@ -46,9 +51,11 @@ export function SellForm() {
 
     const payload = {
       name: get("name"),
-      email: get("email"),
+      email: get("email") || "enquiry@legitautomobile.com",
       phone: get("phone"),
-      subject: `${intent === "sell" ? "Sell" : "Trade-In"} Enquiry — ${carLine}`,
+      subject: `${
+        intent === "sell" ? "Sell" : "Trade-In"
+      } Enquiry — ${carLine}`,
       message: lines.join("\n"),
     };
 
@@ -84,27 +91,28 @@ export function SellForm() {
         animate={{ opacity: 1, scale: 1 }}
         className="text-center py-12 px-6"
       >
-        <div className="w-16 h-16 bg-success-soft rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-16 h-16 bg-success-soft rounded-2xl flex items-center justify-center mx-auto mb-6">
           <CheckCircle2 className="w-8 h-8 text-success" />
         </div>
-        <h3 className="text-xl font-bold text-dark-900 mb-3">Enquiry Received!</h3>
+        <h3 className="text-xl font-extrabold text-dark-900 mb-3">
+          Valuation Enquiry Received!
+        </h3>
         <p className="text-sm text-dark-500 max-w-md mx-auto mb-8 leading-relaxed">
-          Thank you. Our team will review your details and get back to you to
-          discuss {intent === "sell" ? "a purchase" : "your trade-in"} — usually
-          within one business day.
+          Thank you. Our acquisition desk will review your vehicle details and
+          contact you to schedule a physical inspection and discuss{" "}
+          {intent === "sell" ? "an outright purchase" : "your trade-in swap"}.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button
             onClick={() => {
               setIsSuccess(false);
-              setIntent("sell");
             }}
             variant="ghost"
           >
-            Submit Another Enquiry
+            Submit Another Vehicle
           </Button>
           <Link href="/cars">
-            <Button>Browse Cars</Button>
+            <Button>Browse Showroom Inventory</Button>
           </Link>
         </div>
       </motion.div>
@@ -113,24 +121,24 @@ export function SellForm() {
 
   return (
     <form onSubmit={onSubmit} className="space-y-5">
-      {/* Intent */}
+      {/* Intent Selector */}
       <fieldset>
-        <legend className="block text-sm font-medium text-dark-700 mb-2">
-          I want to <span className="text-danger">*</span>
+        <legend className="block text-xs font-extrabold uppercase tracking-wider text-dark-500 mb-2">
+          Select Transaction Type <span className="text-danger">*</span>
         </legend>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 rounded-xl bg-dark-50 p-1.5">
           {(
             [
-              { value: "sell", label: "Sell My Car" },
-              { value: "trade-in", label: "Trade In" },
+              { value: "sell", label: "Sell Outright for Cash" },
+              { value: "trade-in", label: "Swap / Trade-In Car" },
             ] as const
           ).map((option) => (
             <label
               key={option.value}
-              className={`flex items-center justify-center px-4 py-3 rounded-lg text-sm font-medium cursor-pointer transition-all border ${
+              className={`flex items-center justify-center px-4 py-3 rounded-lg text-xs font-extrabold uppercase tracking-wider cursor-pointer transition-all ${
                 intent === option.value
-                  ? "bg-teal/10 text-teal border-teal/30"
-                  : "bg-white text-dark-600 border-gray-200 hover:border-gray-300"
+                  ? "bg-ink text-white shadow-xs"
+                  : "text-dark-600 hover:text-dark-900"
               }`}
             >
               <input
@@ -147,69 +155,122 @@ export function SellForm() {
         </div>
       </fieldset>
 
-      {/* Contact */}
+      {intent === "trade-in" && (
+        <div className="rounded-xl border border-teal/30 bg-teal/5 p-4">
+          <label
+            htmlFor="targetCar"
+            className="flex items-center gap-1.5 text-xs font-bold text-teal mb-1.5"
+          >
+            <Repeat className="h-3.5 w-3.5" />
+            Which LegitAutos car are you trading toward? (Optional)
+          </label>
+          <input
+            id="targetCar"
+            type="text"
+            value={targetCar}
+            onChange={(e) => setTargetCar(e.target.value)}
+            placeholder="e.g. 2021 Lexus RX 350 or any SUV under ₦25M"
+            className="w-full rounded-lg border border-teal/20 bg-white px-3.5 py-2 text-sm font-medium text-dark-900 focus:border-teal focus:outline-none"
+          />
+        </div>
+      )}
+
+      {/* Contact Details */}
       <div className="grid sm:grid-cols-2 gap-4">
         <Input
           label="Full Name"
           name="name"
           required
           minLength={2}
-          placeholder="Your name"
+          placeholder="Your full name"
         />
         <Input
-          label="Phone Number"
+          label="Phone / WhatsApp Number"
           name="phone"
           type="tel"
           required
           placeholder="+234 800 000 0000"
         />
       </div>
-      <Input label="Email (optional)" name="email" type="email" placeholder="you@example.com" />
+      <Input
+        label="Email Address"
+        name="email"
+        type="email"
+        required
+        placeholder="you@example.com"
+      />
 
-      {/* Car */}
+      {/* Vehicle Info */}
       <div className="grid sm:grid-cols-2 gap-4">
-        <Input label="Car Brand" name="brand" required placeholder="e.g. Toyota" />
-        <Input label="Model" name="model" required placeholder="e.g. Camry" />
+        <Input
+          label="Your Car Brand"
+          name="brand"
+          required
+          placeholder="e.g. Toyota"
+        />
+        <Input
+          label="Model & Trim"
+          name="model"
+          required
+          placeholder="e.g. Camry XLE"
+        />
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <Input label="Year" name="year" type="number" required min={1990} max={new Date().getFullYear() + 1} placeholder="2018" />
+        <Input
+          label="Model Year"
+          name="year"
+          type="number"
+          required
+          min={1995}
+          max={new Date().getFullYear() + 1}
+          placeholder="2019"
+        />
         <Select
-          label="Condition"
+          label="Usage History"
           name="condition"
           options={[
-            { value: "new", label: "New" },
-            { value: "used", label: "Used" },
-            { value: "certified", label: "Certified" },
+            { value: "foreign-used", label: "Foreign Used (Tokunbo)" },
+            { value: "nigerian-used", label: "Nigerian Used (Registered)" },
+            { value: "new", label: "Brand New" },
           ]}
         />
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <Input label="Mileage (km, optional)" name="mileage" type="number" min={0} placeholder="65000" />
-        <Input label="Location (optional)" name="location" placeholder="Lagos" />
+        <Input
+          label="Mileage (km, optional)"
+          name="mileage"
+          type="number"
+          min={0}
+          placeholder="65000"
+        />
+        <Input
+          label="Current Location"
+          name="location"
+          placeholder="e.g. Lekki, Lagos"
+        />
       </div>
       <Input
-        label="Your Price Expectation (optional)"
+        label="Your Asking / Valuation Expectation (₦, optional)"
         name="expectation"
         type="number"
         min={0}
-        placeholder="e.g. 4500000"
+        placeholder="e.g. 12500000"
       />
       <Textarea
-        label="Anything else? (optional)"
+        label="Condition & Document Notes (optional)"
         name="notes"
         rows={3}
-        placeholder="Condition details, history, or questions for our team..."
+        placeholder="Share engine/gear condition, customs duty status, or service history..."
       />
 
-      <p className="text-xs text-dark-400 leading-relaxed">
-        By submitting, you agree to be contacted by the {dealership.name} team
-        about your enquiry. We use your details only to respond to you.
-      </p>
+      {error && <p className="text-sm font-semibold text-danger">{error}</p>}
 
-      {error && <p className="text-sm text-danger">{error}</p>}
-
-      <Button type="submit" isLoading={isSubmitting} leftIcon={<Send className="w-4 h-4" />}>
-        Send Enquiry
+      <Button
+        type="submit"
+        isLoading={isSubmitting}
+        leftIcon={<Send className="w-4 h-4" />}
+      >
+        Submit Valuation Request
       </Button>
     </form>
   );

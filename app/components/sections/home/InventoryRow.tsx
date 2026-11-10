@@ -15,10 +15,6 @@ interface InventoryRowProps {
   className?: string;
 }
 
-/**
- * Standard homepage inventory row: section header plus a 5-up grid on large
- * screens. Shows at most ten cars so the two rows always fill completely.
- */
 export function InventoryRow({
   eyebrow,
   title,
@@ -32,7 +28,7 @@ export function InventoryRow({
 
   return (
     <section
-      className={`border-t border-dark-900/[0.06] py-16 sm:py-20 px-2 sm:px-8 lg:px-12 ${className}`}
+      className={`border-t border-dark-900/[0.06] py-14 sm:py-20 px-4 sm:px-6 lg:px-8 ${className}`}
     >
       <div className="mx-auto max-w-[1400px]">
         <SectionHeader
@@ -43,9 +39,9 @@ export function InventoryRow({
           linkLabel={viewAllLabel}
         />
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-5">
-          {cars.slice(0, 10).map((car, i) => (
-            <CarCard key={car._id} car={car} index={i} />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {cars.slice(0, 8).map((car, i) => (
+            <CarCard key={car._id} car={car} index={i} priority={i < 2} />
           ))}
         </div>
       </div>

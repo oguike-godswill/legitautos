@@ -5,6 +5,7 @@ import { Car } from "@/app/models/Car";
 import { requireAdmin } from "@/app/lib/auth";
 import { z } from "zod";
 import { isValidObjectId } from "mongoose";
+import { getInspectionPoster } from "@/app/config/media";
 
 const QuerySchema = z.object({
   type: z.enum(["video", "image"]).optional(),
@@ -59,6 +60,7 @@ export async function GET(request: NextRequest) {
         ...item,
         _id: item._id.toString(),
         car: item.car?.toString(),
+        thumbnailUrl: getInspectionPoster(item) || item.thumbnailUrl,
       })),
       total,
       page: query.page,
@@ -122,10 +124,15 @@ export async function POST(request: NextRequest) {
       carTitle = car.title;
     }
 
+    const safeThumbnail =
+      data.type === "video"
+        ? getInspectionPoster({ type: "video", url: data.url, thumbnailUrl: data.thumbnailUrl })
+        : data.thumbnailUrl;
+
     const inspection = await Inspection.create({
       ...data,
       description: data.description || undefined,
-      thumbnailUrl: data.thumbnailUrl || undefined,
+      thumbnailUrl: safeThumbnail || undefined,
       car: data.car || undefined,
       carTitle,
     });

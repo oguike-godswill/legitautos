@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Pencil, Trash2, Film, ImageIcon, Play } from "lucide-react";
 import { Inspection } from "@/app/types";
 import { useDeleteInspection } from "@/app/hooks/useInspections";
+import { getInspectionPoster } from "@/app/config/media";
 
 interface AdminInspectionTableProps {
   inspections: Inspection[];
@@ -64,8 +65,7 @@ export function AdminInspectionTable({
           </thead>
           <tbody className="divide-y divide-gray-100">
             {inspections.map((item, index) => {
-              const poster =
-                item.thumbnailUrl || (item.type === "image" ? item.url : null);
+              const poster = getInspectionPoster(item);
               const duration = formatDuration(item.duration);
 
               return (

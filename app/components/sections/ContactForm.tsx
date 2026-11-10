@@ -52,17 +52,16 @@ export function ContactForm() {
   if (isSuccess) {
     return (
       <div className="text-center py-10">
-        <div className="w-14 h-14 bg-success-soft rounded-full flex items-center justify-center mx-auto mb-5">
-          <CheckCircle2 className="w-7 h-7 text-success" />
+        <div className="w-14 h-14 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center justify-center mx-auto mb-5">
+          <CheckCircle2 className="w-7 h-7 text-emerald-600" />
         </div>
-        <h3 className="text-lg font-bold text-dark-900 mb-2">Message Sent!</h3>
+        <h3 className="text-xl font-black text-dark-900 mb-2">Message Received!</h3>
         <p className="text-sm text-dark-500 max-w-sm mx-auto mb-6">
-          Thank you for reaching out. Our team will review your message and get
-          back to you as soon as possible.
+          Thank you for contacting LegitAutos. Our Lagos showroom team will review your message and respond shortly.
         </p>
         <button
           onClick={() => setIsSuccess(false)}
-          className="text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
+          className="text-sm font-bold text-teal hover:underline transition-colors cursor-pointer"
         >
           Send Another Message
         </button>
@@ -74,83 +73,88 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-dark-700 mb-1.5">
-            Name <span className="text-danger">*</span>
+          <label htmlFor="contact-name" className="block text-sm font-semibold text-dark-700 mb-1.5">
+            Full Name <span className="text-danger">*</span>
           </label>
           <input
+            id="contact-name"
             name="name"
             required
             minLength={2}
-            placeholder="Your name"
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 text-sm text-dark-900 placeholder:text-dark-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+            placeholder="Your full name"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-dark-900 placeholder:text-dark-400 focus:outline-none focus:ring-2 focus:ring-teal/20 focus:border-teal transition-all"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-dark-700 mb-1.5">
-            Email <span className="text-danger">*</span>
+          <label htmlFor="contact-email" className="block text-sm font-semibold text-dark-700 mb-1.5">
+            Email Address <span className="text-danger">*</span>
           </label>
           <input
+            id="contact-email"
             name="email"
             type="email"
             required
             placeholder="you@example.com"
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 text-sm text-dark-900 placeholder:text-dark-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-dark-900 placeholder:text-dark-400 focus:outline-none focus:ring-2 focus:ring-teal/20 focus:border-teal transition-all"
           />
         </div>
       </div>
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-dark-700 mb-1.5">
-            Phone (optional)
+          <label htmlFor="contact-phone" className="block text-sm font-semibold text-dark-700 mb-1.5">
+            Phone / WhatsApp Number
           </label>
           <input
+            id="contact-phone"
             name="phone"
             placeholder="+234 800 000 0000"
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 text-sm text-dark-900 placeholder:text-dark-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-dark-900 placeholder:text-dark-400 focus:outline-none focus:ring-2 focus:ring-teal/20 focus:border-teal transition-all"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-dark-700 mb-1.5">
+          <label htmlFor="contact-subject" className="block text-sm font-semibold text-dark-700 mb-1.5">
             Subject <span className="text-danger">*</span>
           </label>
           <input
+            id="contact-subject"
             name="subject"
             required
             minLength={2}
-            placeholder="How can we help?"
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 text-sm text-dark-900 placeholder:text-dark-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+            placeholder="e.g., Inspection Booking / Trade-In"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-dark-900 placeholder:text-dark-400 focus:outline-none focus:ring-2 focus:ring-teal/20 focus:border-teal transition-all"
           />
         </div>
       </div>
       <div>
-        <label className="block text-sm font-medium text-dark-700 mb-1.5">
+        <label htmlFor="contact-message" className="block text-sm font-semibold text-dark-700 mb-1.5">
           Message <span className="text-danger">*</span>
         </label>
         <textarea
+          id="contact-message"
           name="message"
           required
           minLength={10}
           rows={4}
-          placeholder="Tell us more..."
-          className="w-full px-4 py-3 rounded-lg border border-gray-200 text-sm text-dark-900 placeholder:text-dark-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
+          placeholder="Tell us which vehicle or service you're inquiring about..."
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-dark-900 placeholder:text-dark-400 focus:outline-none focus:ring-2 focus:ring-teal/20 focus:border-teal transition-all resize-none"
         />
       </div>
 
       {error && (
-        <p className="text-sm text-danger">{error}</p>
+        <p className="text-sm text-danger font-medium">{error}</p>
       )}
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-ink text-white text-sm font-bold rounded-xl hover:bg-teal disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
       >
         {isSubmitting ? (
           <Loader2 className="w-4 h-4 animate-spin" />
         ) : (
           <Send className="w-4 h-4" />
         )}
-        {isSubmitting ? "Sending..." : "Send Message"}
+        {isSubmitting ? "Sending Message..." : "Send Message"}
       </button>
     </form>
   );

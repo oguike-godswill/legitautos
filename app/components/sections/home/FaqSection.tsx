@@ -16,7 +16,7 @@ export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="border-t border-dark-900/[0.06] bg-ivory py-16 sm:py-20 px-2 sm:px-8 lg:px-12">
+    <section className="border-t border-dark-900/[0.06] bg-ivory py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-[1400px]">
         <SectionHeader
           eyebrow="FAQ"

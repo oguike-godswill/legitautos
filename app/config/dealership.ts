@@ -22,11 +22,11 @@ export const dealership = {
   whatsapp: process.env.NEXT_PUBLIC_DEALERSHIP_WHATSAPP || "+2348171017509",
   email: process.env.NEXT_PUBLIC_DEALERSHIP_EMAIL || "legitventure04@gmail.com",
   address: {
-    area: "Victoria Island",
+    area: "Lagos",
     city: "Lagos",
     country: "Nigeria",
     get display(): string {
-      return `${this.area}, ${this.city}, ${this.country}`;
+      return `${this.city}, ${this.country}`;
     },
   },
   openingHours: "Mon - Sat: 8AM - 6PM WAT",

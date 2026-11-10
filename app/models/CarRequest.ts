@@ -14,7 +14,7 @@ export interface ICarRequest {
   fuelType?: "petrol" | "diesel" | "hybrid" | "electric" | "any";
   budgetFrom?: number;
   budgetTo?: number;
-  condition?: "new" | "used" | "certified" | "any";
+  condition?: "new" | "used" | "certified" | "foreign-used" | "nigerian-used" | "any";
   color?: string;
   mileageMax?: number;
   description?: string;
@@ -39,7 +39,7 @@ const CarRequestSchema = new Schema<ICarRequest>(
     fuelType: { type: String, enum: ["petrol", "diesel", "hybrid", "electric", "any"], default: "any" },
     budgetFrom: { type: Number, min: 0 },
     budgetTo: { type: Number, min: 0 },
-    condition: { type: String, enum: ["new", "used", "certified", "any"], default: "any" },
+    condition: { type: String, enum: ["new", "used", "certified", "foreign-used", "nigerian-used", "any"], default: "any" },
     color: { type: String },
     mileageMax: { type: Number, min: 0 },
     description: { type: String },

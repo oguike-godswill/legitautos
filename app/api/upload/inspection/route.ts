@@ -152,11 +152,9 @@ export async function POST(request: NextRequest) {
         eager: [{ width: 1280, height: 720, crop: "limit", quality: "auto" }],
       });
 
-      const poster =
-        result.eager?.[0]?.secure_url ||
-        // Cloudinary derives a jpg poster from any video frame with this
-        // suffix pattern. Drop the extension and ask for a .jpg instead.
-        result.secure_url.replace(/\.[a-z0-9]+$/i, ".jpg");
+      // Cloudinary delivers a crisp JPEG poster from any video file by requesting
+      // the asset with a .jpg extension. Never store the .mp4 stream as thumbnailUrl.
+      const poster = result.secure_url.replace(/\.[a-z0-9]+$/i, ".jpg");
 
       return NextResponse.json({
         type: "video" as const,

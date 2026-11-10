@@ -1,60 +1,57 @@
 import Link from "next/link";
-import { Home, Car, Users, ArrowRight } from "lucide-react";
+import { Home, Car, Sparkles, ArrowRight, Compass } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
-      <div className="flex items-center">
-        <div className="w-[280px] h-[340px] flex items-center justify-center">
-          <span className="text-[29rem] font-normal text-white leading-none select-none" style={{ fontFamily: 'Bungee, cursive' }}>
-            4
-          </span>
+    <div className="min-h-screen bg-[#070B14] text-white flex items-center justify-center px-4 py-16 relative overflow-hidden">
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-teal/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="max-w-lg w-full bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-8 sm:p-10 text-center relative z-10">
+        <div className="w-14 h-14 rounded-2xl bg-teal/15 border border-teal/30 text-teal flex items-center justify-center mx-auto mb-6">
+          <Compass className="w-7 h-7" />
         </div>
+        <span className="t-mono text-xs font-bold uppercase tracking-[0.2em] text-teal block mb-2">
+          Error 404 • Off Route
+        </span>
+        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white mb-3">
+          Vehicle or Page Not Found
+        </h1>
+        <p className="text-sm text-white/60 leading-relaxed mb-8">
+          The listing or page you&apos;re looking for may have been sold, moved, or had its URL updated. Explore our live Lagos inventory below.
+        </p>
 
-        <div className="w-[280px] h-[340px] bg-white rounded-2xl border border-gray-200 px-6 py-12 flex flex-col justify-center text-center">
-          <h1 className="text-xl font-bold text-dark-900 mb-2">Page Not Found</h1>
-          <p className="text-sm text-dark-500 mb-8">The page you&apos;re looking for doesn&apos;t exist.</p>
+        <div className="space-y-3 text-left">
+          <Link
+            href="/cars"
+            className="group flex items-center justify-between rounded-2xl bg-teal px-5 py-4 text-white font-bold hover:bg-teal-600 transition-all"
+          >
+            <div className="flex items-center gap-3">
+              <Car className="w-5 h-5" />
+              <span className="text-sm">Browse Live Showroom Inventory</span>
+            </div>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
 
-          <div className="space-y-2">
-            <Link
-              href="/"
-              className="group flex items-center justify-between rounded-xl bg-primary/5 px-4 py-3 hover:bg-primary/10 transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <Home className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-dark-800">Home</span>
-              </div>
-              <ArrowRight className="w-4 h-4 text-primary group-hover:translate-x-0.5 transition-transform" />
-            </Link>
+          <Link
+            href="/request"
+            className="group flex items-center justify-between rounded-2xl bg-white/[0.06] border border-white/10 px-5 py-3.5 text-white hover:bg-white/10 transition-all"
+          >
+            <div className="flex items-center gap-3">
+              <Sparkles className="w-4 h-4 text-teal" />
+              <span className="text-sm font-semibold">Request a Specific Vehicle</span>
+            </div>
+            <ArrowRight className="w-4 h-4 text-white/50 group-hover:translate-x-1 transition-transform" />
+          </Link>
 
-            <Link
-              href="/cars"
-              className="group flex items-center justify-between rounded-xl bg-primary/5 px-4 py-3 hover:bg-primary/10 transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <Car className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-dark-800">Browse Cars</span>
-              </div>
-              <ArrowRight className="w-4 h-4 text-primary group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-
-            <Link
-              href="/about"
-              className="group flex items-center justify-between rounded-xl bg-primary/5 px-4 py-3 hover:bg-primary/10 transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <Users className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-dark-800">About Us</span>
-              </div>
-              <ArrowRight className="w-4 h-4 text-primary group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-          </div>
-        </div>
-
-        <div className="w-[280px] h-[340px] flex items-center justify-center">
-          <span className="text-[29rem] font-normal text-white leading-none select-none" style={{ fontFamily: 'Bungee, cursive' }}>
-            4
-          </span>
+          <Link
+            href="/"
+            className="group flex items-center justify-between rounded-2xl bg-white/[0.04] border border-white/10 px-5 py-3.5 text-white/80 hover:text-white hover:bg-white/10 transition-all"
+          >
+            <div className="flex items-center gap-3">
+              <Home className="w-4 h-4 text-teal" />
+              <span className="text-sm font-semibold">Return to Showroom Home</span>
+            </div>
+            <ArrowRight className="w-4 h-4 text-white/50 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </div>
     </div>

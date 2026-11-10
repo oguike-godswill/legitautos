@@ -39,28 +39,36 @@ export function CarForm({ car, mode = "create" }: CarFormProps) {
           title: car.title,
           brand: car.brand,
           model: car.model,
+          trim: car.trim || "",
           year: car.year,
           price: car.price,
           originalPrice: car.originalPrice,
           mileage: car.mileage,
           transmission: car.transmission,
           fuelType: car.fuelType,
+          bodyType: car.bodyType || "suv",
+          drivetrain: car.drivetrain || "awd",
           engineSize: car.engineSize,
           color: car.color,
+          interiorColor: car.interiorColor || "",
           condition: car.condition,
-          description: car.description,
-          features: car.features.join(", "),
-          location: car.location,
+          customsPaid: car.customsPaid ?? true,
+          description: car.description || "",
+          features: (car.features || []).join(", "),
+          location: car.location || "Lagos, Nigeria",
           status: car.status,
           featured: car.featured,
         }
       : {
           status: "available",
+          condition: "foreign-used",
+          bodyType: "suv",
+          drivetrain: "awd",
+          customsPaid: true,
           featured: false,
           year: new Date().getFullYear(),
           mileage: 0,
-          features: "", // empty string for new car
-
+          features: "",
         },
   });
 
@@ -103,20 +111,19 @@ export function CarForm({ car, mode = "create" }: CarFormProps) {
           </Link>
           <div>
             <h1 className="text-2xl font-bold text-dark-900">
-              {mode === "edit" ? "Edit Car" : "Add New Car"}
+              {mode === "edit" ? "Edit Vehicle Listing" : "Add New Vehicle"}
             </h1>
             <p className="text-sm text-dark-500">
-              {mode === "edit" ? "Update car details" : "Fill in the details to list a new car"}
+              {mode === "edit" ? "Update vehicle specifications, pricing, and status" : "Fill in the details to publish a new vehicle to the showroom"}
             </p>
           </div>
         </div>
         <Button
           type="submit"
-          className=""
           isLoading={isSubmitting}
           leftIcon={<Save className="w-4 h-4" />}
         >
-          {mode === "edit" ? "Update Car" : "Create Listing"}
+          {mode === "edit" ? "Update Listing" : "Publish Vehicle"}
         </Button>
       </div>
 
@@ -125,25 +132,31 @@ export function CarForm({ car, mode = "create" }: CarFormProps) {
         <div className="lg:col-span-2 space-y-6">
           {/* Basic Info */}
           <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-5">
-            <h2 className="text-lg font-semibold text-dark-900">Basic Information</h2>
+            <h2 className="text-lg font-semibold text-dark-900">Vehicle Identity</h2>
             <div className="grid sm:grid-cols-2 gap-4">
               <Input
-                label="Title"
-                placeholder="e.g., Toyota Camry 2020 LE"
+                label="Listing Title"
+                placeholder="e.g., 2021 Lexus RX 350 F-Sport"
                 error={errors.title?.message}
                 {...register("title")}
               />
               <Input
-                label="Brand"
-                placeholder="e.g., Toyota"
+                label="Brand / Make"
+                placeholder="e.g., Lexus"
                 error={errors.brand?.message}
                 {...register("brand")}
               />
               <Input
                 label="Model"
-                placeholder="e.g., Camry"
+                placeholder="e.g., RX 350"
                 error={errors.model?.message}
                 {...register("model")}
+              />
+              <Input
+                label="Trim / Edition (optional)"
+                placeholder="e.g., F-Sport, AMG Line, XSE"
+                error={errors.trim?.message}
+                {...register("trim")}
               />
               <Input
                 label="Year"
@@ -151,36 +164,51 @@ export function CarForm({ car, mode = "create" }: CarFormProps) {
                 error={errors.year?.message}
                 {...register("year")}
               />
+              <Select
+                label="Body Type"
+                error={errors.bodyType?.message}
+                options={[
+                  { value: "suv", label: "SUV / Crossover" },
+                  { value: "sedan", label: "Executive Sedan" },
+                  { value: "pickup", label: "Pickup / Truck" },
+                  { value: "coupe", label: "Coupe / Performance" },
+                  { value: "hatchback", label: "Hatchback" },
+                  { value: "van", label: "Bus / Van / MPV" },
+                  { value: "convertible", label: "Convertible" },
+                  { value: "wagon", label: "Wagon" },
+                ]}
+                {...register("bodyType")}
+              />
               <Input
-                label="Color"
-                placeholder="e.g., Silver Metallic"
+                label="Exterior Color"
+                placeholder="e.g., Obsidian Black"
                 error={errors.color?.message}
                 {...register("color")}
               />
               <Input
-                label="Engine Size"
-                placeholder="e.g., 2.5L"
-                error={errors.engineSize?.message}
-                {...register("engineSize")}
+                label="Interior Color (optional)"
+                placeholder="e.g., Rioja Red Leather"
+                error={errors.interiorColor?.message}
+                {...register("interiorColor")}
               />
             </div>
           </div>
 
           {/* Pricing */}
           <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-5">
-            <h2 className="text-lg font-semibold text-dark-900">Pricing</h2>
+            <h2 className="text-lg font-semibold text-dark-900">Pricing (Naira)</h2>
             <div className="grid sm:grid-cols-2 gap-4">
               <Input
-                label="Price (₦)"
+                label="Asking Price (₦)"
                 type="number"
-                placeholder="e.g., 8500000"
+                placeholder="e.g., 28500000"
                 error={errors.price?.message}
                 {...register("price")}
               />
               <Input
-                label="Original Price (₦)"
+                label="Previous Price (₦ - optional for Price Drop badge)"
                 type="number"
-                placeholder="e.g., 9500000"
+                placeholder="e.g., 31000000"
                 error={errors.originalPrice?.message}
                 {...register("originalPrice")}
               />
@@ -189,8 +217,21 @@ export function CarForm({ car, mode = "create" }: CarFormProps) {
 
           {/* Specifications */}
           <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-5">
-            <h2 className="text-lg font-semibold text-dark-900">Specifications</h2>
+            <h2 className="text-lg font-semibold text-dark-900">Mechanical Specifications &amp; Origin</h2>
             <div className="grid sm:grid-cols-2 gap-4">
+              <Select
+                label="Vehicle Condition / Origin"
+                error={errors.condition?.message}
+                options={[
+                  { value: "", label: "Select condition" },
+                  { value: "foreign-used", label: "Foreign Used (Tokunbo)" },
+                  { value: "new", label: "Brand New" },
+                  { value: "nigerian-used", label: "Nigerian Used" },
+                  { value: "certified", label: "Certified Pre-Owned" },
+                  { value: "used", label: "Used" },
+                ]}
+                {...register("condition")}
+              />
               <Input
                 label="Mileage (km)"
                 type="number"
@@ -209,44 +250,50 @@ export function CarForm({ car, mode = "create" }: CarFormProps) {
                 {...register("transmission")}
               />
               <Select
-                label="Fuel Type"
+                label="Fuel / Powertrain"
                 error={errors.fuelType?.message}
                 options={[
                   { value: "", label: "Select fuel type" },
                   { value: "petrol", label: "Petrol" },
-                  { value: "diesel", label: "Diesel" },
                   { value: "hybrid", label: "Hybrid" },
+                  { value: "diesel", label: "Diesel" },
                   { value: "electric", label: "Electric" },
                 ]}
                 {...register("fuelType")}
               />
+              <Input
+                label="Engine Size"
+                placeholder="e.g., 3.5L V6"
+                error={errors.engineSize?.message}
+                {...register("engineSize")}
+              />
               <Select
-                label="Condition"
-                error={errors.condition?.message}
+                label="Drivetrain"
+                error={errors.drivetrain?.message}
                 options={[
-                  { value: "", label: "Select condition" },
-                  { value: "new", label: "New" },
-                  { value: "used", label: "Used" },
-                  { value: "certified", label: "Certified Pre-Owned" },
+                  { value: "awd", label: "AWD (All-Wheel Drive)" },
+                  { value: "4wd", label: "4WD / 4x4" },
+                  { value: "fwd", label: "FWD (Front-Wheel Drive)" },
+                  { value: "rwd", label: "RWD (Rear-Wheel Drive)" },
                 ]}
-                {...register("condition")}
+                {...register("drivetrain")}
               />
             </div>
           </div>
 
           {/* Description */}
           <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-5">
-            <h2 className="text-lg font-semibold text-dark-900">Description</h2>
+            <h2 className="text-lg font-semibold text-dark-900">Showroom Notes &amp; Features</h2>
             <Textarea
-              label="Car Description"
-              placeholder="Describe the car in detail..."
+              label="Vehicle Description"
+              placeholder="Describe vehicle history, condition, trim highlights, and inspection notes..."
               rows={5}
               error={errors.description?.message}
               {...register("description")}
             />
             <Input
-              label="Features (comma separated)"
-              placeholder="e.g., Sunroof, Leather Seats, Backup Camera, Bluetooth"
+              label="Key Features (comma separated)"
+              placeholder="e.g., Panoramic Roof, 360 Camera, Apple CarPlay, Ventilated Leather Seats, Blind Spot Monitor"
               helperText="Separate features with commas"
               error={errors.features?.message}
               {...register("features")}
@@ -255,7 +302,7 @@ export function CarForm({ car, mode = "create" }: CarFormProps) {
 
           {/* Images */}
           <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-5">
-            <h2 className="text-lg font-semibold text-dark-900">Images</h2>
+            <h2 className="text-lg font-semibold text-dark-900">Showroom Photography</h2>
             <ImageUploader
               images={uploadedImages}
               onImagesChange={setUploadedImages}
@@ -267,10 +314,10 @@ export function CarForm({ car, mode = "create" }: CarFormProps) {
         <div className="space-y-6">
           {/* Location */}
           <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-5">
-            <h2 className="text-lg font-semibold text-dark-900">Location</h2>
+            <h2 className="text-lg font-semibold text-dark-900">Showroom Location</h2>
             <Input
               label="Location"
-              placeholder="e.g., Victoria Island, Lagos"
+              placeholder="e.g., Lagos, Nigeria"
               error={errors.location?.message}
               {...register("location")}
             />
@@ -278,20 +325,24 @@ export function CarForm({ car, mode = "create" }: CarFormProps) {
 
           {/* Settings */}
           <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-5">
-            <h2 className="text-lg font-semibold text-dark-900">Settings</h2>
+            <h2 className="text-lg font-semibold text-dark-900">Listing Status &amp; Verification</h2>
             <div className="space-y-4">
               <Select
-                label="Status"
+                label="Availability Status"
                 options={[
                   { value: "available", label: "Available" },
-                  { value: "sold", label: "Sold" },
                   { value: "reserved", label: "Reserved" },
+                  { value: "sold", label: "Sold" },
                 ]}
                 {...register("status")}
               />
               <Checkbox
-                label="Featured Listing"
+                label="Featured on Homepage Spotlight"
                 {...register("featured")}
+              />
+              <Checkbox
+                label="Full Customs Duty Verified"
+                {...register("customsPaid")}
               />
             </div>
           </div>

@@ -80,7 +80,7 @@ export function StatsBand({ carsInStock, brandCount }: StatsBandProps) {
   if (stats.length === 0) return null;
 
   return (
-    <section className="px-2 py-16 sm:px-8 sm:py-20 lg:px-12">
+    <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-[1400px]">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -95,13 +95,13 @@ export function StatsBand({ carsInStock, brandCount }: StatsBandProps) {
 
           <div className="relative grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-5">
-              <span className="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-teal">
+              <span className="text-xs font-bold uppercase tracking-[0.18em] text-teal">
                 Live Inventory
               </span>
-              <h2 className="mt-3 text-xl font-bold uppercase leading-[1.15] tracking-[-0.02em] text-white sm:text-2xl">
+              <h2 className="mt-3 text-2xl font-extrabold uppercase leading-[1.15] tracking-[-0.02em] text-white sm:text-3xl">
                 What&apos;s on the lot right now
               </h2>
-              <p className="mt-4 max-w-md text-sm leading-relaxed text-white/50">
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-white/75">
                 These counts come straight from our listings, so the numbers move
                 as cars arrive and sell. Every car page shows its own live
                 availability.
@@ -120,7 +120,7 @@ export function StatsBand({ carsInStock, brandCount }: StatsBandProps) {
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-6 py-3 text-sm font-bold text-white/80 transition-colors hover:border-white/30 hover:text-white"
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/20 px-6 py-3 text-sm font-bold text-white/90 transition-colors hover:border-white/40 hover:text-white"
                 >
                   <MessageCircle className="h-4 w-4" />
                   Ask on WhatsApp
@@ -137,10 +137,10 @@ export function StatsBand({ carsInStock, brandCount }: StatsBandProps) {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.1 + i * 0.1 }}
-                    className="border-l border-white/10 pl-5 sm:pl-8"
+                    className="border-l border-white/15 pl-5 sm:pl-8"
                   >
                     <CountUp target={stat.value} />
-                    <p className="mt-3 text-xs uppercase tracking-wider text-white/40">
+                    <p className="mt-3 text-xs font-semibold uppercase tracking-wider text-white/70">
                       {stat.label}
                     </p>
                   </motion.div>

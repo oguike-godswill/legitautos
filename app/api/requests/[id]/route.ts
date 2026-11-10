@@ -35,7 +35,7 @@ export async function PUT(
     const updated = await CarRequest.findByIdAndUpdate(
       id,
       { status: result.data.status },
-      { new: true }
+      { returnDocument: "after" }
     ).lean();
 
     if (!updated) {

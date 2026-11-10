@@ -25,7 +25,9 @@ async function getStats() {
 async function getRecentCars() {
   await dbConnect();
   const cars = await Car.find({}).sort({ createdAt: -1 }).limit(10).lean();
-  return cars.map((car) => ({ ...car, _id: car._id.toString() }));
+  return JSON.parse(
+    JSON.stringify(cars.map((car) => ({ ...car, _id: car._id.toString() })))
+  );
 }
 
 async function getRecentInspections() {

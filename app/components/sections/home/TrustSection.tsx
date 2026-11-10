@@ -30,12 +30,10 @@ const REASONS = [
 
 export function TrustSection() {
   return (
-    <section className="border-t border-dark-900/[0.06] py-16 sm:py-20 px-2 sm:px-8 lg:px-12 relative overflow-hidden">
+    <section className="border-t border-dark-900/[0.06] py-16 sm:py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-80 h-80 bg-gradient-to-br from-teal/20 to-transparent rounded-full blur-[120px]" />
-        <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-teal/20 to-transparent rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-teal/20 to-transparent rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-teal/20 to-transparent rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-0 w-80 h-80 bg-gradient-to-br from-teal/15 to-transparent rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-teal/15 to-transparent rounded-full blur-[120px]" />
       </div>
       <div className="max-w-[1400px] mx-auto relative z-10">
         <SectionHeader
@@ -46,7 +44,7 @@ export function TrustSection() {
           linkLabel="More about LegitAutos"
           align="center"
         />
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {REASONS.map((item, i) => (
             <motion.div
               key={item.title}
@@ -54,12 +52,12 @@ export function TrustSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: Math.min(i, 4) * 0.08 }}
-              className="text-center"
+              className="rounded-2xl border border-dark-900/[0.07] bg-white p-6 text-center shadow-xs"
             >
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-teal/10">
                 <item.icon className="h-6 w-6 text-teal" />
               </div>
-              <h3 className="mb-2 text-lg font-bold text-dark-900">{item.title}</h3>
+              <h3 className="mb-2 text-base font-bold text-dark-900">{item.title}</h3>
               <p className="mx-auto max-w-[280px] text-sm leading-relaxed text-dark-500">
                 {item.desc}
               </p>

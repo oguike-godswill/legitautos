@@ -1,19 +1,44 @@
 
+export type CarBodyType =
+  | "suv"
+  | "sedan"
+  | "coupe"
+  | "pickup"
+  | "hatchback"
+  | "van"
+  | "convertible"
+  | "wagon";
+
+export type CarCondition =
+  | "new"
+  | "used"
+  | "certified"
+  | "foreign-used"
+  | "nigerian-used";
+
+export type CarDrivetrain = "fwd" | "rwd" | "awd" | "4wd";
+
 export interface Car {
   _id: string;
   title: string;
   slug: string;
   brand: string;
   model: string;
+  trim?: string;
   year: number;
   price: number;
   originalPrice?: number;
   mileage: number;
   transmission: "automatic" | "manual" | "cvt";
   fuelType: "petrol" | "diesel" | "hybrid" | "electric";
+  bodyType?: CarBodyType;
+  drivetrain?: CarDrivetrain;
   engineSize?: string;
   color: string;
-  condition: "new" | "used" | "certified";
+  interiorColor?: string;
+  condition: CarCondition;
+  customsPaid?: boolean;
+  vin?: string;
   description: string;
   features: string[];
   images: string[];
@@ -35,13 +60,17 @@ export interface Car {
 export interface CarFilters {
   search?: string;
   brand?: string[];
+  bodyType?: string[];
   minPrice?: number;
   maxPrice?: number;
   minYear?: number;
   maxYear?: number;
+  maxMileage?: number;
   transmission?: string[];
   fuelType?: string[];
   condition?: string[];
+  status?: "available" | "sold" | "reserved" | "all";
+  ids?: string[];
   sortBy?: "price-asc" | "price-desc" | "year-desc" | "year-asc" | "mileage-asc" | "newest";
   page?: number;
   limit?: number;

@@ -1,38 +1,48 @@
-"use client";
+export const dynamic = "force-dynamic";
 
-import { useParams } from "next/navigation";
-import { AdminLayout } from "@/components/admin/AdminLayout";
-import { CarForm } from "@/components/admin/CarForm";
-import { useCar } from "@/hooks/useCars";
-import { CarDetailSkeleton } from "@/components/ui/Skeleton";
-import { ErrorMessage } from "@/components/ui/ErrorMessage";
+import { notFound } from "next/navigation";
+import { isValidObjectId } from "mongoose";
+import { AdminLayout } from "@/app/components/admin/AdminLayout";
+import { CarForm } from "@/app/components/admin/CarForm";
+import { dbConnect } from "@/app/lib/dbConnect";
+import { Car } from "@/app/models/Car";
 
-export default function EditCarPage() {
-  const params = useParams();
-  const id = params.id as string;
-  const { data, isLoading, isError, refetch } = useCar(id);
+async function getCarForEdit(id: string) {
+  try {
+    await dbConnect();
+    const decoded = decodeURIComponent(id).trim();
+    let car = null;
 
-  if (isLoading) {
-    return (
-      <AdminLayout>
-        <div className="max-w-3xl">
-          <CarDetailSkeleton />
-        </div>
-      </AdminLayout>
-    );
+    if (isValidObjectId(decoded)) {
+      car = await Car.findById(decoded).lean();
+    }
+    if (!car) {
+      car = await Car.findOne({ slug: decoded }).lean();
+    }
+    if (!car) return null;
+
+    return JSON.parse(JSON.stringify({ ...car, _id: car._id.toString() }));
+  } catch (error) {
+    console.error("getCarForEdit error:", error);
+    return null;
   }
+}
 
-  if (isError || !data?.car) {
-    return (
-      <AdminLayout>
-        <ErrorMessage message="Car not found" onRetry={refetch} />
-      </AdminLayout>
-    );
+export default async function EditCarPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const car = await getCarForEdit(id);
+
+  if (!car) {
+    notFound();
   }
 
   return (
     <AdminLayout>
-      <CarForm car={data.car} mode="edit" />
+      <CarForm car={car} mode="edit" />
     </AdminLayout>
   );
 }

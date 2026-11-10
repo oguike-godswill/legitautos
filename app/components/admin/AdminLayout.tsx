@@ -144,7 +144,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         </AnimatePresence>
 
         {/* Main Content */}
-        <main className="flex-1 min-w-0 px-4 pb-4 pt-12 sm:px-6 sm:pb-6 sm:pt-16 lg:px-8 lg:pb-8 lg:pt-20">
+        <main className="flex-1 min-w-0 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-8">
           {children}
         </main>
       </div>

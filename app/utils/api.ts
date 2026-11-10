@@ -1,6 +1,7 @@
 import { Car, CarFilters, PaginatedCars, Brand, Inspection, PaginatedInspections } from "@/app/types";
 
-const API_BASE = process.env.NEXT_PUBLIC_APP_URL || "";
+const API_BASE =
+  typeof window !== "undefined" ? "" : process.env.NEXT_PUBLIC_APP_URL || "";
 
 /**
  * Admin API calls return 401 once the session cookie expires. Send the user
@@ -17,13 +18,17 @@ export async function fetchCars(filters?: CarFilters): Promise<PaginatedCars> {
 
   if (filters?.search) params.set("search", filters.search);
   if (filters?.brand?.length) params.set("brand", filters.brand.join(","));
+  if (filters?.bodyType?.length) params.set("bodyType", filters.bodyType.join(","));
   if (filters?.minPrice !== undefined) params.set("minPrice", filters.minPrice.toString());
   if (filters?.maxPrice !== undefined) params.set("maxPrice", filters.maxPrice.toString());
   if (filters?.minYear !== undefined) params.set("minYear", filters.minYear.toString());
   if (filters?.maxYear !== undefined) params.set("maxYear", filters.maxYear.toString());
+  if (filters?.maxMileage !== undefined) params.set("maxMileage", filters.maxMileage.toString());
   if (filters?.transmission?.length) params.set("transmission", filters.transmission.join(","));
   if (filters?.fuelType?.length) params.set("fuelType", filters.fuelType.join(","));
   if (filters?.condition?.length) params.set("condition", filters.condition.join(","));
+  if (filters?.status) params.set("status", filters.status);
+  if (filters?.ids?.length) params.set("ids", filters.ids.join(","));
   if (filters?.sortBy) params.set("sortBy", filters.sortBy);
   if (filters?.page) params.set("page", filters.page.toString());
   if (filters?.limit) params.set("limit", filters.limit.toString());

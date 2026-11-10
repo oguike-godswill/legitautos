@@ -13,7 +13,7 @@ const STEPS = [
 
 export function ProcessSection() {
   return (
-    <section className="border-t border-dark-900/[0.06] py-16 sm:py-20 px-2 sm:px-8 lg:px-12">
+    <section className="border-t border-dark-900/[0.06] py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-[1400px]">
         <SectionHeader
           eyebrow="Process"
@@ -32,14 +32,14 @@ export function ProcessSection() {
               transition={{ delay: Math.min(i, 4) * 0.08, duration: 0.4 }}
               className="group flex flex-col items-center text-center"
             >
-              <div className="relative z-10 mb-3 flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-gray-100 bg-white transition-all duration-300 group-hover:scale-110 group-hover:border-teal group-hover:shadow-xl group-hover:shadow-teal/15 sm:h-20 sm:w-20">
+              <div className="relative z-10 mb-3.5 flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-gray-100 bg-white transition-all duration-300 group-hover:scale-105 group-hover:border-teal group-hover:shadow-xl group-hover:shadow-teal/15 sm:h-20 sm:w-20">
                 <item.icon className="h-6 w-6 text-teal transition-transform duration-300 group-hover:scale-110 sm:h-8 sm:w-8" />
               </div>
-              <span className="mb-1 text-[0.5rem] font-bold tracking-[0.2em] text-teal">
+              <span className="mb-1 text-xs font-bold tracking-[0.16em] text-teal">
                 STEP {item.step}
               </span>
-              <h3 className="text-base font-semibold text-dark-900">{item.title}</h3>
-              <p className="mt-0.5 max-w-[170px] text-xs text-dark-500">{item.desc}</p>
+              <h3 className="text-base font-bold text-dark-900">{item.title}</h3>
+              <p className="mt-1 max-w-[190px] text-xs leading-relaxed text-dark-500">{item.desc}</p>
             </motion.div>
           ))}
         </div>

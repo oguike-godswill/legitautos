@@ -8,10 +8,11 @@ import {
   ArrowRight,
   Send,
   Headphones,
-  Shield,
+  ShieldCheck,
   Car,
   HelpCircle,
   ChevronDown,
+  Sparkles,
 } from "lucide-react";
 import Link from "next/link";
 import { ContactForm } from "@/app/components/sections/ContactForm";
@@ -19,12 +20,12 @@ import { dealership, dealershipWhatsApp } from "@/app/config/dealership";
 import { faqs } from "@/app/config/faq";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
+  title: "Contact Our Lagos Showroom",
   description:
-    "Get in touch with LegitAutos. We're here to help with buying, selling, trading in, or any questions about our cars.",
+    "Get in touch with LegitAutos in Lagos, Nigeria. Schedule a vehicle inspection, request a live WhatsApp video walkaround, or inquire about trade-ins.",
   openGraph: {
     title: "Contact Us | LegitAutos",
-    description: "Get in touch with LegitAutos.",
+    description: "Get in touch with LegitAutos in Lagos, Nigeria.",
     url: `${dealership.siteUrl}/contact`,
     images: ["/og-image.jpg"],
   },
@@ -36,43 +37,43 @@ export const metadata: Metadata = {
 const CONTACT_METHODS = [
   {
     icon: Phone,
-    label: "Call Us",
+    label: "Direct Showroom Line",
     value: dealership.phone,
     description: dealership.openingHours,
     action: `tel:${dealership.phone.replace(/\D/g, "")}`,
-    color: "bg-primary-50 text-primary-600",
+    badge: "Voice Desk",
   },
   {
     icon: MessageCircle,
-    label: "WhatsApp",
-    value: "Chat with us",
-    description: "Quick responses during opening hours",
+    label: "WhatsApp Concierge",
+    value: "Instant Chat & Video Calls",
+    description: "Fastest response during business hours",
     action: dealershipWhatsApp(),
-    color: "bg-success-soft text-success",
+    badge: "Online Now",
   },
   {
     icon: Mail,
-    label: "Email",
+    label: "Email Desk",
     value: dealership.email,
-    description: "We reply within one business day",
+    description: "Corporate & documentation inquiries",
     action: `mailto:${dealership.email}`,
-    color: "bg-primary-50 text-primary-600",
+    badge: "24h Reply",
   },
   {
     icon: MapPin,
-    label: "Visit Us",
+    label: "Lagos Showroom",
     value: dealership.address.city,
-    description: "By appointment — contact us first",
+    description: `${dealership.address.city}, ${dealership.address.country}`,
     action: "#locations",
-    color: "bg-warning-soft text-warning",
+    badge: "HQ",
   },
 ];
 
 const QUICK_LINKS = [
-  { icon: Car, label: "Browse Cars", href: "/cars", description: "Explore our current inventory" },
-  { icon: Send, label: "Request a Car", href: "/request", description: "Tell us what you're looking for and we'll follow up" },
-  { icon: Headphones, label: "Sell or Trade In", href: "/sell", description: "Get an enquiry started on your car" },
-  { icon: Shield, label: "About Us", href: "/about", description: "Learn about our dealership" },
+  { icon: Car, label: "Browse Live Inventory", href: "/cars", description: "Filter verified Foreign Used & Brand New vehicles" },
+  { icon: Send, label: "Bespoke Car Sourcing", href: "/request", description: "Tell us your exact spec and budget—we'll source it" },
+  { icon: Headphones, label: "Sell or Swap Your Car", href: "/sell", description: "Get a 24-hour cash offer or upgrade credit" },
+  { icon: ShieldCheck, label: "5-Pillar Inspection Standard", href: "/inspections", description: "See how we verify every vehicle and customs paper" },
 ];
 
 const faqJsonLd = {
@@ -95,187 +96,198 @@ export default function ContactPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <div className="min-h-screen bg-white">
-      {/* Hero */}
-      <div className="relative pt-32 pb-20 px-2 sm:px-8 lg:px-12 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/3 rounded-full blur-[120px]" />
-        </div>
-        <div className="max-w-[1400px] mx-auto relative z-10">
-          <div className="max-w-3xl">
-            <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em] block mb-4">Support</span>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 leading-[0.95] tracking-tight">
-              How can we <span className="italic text-dark-400">help?</span>
+      <div className="min-h-screen bg-[#F6F4EF]">
+        {/* Dark Architectural Hero */}
+        <section className="bg-[#0C0C0E] text-white pt-10 pb-20 border-b border-white/10 relative overflow-hidden">
+          <div className="absolute top-0 right-1/4 w-[480px] h-[480px] bg-[#D9381E]/10 rounded-full blur-[140px] pointer-events-none" />
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/10 text-[#C89D54] text-xs font-bold tracking-wider uppercase mb-5">
+              <Sparkles className="w-3.5 h-3.5 text-[#D9381E]" />
+              Showroom Concierge &amp; Support
+            </div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight max-w-3xl leading-[1.08]">
+              Speak Directly With Our{" "}
+              <span className="t-editorial text-[#D9381E]">
+                Lagos Showroom Desk.
+              </span>
             </h1>
-            <p className="mt-5 text-sm sm:text-base text-dark-500 leading-relaxed max-w-xl">
-              Have a question, need help finding a car, or want to sell or trade
-              in your vehicle? We&apos;re here for you. Reach out through any of
-              the channels below.
+            <p className="mt-5 text-sm sm:text-base text-white/65 max-w-2xl leading-relaxed">
+              Whether you want to book a physical showroom inspection, request a live WhatsApp video walkaround, or trade in your current vehicle, our team is ready to assist.
             </p>
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* Contact Methods */}
-      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20 mt-4">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {CONTACT_METHODS.map((method) => (
-            <a
-              key={method.label}
-              href={method.action}
-              target={method.action.startsWith("http") ? "_blank" : undefined}
-              rel={method.action.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="rounded-2xl bg-white border border-gray-200 p-6 hover:shadow-xl hover:shadow-gray-200/50 hover:border-gray-300 transition-all duration-400 group"
-            >
-              <div className={`w-12 h-12 ${method.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <method.icon className="w-5 h-5" />
-              </div>
-              <h3 className="text-sm font-bold text-dark-900 mb-1">{method.label}</h3>
-              <p className="text-sm text-dark-600 mb-1">{method.value}</p>
-              <p className="text-[0.65rem] text-dark-400">{method.description}</p>
-            </a>
-          ))}
-        </div>
-      </div>
-
-      {/* Quick Links */}
-      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
-        <div className="text-center mb-10">
-          <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">Quick Links</span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 mt-2 uppercase tracking-[-0.01em]">
-            How Can We Help?
-          </h2>
-        </div>
-
-        <div className="grid sm:grid-cols-2 gap-4">
-          {QUICK_LINKS.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="rounded-2xl bg-white border border-gray-200 p-6 hover:shadow-xl hover:shadow-gray-200/50 hover:border-gray-300 transition-all duration-400 group flex items-center gap-5"
-            >
-              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                <link.icon className="w-5 h-5 text-primary" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-sm font-bold text-dark-900 group-hover:text-primary transition-colors">
-                  {link.label}
-                </h3>
-                <p className="text-xs text-dark-500 mt-0.5">{link.description}</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-dark-300 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* Contact Form */}
-      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
-        <div className="text-center mb-10">
-          <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">Get in Touch</span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 mt-2 uppercase tracking-[-0.01em]">
-            Send Us a Message
-          </h2>
-        </div>
-        <div className="max-w-2xl mx-auto rounded-2xl bg-white border border-gray-200 p-6 sm:p-8">
-          <ContactForm />
-        </div>
-      </div>
-
-      {/* FAQ */}
-      <div className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
-        <div className="text-center mb-10">
-          <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">FAQ</span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 mt-2 uppercase tracking-[-0.01em]">
-            Common Questions
-          </h2>
-        </div>
-
-        <div className="max-w-3xl mx-auto space-y-3">
-          {faqs.map((item, i) => (
-            <details key={i} className="group rounded-2xl bg-white border border-gray-200 overflow-hidden">
-              <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-gray-50 transition-colors">
-                <div className="flex items-center gap-3">
-                  <HelpCircle className="w-5 h-5 text-primary shrink-0" />
-                  <span className="text-sm font-semibold text-dark-900">{item.question}</span>
+        {/* Contact Methods Grid */}
+        <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20 pb-16">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {CONTACT_METHODS.map((method) => (
+              <a
+                key={method.label}
+                href={method.action}
+                target={method.action.startsWith("http") ? "_blank" : undefined}
+                rel={method.action.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="rounded-2xl bg-white border border-gray-200/90 p-6 shadow-sm hover:shadow-xl hover:border-[#D9381E]/40 transition-all group"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 bg-[#D9381E]/10 text-[#D9381E] rounded-xl flex items-center justify-center group-hover:bg-[#D9381E] group-hover:text-white transition-colors">
+                    <method.icon className="w-5 h-5" />
+                  </div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-gray-100 text-dark-600">
+                    {method.badge}
+                  </span>
                 </div>
-                <ChevronDown className="w-4 h-4 text-dark-400 group-open:rotate-180 transition-transform" />
-              </summary>
-              <div className="px-5 pb-5 pl-13">
-                <p className="text-sm text-dark-500 leading-relaxed">{item.answer}</p>
-              </div>
-            </details>
-          ))}
-        </div>
-      </div>
-
-      {/* Find Us + WhatsApp */}
-      <div id="locations" className="px-2 sm:px-8 lg:px-12 max-w-[1400px] mx-auto pb-20">
-        <div className="grid lg:grid-cols-2 gap-4">
-          {/* Find Us */}
-          <div className="rounded-2xl bg-[#0a0a0a] p-8 sm:p-10 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-[80px]" />
-            <div className="relative z-10">
-              <span className="text-[0.6rem] font-bold text-primary uppercase tracking-[0.2em]">Locations</span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mt-2 uppercase tracking-[-0.01em] mb-8">
-                Find Us
-              </h2>
-              <div className="flex items-center gap-2 mb-4">
-                <h3 className="text-lg font-bold text-white">{dealership.address.city}</h3>
-                <span className="text-[0.5rem] font-bold text-teal bg-teal/20 px-2 py-0.5 rounded-full uppercase">HQ</span>
-              </div>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-teal mt-0.5 shrink-0" />
-                  <span className="text-sm text-white/60">{dealership.address.display}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-teal shrink-0" />
-                  <span className="text-sm text-white/60">{dealership.phone}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Clock className="w-4 h-4 text-teal shrink-0" />
-                  <span className="text-xs text-white/40">{dealership.openingHours}</span>
-                </div>
-              </div>
-            </div>
+                <h2 className="text-sm font-extrabold text-dark-900 mb-1">{method.label}</h2>
+                <p className="text-sm font-bold text-[#D9381E] mb-1 truncate">{method.value}</p>
+                <p className="text-xs text-dark-500">{method.description}</p>
+              </a>
+            ))}
           </div>
+        </section>
 
-          {/* WhatsApp CTA */}
-          <div className="rounded-2xl bg-gradient-to-br from-[#128C7E] to-[#075E54] p-8 sm:p-10 relative overflow-hidden">
-            <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-0 right-0 w-60 h-60 bg-white/10 rounded-full blur-[100px]" />
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-white/5 rounded-full blur-[80px]" />
+        {/* Contact Form + Showroom Card */}
+        <section id="locations" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+          <div className="grid lg:grid-cols-12 gap-8 items-start">
+            {/* Left: Message Form */}
+            <div className="lg:col-span-7 bg-white rounded-3xl border border-gray-200/80 p-6 sm:p-10 shadow-sm">
+              <div className="mb-6">
+                <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#D9381E] block mb-1.5">
+                  Direct Enquiry
+                </span>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-dark-900 tracking-tight">
+                  Send Us a Message
+                </h2>
+                <p className="text-sm text-dark-500 mt-1">
+                  Fill out the form below and our showroom coordinator will respond promptly.
+                </p>
+              </div>
+              <ContactForm />
             </div>
-            <div className="relative z-10 h-full flex flex-col justify-center">
-              <MessageCircle className="w-8 h-8 text-white/80 mb-4" />
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-[0.95] tracking-tight uppercase mb-4">
-                Prefer to Message Us?
-              </h2>
-              <p className="text-sm text-white/70 leading-relaxed max-w-md mb-8">
-                Send us a message on WhatsApp and we&apos;ll get back to you during
-                opening hours. Available {dealership.openingHours}.
-              </p>
-              <div>
+
+            {/* Right: Showroom HQ + WhatsApp Priority Card */}
+            <div className="lg:col-span-5 space-y-5">
+              <div className="rounded-3xl bg-[#0C0C0E] text-white p-7 sm:p-8 border border-white/10 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-44 h-44 bg-[#D9381E]/10 rounded-full blur-[90px] pointer-events-none" />
+                <div className="relative z-10">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D9381E]/15 text-[#D9381E] text-xs font-bold uppercase tracking-wider mb-4">
+                    Showroom HQ
+                  </div>
+                  <h3 className="text-xl font-extrabold text-white mb-2">
+                    {dealership.address.city}, {dealership.address.country}
+                  </h3>
+                  <p className="text-sm text-white/60 mb-6 leading-relaxed">
+                    Inspect vehicles in person at our Lagos facility. Independent mechanics and diagnostic scanners are always welcome.
+                  </p>
+
+                  <div className="space-y-3.5 pt-4 border-t border-white/10 text-sm">
+                    <div className="flex items-start gap-3">
+                      <MapPin className="w-4 h-4 text-[#D9381E] mt-1 shrink-0" />
+                      <span className="text-white/80 font-medium">{dealership.address.display}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Phone className="w-4 h-4 text-[#D9381E] shrink-0" />
+                      <a href={`tel:${dealership.phone.replace(/\D/g, "")}`} className="text-white/80 hover:text-white font-medium">
+                        {dealership.phone}
+                      </a>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Clock className="w-4 h-4 text-[#D9381E] shrink-0" />
+                      <span className="text-white/70">{dealership.openingHours}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-3xl bg-[#D9381E] text-white p-7 sm:p-8 shadow-lg">
+                <MessageCircle className="w-7 h-7 text-white mb-3" />
+                <h3 className="text-lg font-extrabold mb-2">Prefer Instant WhatsApp Chat?</h3>
+                <p className="text-sm text-white/85 leading-relaxed mb-6">
+                  Request cold-start engine videos, customs duty verification, or negotiate directly with our sales desk on WhatsApp.
+                </p>
                 <a
                   href={dealershipWhatsApp(
-                    `Hello, I'm interested in a car on the ${dealership.name} website.`
+                    `Hello, I'm reaching out from the ${dealership.name} Contact page.`
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#075E54] font-bold rounded-xl hover:bg-white/90 transition-colors text-sm shadow-lg shadow-black/20"
+                  className="inline-flex items-center justify-center gap-2 w-full py-3.5 px-6 bg-[#0C0C0E] text-white font-extrabold rounded-xl hover:bg-[#242322] transition-colors text-xs uppercase tracking-wider shadow-md"
                 >
-                  <MessageCircle className="w-4 h-4" />
-                  Chat on WhatsApp
+                  <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                  Start WhatsApp Conversation
                 </a>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
+
+        {/* Quick Links */}
+        <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+          <div className="mb-8">
+            <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#D9381E] block mb-1.5">
+              Self-Service Desks
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-dark-900 tracking-tight">
+              Explore More Ways We Help
+            </h2>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            {QUICK_LINKS.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="rounded-2xl bg-white border border-gray-200/80 p-6 hover:shadow-md hover:border-[#D9381E]/40 transition-all group flex items-center gap-5"
+              >
+                <div className="w-12 h-12 bg-[#D9381E]/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-[#D9381E] group-hover:text-white text-[#D9381E] transition-colors">
+                  <link.icon className="w-5 h-5" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-base font-extrabold text-dark-900 group-hover:text-[#D9381E] transition-colors">
+                    {link.label}
+                  </h3>
+                  <p className="text-xs text-dark-500 mt-0.5">{link.description}</p>
+                </div>
+                <ArrowRight className="w-4 h-4 text-dark-300 group-hover:text-[#D9381E] group-hover:translate-x-0.5 transition-all" />
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-10">
+              <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#D9381E] block mb-1.5">
+                Buyer FAQ
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-black text-dark-900 tracking-tight">
+                Frequently Asked Questions
+              </h2>
+            </div>
+
+            <div className="space-y-3">
+              {faqs.map((item, i) => (
+                <details
+                  key={i}
+                  className="group rounded-2xl bg-white border border-gray-200/80 overflow-hidden shadow-xs"
+                >
+                  <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-gray-50 transition-colors list-none">
+                    <div className="flex items-center gap-3 pr-4">
+                      <HelpCircle className="w-5 h-5 text-[#D9381E] shrink-0" />
+                      <span className="text-sm sm:text-base font-bold text-dark-900">
+                        {item.question}
+                      </span>
+                    </div>
+                    <ChevronDown className="w-4 h-4 text-dark-400 group-open:rotate-180 transition-transform shrink-0" />
+                  </summary>
+                  <div className="px-5 pb-5 pl-13">
+                    <p className="text-sm text-dark-600 leading-relaxed">{item.answer}</p>
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     </>
   );
 }
-

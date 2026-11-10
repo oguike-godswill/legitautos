@@ -14,7 +14,7 @@ export const carRequestSchema = z.object({
   fuelType: z.enum(["petrol", "diesel", "hybrid", "electric", "any"]),
   budgetFrom: z.string().optional(),
   budgetTo: z.string().optional(),
-  condition: z.enum(["new", "used", "certified", "any"]),
+  condition: z.enum(["new", "used", "certified", "foreign-used", "nigerian-used", "any"]),
   color: z.string().optional(),
   mileageMax: z.string().optional(),
   description: z.string().max(500, "Description too long").optional(),

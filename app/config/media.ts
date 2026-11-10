@@ -64,3 +64,29 @@ export const INSPECTION_IMAGE_BYTES_HINT = `${formatBytes(
  */
 export const INSPECTION_VIDEO_RECOMMENDED_NOTE =
   "Attached cars usually include at least one walkaround video. Photos alone won't show a buyer how the car runs.";
+
+/**
+ * Safely resolves the display poster URL for an inspection item.
+ * For videos, Cloudinary generates a high-res JPEG poster by changing the extension to .jpg.
+ * If thumbnailUrl erroneously points to an mp4/mov/webm video or is missing,
+ * we ensure it resolves to a valid image format.
+ */
+export function getInspectionPoster(item: {
+  type: "video" | "image";
+  url?: string | null;
+  thumbnailUrl?: string | null;
+}): string | null {
+  if (item.type === "image") {
+    return item.url || null;
+  }
+
+  const candidate = item.thumbnailUrl || item.url;
+  if (!candidate) return null;
+
+  // If candidate is a video URL (ends in .mp4, .mov, .webm, etc.), swap extension to .jpg for Cloudinary or poster extraction
+  if (/\.(mp4|mov|webm|m4v|m3u8)(\?.*)?$/i.test(candidate)) {
+    return candidate.replace(/\.(mp4|mov|webm|m4v|m3u8)(\?.*)?$/i, ".jpg$2");
+  }
+
+  return candidate;
+}

@@ -1,238 +1,173 @@
-@import url('https://fonts.googleapis.com/css2?family=TikTok+Sans:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #000000;
-  --primary: #167d78;
-  --secondary: #f50;
-  --black: #000000;
-  --white: #ffffff;
-  --surface: #f5f5f5;
-  --surface-light: #fafafa;
-  --text-main: #000000;
-  --text-sub: #000000cc;
-  --text-soft: #00000099;
-  --text-note: #00000066;
-  --border-main: #00000014;
-  --border-light: #0000000d;
-  --border-bold: #00000029;
+  --background: #F6F4EF;
+  --foreground: #0C0C0E;
+  --primary: #D9381E;
+  --secondary: #C89D54;
+  --black: #0C0C0E;
+  --white: #FFFFFF;
+  --surface: #EFECE6;
+  --surface-light: #FAF9F6;
+  --text-main: #0C0C0E;
+  --text-sub: #2B2B30;
+  --text-soft: #5A5A64;
+  --text-note: #787884;
+  --border-main: rgba(12, 12, 14, 0.09);
+  --border-light: rgba(12, 12, 14, 0.05);
+  --border-bold: rgba(12, 12, 14, 0.18);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #167d78;
-  --color-secondary: #f50;
-  --color-surface: #f5f5f5;
-  --color-surface-light: #fafafa;
-  --color-text-main: #000000;
-  --color-text-sub: #000000cc;
-  --color-text-soft: #00000099;
-  --color-text-note: #00000066;
-  --color-border-main: #00000014;
-  --color-border-light: #0000000d;
-  --color-border-bold: #00000029;
-  --color-dark: #0a0a0a;
-  --color-white: #ffffff;
-  --font-heading: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
-  --font-body: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: 'Space Mono', 'Courier New', monospace;
+  --color-primary: #D9381E;
+  --color-secondary: #C89D54;
+  --color-surface: #EFECE6;
+  --color-surface-light: #FAF9F6;
+  --color-text-main: #0C0C0E;
+  --color-text-sub: #2B2B30;
+  --color-text-soft: #5A5A64;
+  --color-text-note: #787884;
+  --color-border-main: rgba(12, 12, 14, 0.09);
+  --color-border-light: rgba(12, 12, 14, 0.05);
+  --color-border-bold: rgba(12, 12, 14, 0.18);
+  --color-dark: #0C0C0E;
+  --color-white: #FFFFFF;
 
-  /* Primary scale remapped to the revamp teal so existing bg-primary/text-primary
-     utility usages match the rest of the design system. Shades previously used in
-     components but never defined (100/300/400/700) are included here. */
-  --color-primary-50: #eef7f6;
-  --color-primary-100: #d6ebe9;
-  --color-primary-300: #7fbfbb;
-  --color-primary-400: #4d9f9a;
-  --color-primary-500: #167d78;
-  --color-primary-600: #11615d;
-  --color-primary-700: #0d4c49;
+  --font-heading: 'TikTok Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'TikTok Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'TikTok Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
 
-  --color-dark-50: #f5f5f5;
-  --color-dark-100: #e5e5e5;
-  --color-dark-200: #d4d4d4;
-  --color-dark-300: #a3a3a3;
-  --color-dark-400: #737373;
-  --color-dark-500: #525252;
-  --color-dark-600: #404040;
-  --color-dark-700: #262626;
-  --color-dark-800: #171717;
-  --color-dark-900: #0a0a0a;
-  --color-dark-950: #000000;
+  /* Signature Vermilion / Copper Accent Scale */
+  --color-primary-50: #FDF3F1;
+  --color-primary-100: #FBE3DF;
+  --color-primary-300: #F29C8E;
+  --color-primary-400: #E86852;
+  --color-primary-500: #D9381E;
+  --color-primary-600: #B82B14;
+  --color-primary-700: #94200E;
 
-  /* Revamp palette (spec §4) — mixed light/dark automotive theme */
-  --color-ink: #171a1e; /* primary text, dark panels, header/footer */
-  --color-graphite: #262b31; /* dark section surfaces, elevated panels */
-  --color-ivory: #f5f4f0; /* main light page background */
-  --color-teal: #167d78; /* primary actions, links, active states */
-  --color-teal-700: #11615d;
-  --color-muted: #737a82; /* secondary text, metadata, separators */
-  --color-success: #247a52; /* available/success states */
-  --color-warning: #a56a16; /* reserved/attention states */
-  --color-danger: #b33b35; /* validation/destructive states */
+  /* Warm Carbon Neutral Scale */
+  --color-dark-50: #FAF9F6;
+  --color-dark-100: #EFECE6;
+  --color-dark-200: #DFDBD2;
+  --color-dark-300: #9E9B95;
+  --color-dark-400: #6E6C68;
+  --color-dark-500: #52504D;
+  --color-dark-600: #383735;
+  --color-dark-700: #242322;
+  --color-dark-800: #161618;
+  --color-dark-900: #0C0C0E;
+  --color-dark-950: #060607;
 
-  /* Soft tints for the semantic tokens above. Derived by hand from each
-     base colour so callouts and badges can use bg-success/10-style opacity
-     without the underlying hue drifting, which is what happened when these
-     surfaces were Tailwind's emerald/amber/rose defaults instead. */
-  --color-success-soft: #eaf4ee;
-  --color-warning-soft: #f9f2e6;
-  --color-danger-soft: #fbeceb;
-  --color-info: #2f6f9f;
-  --color-info-soft: #eaf2f8;
+  /* Automotive Atelier Palette (mapped globally across all components) */
+  --color-ink: #0C0C0E;
+  --color-graphite: #18181B;
+  --color-ivory: #F6F4EF;
+  --color-sand: #EFECE6;
+  --color-teal: #D9381E;
+  --color-teal-600: #B82B14;
+  --color-teal-700: #94200E;
+  --color-gold: #C89D54;
+  --color-muted: #6E6C68;
+  --color-success: #15803D;
+  --color-warning: #B45309;
+  --color-danger: #DC2626;
+
+  --color-success-soft: #ECFDF5;
+  --color-warning-soft: #FFFBEB;
+  --color-danger-soft: #FEF2F2;
+  --color-info: #2563EB;
+  --color-info-soft: #EFF6FF;
 }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: auto; }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background: var(--background);
-  color: #000000;
-  font-family: 'TikTok Sans';
+  color: var(--foreground);
+  font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'TikTok Sans';
+  font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.025em;
 }
 
-input, textarea, select, label, span, p, a, li, td, th {
+.font-editorial {
+  font-family: 'TikTok Sans', sans-serif;
+}
+
+.font-display {
+  font-family: 'TikTok Sans', sans-serif;
+}
+
+input, textarea, select, label, span, p, a, li, td, th, button {
   font-family: inherit;
 }
 
-html::-webkit-scrollbar { width: 4px; }
-html::-webkit-scrollbar-track { background: transparent; }
-html::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 10px; }
-html { scrollbar-width: thin; scrollbar-color: #d4d4d4 transparent; }
+html::-webkit-scrollbar { width: 6px; height: 6px; }
+html::-webkit-scrollbar-track { background: #EFECE6; }
+html::-webkit-scrollbar-thumb { background: #C4BFB6; border-radius: 9999px; }
+html::-webkit-scrollbar-thumb:hover { background: #8C877E; }
+html { scrollbar-width: thin; scrollbar-color: #C4BFB6 #EFECE6; }
 
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-.lenis.lenis-stopped { overflow: hidden; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Scene utilities */
-.scene-pin { will-change: transform; }
-.scene-layer { position: absolute; inset: 0; will-change: transform, opacity; }
-
-/* Typography scale */
+/* Refined, Controlled Typography Scale (Reduced Heading Sizes) */
 .t-hero {
-  font-family: 'DM Sans', sans-serif;
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-family: 'TikTok Sans', sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
 }
 .t-editorial {
-  font-family: 'DM Sans', sans-serif;
-  font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.015em;
+  font-family: 'TikTok Sans', sans-serif;
+  font-style: italic;
+  font-weight: 700;
 }
 .t-display {
-  font-family: 'DM Sans', sans-serif;
-  font-size: clamp(1.5rem, 3.5vw, 3rem);
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  font-family: 'TikTok Sans', sans-serif;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
 }
 .t-mono {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.65rem;
-  font-weight: 700;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
 }
 
-/* Button */
-.btn-cinematic {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2.5rem;
-  background: var(--black);
-  color: var(--white);
-  font-family: 'Space Mono', monospace;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border-radius: 10vmin;
-  border: 1px solid var(--black);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
-}
-.btn-cinematic:hover {
-  background: var(--primary);
-  color: var(--white);
-  border-color: var(--primary);
+/* Atelier Grid Pattern */
+.bg-atelier-grid {
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(12, 12, 14, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(12, 12, 14, 0.04) 1px, transparent 1px);
 }
 
-/* Divider with dot */
-.divider-dot {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.bg-carbon-grid {
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }
-.divider-dot::before,
-.divider-dot::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--border-main);
-}
-.divider-dot::before { max-width: 80px; }
-.divider-dot::after { max-width: 80px; }
-
-/* Glow accent */
-.glow-primary {
-  box-shadow: 0 0 60px -10px rgba(22, 125, 120, 0.15);
-}
-.glow-white {
-  box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.08);
-}
-
-/* Text gradient */
-.text-gradient-white {
-  background: linear-gradient(135deg, #1a1a1a 0%, #666666 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Subtle grain overlay */
-.grain-overlay::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Image mask reveal */
-.mask-reveal {
-  clip-path: inset(0 0 0 0);
-  will-change: clip-path;
-}
-
-/* Clip path transitions */
-.clip-circle-in {
-  clip-path: circle(0% at 50% 50%);
-}
-.clip-circle-out {
-  clip-path: circle(100% at 50% 50%);
-}
-
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.anim-marquee { animation: marquee 30s linear infinite; }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
@@ -243,37 +178,6 @@ html.lenis, html.lenis body { height: auto; }
   }
 }
 
-/* Premium utilities */
-.premium-card {
-  background: white;
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 1rem;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.premium-card:hover {
-  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1);
-  border-color: rgba(0,0,0,0.1);
-  transform: translateY(-2px);
-}
-
-.text-balance {
-  text-wrap: balance;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-.animate-shimmer {
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
-  background-size: 200% 100%;
-  animation: shimmer 2s ease-in-out infinite;
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }

@@ -32,7 +32,7 @@ export function Pagination({
       <button
         onClick={() => setPage(currentPage - 1)}
         disabled={!hasPrevPage}
-        className="flex items-center gap-1 px-3 py-2.5 rounded-lg t-mono text-[0.5rem] border border-gray-200 text-dark-500 hover:text-dark-700 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors min-h-[44px]"
+        className="flex items-center gap-1 px-3.5 py-2.5 rounded-lg t-mono text-xs font-bold border border-[#0C0C0E]/15 text-[#52504D] hover:text-[#0C0C0E] hover:bg-[#EFECE6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors min-h-[44px]"
         aria-label="Previous page"
       >
         <ChevronLeft className="w-3.5 h-3.5" />
@@ -53,10 +53,10 @@ export function Pagination({
               )}
               <button
                 onClick={() => setPage(page)}
-                className={`w-10 h-10 rounded-lg t-mono text-[0.5rem] transition-colors ${
+                className={`w-10 h-10 rounded-lg t-mono text-xs font-bold transition-colors ${
                   page === currentPage
-                    ? "bg-teal text-white"
-                    : "text-dark-500 hover:text-dark-700 hover:bg-gray-100"
+                    ? "bg-[#0C0C0E] text-white"
+                    : "text-[#52504D] hover:text-[#0C0C0E] hover:bg-[#EFECE6]"
                 }`}
                 aria-label={`Page ${page}`}
               >
@@ -70,7 +70,7 @@ export function Pagination({
       <button
         onClick={() => setPage(currentPage + 1)}
         disabled={!hasNextPage}
-        className="flex items-center gap-1 px-3 py-2.5 rounded-lg t-mono text-[0.5rem] border border-gray-200 text-dark-500 hover:text-dark-700 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors min-h-[44px]"
+        className="flex items-center gap-1 px-3.5 py-2.5 rounded-lg t-mono text-xs font-bold border border-[#0C0C0E]/15 text-[#52504D] hover:text-[#0C0C0E] hover:bg-[#EFECE6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors min-h-[44px]"
         aria-label="Next page"
       >
         Next

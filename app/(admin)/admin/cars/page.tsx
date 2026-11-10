@@ -11,7 +11,9 @@ import { Plus } from "lucide-react";
 async function getAllCars() {
   await dbConnect();
   const cars = await Car.find({}).sort({ createdAt: -1 }).lean();
-  return cars.map((car) => ({ ...car, _id: car._id.toString() }));
+  return JSON.parse(
+    JSON.stringify(cars.map((car) => ({ ...car, _id: car._id.toString() })))
+  );
 }
 
 export default async function AdminCarsPage() {

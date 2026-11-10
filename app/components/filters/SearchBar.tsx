@@ -31,7 +31,7 @@ export function SearchBar() {
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="Search by brand, model, or keyword..."
-        className="w-full pl-10 pr-10 py-3 bg-white border border-gray-200 rounded-lg text-sm text-dark-900 placeholder:text-dark-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all"
+        className="w-full pl-10 pr-10 py-3 bg-white border border-gray-200 rounded-xl text-sm text-dark-900 placeholder:text-dark-400 focus:outline-none focus:ring-2 focus:ring-[#D9381E]/20 focus:border-[#D9381E] transition-all shadow-2xs"
       />
       {inputValue && (
         <button

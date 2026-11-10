@@ -12,17 +12,21 @@ export async function GET(
   try {
     await dbConnect();
     const { id } = await params;
+    const decoded = decodeURIComponent(id).trim();
 
-    let car;
-    if (isValidObjectId(id)) {
-      car = await Car.findByIdAndUpdate(id, { $inc: { views: 1 } }, { new: true }).lean();
-    } else {
-      car = await Car.findOneAndUpdate({ slug: id }, { $inc: { views: 1 } }, { new: true }).lean();
+    let car = null;
+    if (isValidObjectId(decoded)) {
+      car = await Car.findById(decoded).lean();
+    }
+    if (!car) {
+      car = await Car.findOne({ slug: decoded }).lean();
     }
 
     if (!car) {
       return NextResponse.json({ error: "Car not found" }, { status: 404 });
     }
+
+    Car.updateOne({ _id: car._id }, { $inc: { views: 1 } }).catch(() => {});
 
     return NextResponse.json({ car: { ...car, _id: car._id.toString() } });
   } catch (error) {
@@ -35,15 +39,20 @@ const UpdateCarSchema = z.object({
   title: z.string().min(3).max(100).optional(),
   brand: z.string().min(1).optional(),
   model: z.string().min(1).optional(),
+  trim: z.string().optional(),
   year: z.coerce.number().min(1990).max(new Date().getFullYear() + 1).optional(),
   price: z.coerce.number().min(100000).optional(),
   originalPrice: z.coerce.number().optional().nullable(),
   mileage: z.coerce.number().min(0).optional(),
   transmission: z.enum(["automatic", "manual", "cvt"]).optional(),
   fuelType: z.enum(["petrol", "diesel", "hybrid", "electric"]).optional(),
+  bodyType: z.enum(["suv", "sedan", "coupe", "pickup", "hatchback", "van", "convertible", "wagon"]).optional().or(z.literal("")),
+  drivetrain: z.enum(["fwd", "rwd", "awd", "4wd"]).optional().or(z.literal("")),
   engineSize: z.string().optional(),
   color: z.string().min(1).optional(),
-  condition: z.enum(["new", "used", "certified"]).optional(),
+  interiorColor: z.string().optional(),
+  condition: z.enum(["new", "used", "certified", "foreign-used", "nigerian-used"]).optional(),
+  customsPaid: z.boolean().optional(),
   description: z.string().min(20).optional(),
   features: z.array(z.string()).optional(),
   images: z.array(z.string()).optional(),
@@ -76,7 +85,9 @@ export async function PUT(
       );
     }
 
-    const car = await Car.findByIdAndUpdate(id, result.data, { new: true }).lean();
+    const car = await Car.findByIdAndUpdate(id, result.data, {
+      returnDocument: "after",
+    }).lean();
 
     if (!car) {
       return NextResponse.json({ error: "Car not found" }, { status: 404 });
