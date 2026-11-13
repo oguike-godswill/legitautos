@@ -35,26 +35,30 @@ export interface ICar {
     whatsapp?: string;
     email?: string;
   };
-  status: "available" | "sold" | "reserved";
+  status: "available" | "sold" | "reserved" | "draft";
   featured: boolean;
   views: number;
   createdAt: Date;
   updatedAt: Date;
 }
 
+function isPublishedCar(this: ICar) {
+  return this.status !== "draft";
+}
+
 const CarSchema = new Schema<ICar>(
   {
-    title: { type: String, required: true, index: "text" },
+    title: { type: String, required: true, default: "Untitled Vehicle Draft", index: "text" },
     slug: { type: String, required: true, unique: true, index: true },
-    brand: { type: String, required: true, index: true },
-    model: { type: String, required: true, index: true },
+    brand: { type: String, required: isPublishedCar, default: "", index: true },
+    model: { type: String, required: isPublishedCar, default: "", index: true },
     trim: { type: String },
-    year: { type: Number, required: true, index: true },
-    price: { type: Number, required: true, index: true },
+    year: { type: Number, required: isPublishedCar, default: () => new Date().getFullYear(), index: true },
+    price: { type: Number, required: isPublishedCar, default: 0, index: true },
     originalPrice: { type: Number },
-    mileage: { type: Number, required: true, default: 0 },
-    transmission: { type: String, enum: ["automatic", "manual", "cvt"], required: true, index: true },
-    fuelType: { type: String, enum: ["petrol", "diesel", "hybrid", "electric"], required: true, index: true },
+    mileage: { type: Number, required: isPublishedCar, default: 0 },
+    transmission: { type: String, enum: ["automatic", "manual", "cvt"], required: isPublishedCar, default: "automatic", index: true },
+    fuelType: { type: String, enum: ["petrol", "diesel", "hybrid", "electric"], required: isPublishedCar, default: "petrol", index: true },
     bodyType: {
       type: String,
       enum: ["suv", "sedan", "coupe", "pickup", "hatchback", "van", "convertible", "wagon"],
@@ -65,20 +69,21 @@ const CarSchema = new Schema<ICar>(
       enum: ["fwd", "rwd", "awd", "4wd"],
     },
     engineSize: { type: String },
-    color: { type: String, required: true },
+    color: { type: String, required: isPublishedCar, default: "" },
     interiorColor: { type: String },
     condition: {
       type: String,
       enum: ["new", "used", "certified", "foreign-used", "nigerian-used"],
-      required: true,
+      required: isPublishedCar,
+      default: "foreign-used",
       index: true,
     },
     customsPaid: { type: Boolean, default: true },
     vin: { type: String },
-    description: { type: String, required: true },
+    description: { type: String, required: isPublishedCar, default: "" },
     features: [{ type: String }],
     images: [{ type: String }],
-    location: { type: String, required: true, index: true },
+    location: { type: String, required: isPublishedCar, default: "Lagos, Nigeria", index: true },
     seller: {
       type: {
         name: { type: String },
@@ -88,7 +93,7 @@ const CarSchema = new Schema<ICar>(
       },
       required: false,
     },
-    status: { type: String, enum: ["available", "sold", "reserved"], default: "available", index: true },
+    status: { type: String, enum: ["available", "sold", "reserved", "draft"], default: "available", index: true },
     featured: { type: Boolean, default: false, index: true },
     views: { type: Number, default: 0 },
   },

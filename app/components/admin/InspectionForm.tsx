@@ -1,10 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Save, Trash2, Play, AlertTriangle } from "lucide-react";
+import {
+  ArrowLeft,
+  Save,
+  Trash2,
+  Play,
+  AlertTriangle,
+  FileEdit,
+  RotateCcw,
+  Clock,
+  CheckCircle2,
+} from "lucide-react";
 import { Input } from "@/app/components/ui/Input";
 import { Textarea } from "@/app/components/ui/Textarea";
 import { Select } from "@/app/components/ui/Select";
@@ -62,6 +72,13 @@ const emptyDraft: Draft = {
  * a broken tile on the homepage, which is worse than having no inspection
  * section at all.
  */
+const LOCAL_INSPECTION_DRAFT_KEY = "legitautos:inspection-draft:new";
+
+interface StoredInspectionDraft {
+  draft: Draft;
+  savedAt: string;
+}
+
 export function InspectionForm({
   inspection,
   cars,
@@ -89,7 +106,90 @@ export function InspectionForm({
   );
 
   const [error, setError] = useState<string | null>(null);
+  const [pendingLocalDraft, setPendingLocalDraft] = useState<StoredInspectionDraft | null>(null);
+  const [lastAutoSavedAt, setLastAutoSavedAt] = useState<string | null>(null);
+  const [savingDraft, setSavingDraft] = useState(false);
+  const skipNextAutoSave = useRef(true);
   const isSaving = createInspection.isPending || updateInspection.isPending;
+
+  // Check for existing unsaved local draft in create mode
+  useEffect(() => {
+    if (mode !== "create") return;
+    try {
+      const raw = localStorage.getItem(LOCAL_INSPECTION_DRAFT_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw) as StoredInspectionDraft;
+        const hasContent =
+          Boolean(parsed?.draft?.title?.trim()) ||
+          Boolean(parsed?.draft?.description?.trim()) ||
+          Boolean(parsed?.draft?.url);
+        if (hasContent) {
+          setPendingLocalDraft(parsed);
+        }
+      }
+    } catch {
+      // ignore invalid storage
+    } finally {
+      skipNextAutoSave.current = false;
+    }
+  }, [mode]);
+
+  // Auto-save form progress to localStorage in create mode
+  useEffect(() => {
+    if (mode !== "create" || skipNextAutoSave.current) return;
+    const hasContent =
+      Boolean(draft.title?.trim()) ||
+      Boolean(draft.description?.trim()) ||
+      Boolean(draft.url);
+
+    if (!hasContent) return;
+
+    const timer = setTimeout(() => {
+      try {
+        const now = new Date().toISOString();
+        localStorage.setItem(
+          LOCAL_INSPECTION_DRAFT_KEY,
+          JSON.stringify({ draft, savedAt: now })
+        );
+        setLastAutoSavedAt(
+          new Date(now).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        );
+      } catch {
+        // ignore quota errors
+      }
+    }, 600);
+
+    return () => clearTimeout(timer);
+  }, [mode, draft]);
+
+  const handleRestoreLocalDraft = () => {
+    if (!pendingLocalDraft) return;
+    skipNextAutoSave.current = true;
+    setDraft(pendingLocalDraft.draft);
+    setPendingLocalDraft(null);
+    setTimeout(() => {
+      skipNextAutoSave.current = false;
+    }, 100);
+  };
+
+  const handleDiscardLocalDraft = () => {
+    try {
+      localStorage.removeItem(LOCAL_INSPECTION_DRAFT_KEY);
+    } catch {
+      // ignore
+    }
+    setPendingLocalDraft(null);
+  };
+
+  const clearLocalDraft = () => {
+    if (mode === "create") {
+      try {
+        localStorage.removeItem(LOCAL_INSPECTION_DRAFT_KEY);
+      } catch {
+        // ignore
+      }
+    }
+  };
 
   // A car-linked entry with no video still saves, but the admin is told why
   // that weakens the page it will appear on.
@@ -110,21 +210,25 @@ export function InspectionForm({
     setError(null);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const submitWithPublished = (publishFlag: boolean) => {
     setError(null);
 
     if (!draft.url) {
       setError("Upload a video or photo before saving.");
       return;
     }
-    if (draft.title.trim().length < 3) {
+    if (publishFlag && draft.title.trim().length < 3) {
       setError("Title must be at least 3 characters.");
       return;
     }
 
+    const resolvedTitle =
+      draft.title.trim().length >= 3
+        ? draft.title.trim()
+        : draft.title.trim() || "Untitled Inspection Draft";
+
     const payload = {
-      title: draft.title.trim(),
+      title: resolvedTitle,
       description: draft.description.trim() || undefined,
       type: draft.type,
       url: draft.url,
@@ -133,24 +237,41 @@ export function InspectionForm({
       duration: draft.duration,
       car: draft.car || undefined,
       order: draft.order,
-      published: draft.published,
+      published: publishFlag,
     };
+
+    if (!publishFlag) setSavingDraft(true);
 
     if (mode === "edit" && inspection) {
       updateInspection.mutate(
         { id: inspection._id, data: payload },
-        { onSuccess: () => router.push("/admin/inspections") }
+        {
+          onSuccess: () => {
+            clearLocalDraft();
+            router.push("/admin/inspections");
+          },
+          onSettled: () => setSavingDraft(false),
+        }
       );
     } else {
       createInspection.mutate(payload, {
-        onSuccess: () => router.push("/admin/inspections"),
+        onSuccess: () => {
+          clearLocalDraft();
+          router.push("/admin/inspections");
+        },
+        onSettled: () => setSavingDraft(false),
       });
     }
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    submitWithPublished(draft.published);
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      <div className="flex items-center justify-between text-black">
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-4 text-black">
         <div className="flex items-center gap-4">
           <Link
             href="/admin/inspections"
@@ -159,24 +280,104 @@ export function InspectionForm({
             <ArrowLeft className="h-5 w-5 text-dark-600" />
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-dark-900">
-              {mode === "edit" ? "Edit Inspection Media" : "Add Inspection Media"}
-            </h1>
-            <p className="text-sm text-dark-500">
-              {mode === "edit"
-                ? "Update the clip, photo or its details"
-                : "Upload a walkaround video or condition photo"}
+            <div className="flex items-center gap-2.5">
+              <h1 className="text-2xl font-bold text-dark-900">
+                {mode === "edit" ? "Edit Inspection Media" : "Add Inspection Media"}
+              </h1>
+              {!draft.published && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-800">
+                  <FileEdit className="h-3 w-3" />
+                  Draft
+                </span>
+              )}
+            </div>
+            <p className="text-sm text-dark-500 flex items-center gap-2">
+              <span>
+                {mode === "edit"
+                  ? "Update the clip, photo or its details"
+                  : "Upload a walkaround video or condition photo"}
+              </span>
+              {lastAutoSavedAt && (
+                <span className="inline-flex items-center gap-1 text-xs text-emerald-600 font-medium">
+                  <Clock className="h-3 w-3" />
+                  Auto-saved {lastAutoSavedAt}
+                </span>
+              )}
             </p>
           </div>
         </div>
-        <Button
-          type="submit"
-          isLoading={isSaving}
-          leftIcon={<Save className="h-4 w-4" />}
-        >
-          {mode === "edit" ? "Update" : "Save"}
-        </Button>
+        <div className="flex flex-wrap items-center gap-2.5">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => submitWithPublished(false)}
+            isLoading={isSaving && savingDraft}
+            disabled={isSaving}
+            leftIcon={<FileEdit className="h-4 w-4" />}
+          >
+            Save as Draft
+          </Button>
+          <Button
+            type="button"
+            onClick={() => submitWithPublished(true)}
+            isLoading={isSaving && !savingDraft}
+            disabled={isSaving}
+            leftIcon={
+              !draft.published ? (
+                <CheckCircle2 className="h-4 w-4" />
+              ) : (
+                <Save className="h-4 w-4" />
+              )
+            }
+          >
+            {mode === "edit"
+              ? !draft.published
+                ? "Publish Media"
+                : "Update"
+              : "Publish Media"}
+          </Button>
+        </div>
       </div>
+
+      {pendingLocalDraft && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          <div className="flex items-center gap-2.5">
+            <Clock className="h-4 w-4 shrink-0 text-amber-600" />
+            <span>
+              You have an unsaved local inspection draft
+              {pendingLocalDraft.draft?.title
+                ? ` ("${pendingLocalDraft.draft.title}")`
+                : ""}{" "}
+              from{" "}
+              {new Date(pendingLocalDraft.savedAt).toLocaleString([], {
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+              .
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleRestoreLocalDraft}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-700 transition-colors cursor-pointer"
+            >
+              <RotateCcw className="h-3.5 w-3.5" />
+              Restore Draft
+            </button>
+            <button
+              type="button"
+              onClick={handleDiscardLocalDraft}
+              className="inline-flex items-center gap-1 rounded-lg border border-amber-300 bg-white px-3 py-1.5 text-xs font-semibold text-amber-800 hover:bg-amber-100 transition-colors cursor-pointer"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+              Discard
+            </button>
+          </div>
+        </div>
+      )}
 
       {error && (
         <div className="flex items-center gap-2 rounded-xl border border-danger/20 bg-danger-soft p-3 text-sm text-danger">

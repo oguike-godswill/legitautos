@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Pencil, Trash2, Film, ImageIcon, Play } from "lucide-react";
 import { Inspection } from "@/app/types";
 import { useDeleteInspection } from "@/app/hooks/useInspections";
@@ -12,6 +12,8 @@ import { getInspectionPoster } from "@/app/config/media";
 interface AdminInspectionTableProps {
   inspections: Inspection[];
 }
+
+type InspectionFilter = "all" | "published" | "draft";
 
 function formatDuration(seconds?: number): string | null {
   if (!seconds || seconds <= 0) return null;
@@ -25,6 +27,22 @@ export function AdminInspectionTable({
 }: AdminInspectionTableProps) {
   const deleteInspection = useDeleteInspection();
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [tab, setTab] = useState<InspectionFilter>("all");
+
+  const counts = useMemo(
+    () => ({
+      all: inspections.length,
+      published: inspections.filter((i) => i.published).length,
+      draft: inspections.filter((i) => !i.published).length,
+    }),
+    [inspections]
+  );
+
+  const visibleInspections = useMemo(() => {
+    if (tab === "all") return inspections;
+    if (tab === "published") return inspections.filter((i) => i.published);
+    return inspections.filter((i) => !i.published);
+  }, [inspections, tab]);
 
   const handleDelete = (id: string) => {
     if (
@@ -38,7 +56,45 @@ export function AdminInspectionTable({
   };
 
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center gap-2">
+        {(
+          [
+            { key: "all", label: "All", count: counts.all },
+            { key: "published", label: "Published", count: counts.published },
+            { key: "draft", label: "Drafts", count: counts.draft },
+          ] as const
+        ).map((item) => {
+          const active = tab === item.key;
+          return (
+            <button
+              key={item.key}
+              type="button"
+              onClick={() => setTab(item.key)}
+              className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-bold transition-colors cursor-pointer ${
+                active
+                  ? "border-dark-900 bg-dark-900 text-white"
+                  : "border-gray-200 bg-white text-dark-600 hover:bg-gray-50"
+              }`}
+            >
+              <span>{item.label}</span>
+              <span
+                className={`rounded-full px-1.5 py-0.2 text-[0.65rem] ${
+                  active
+                    ? "bg-white/20 text-white"
+                    : item.key === "draft" && item.count > 0
+                    ? "bg-amber-100 text-amber-800"
+                    : "bg-gray-100 text-dark-500"
+                }`}
+              >
+                {item.count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
@@ -64,7 +120,7 @@ export function AdminInspectionTable({
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {inspections.map((item, index) => {
+            {visibleInspections.map((item, index) => {
               const poster = getInspectionPoster(item);
               const duration = formatDuration(item.duration);
 
@@ -159,14 +215,16 @@ export function AdminInspectionTable({
         </table>
       </div>
 
-      {inspections.length === 0 && (
+      {visibleInspections.length === 0 && (
         <div className="py-12 text-center">
           <p className="text-dark-500">
-            No inspection media yet. Upload your first clip or photo to build the
-            homepage inspection section.
+            {tab === "draft"
+              ? "No draft inspection clips saved yet."
+              : "No inspection media yet. Upload your first clip or photo to build the homepage inspection section."}
           </p>
         </div>
       )}
+    </div>
     </div>
   );
 }

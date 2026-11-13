@@ -19,7 +19,7 @@ async function getCar(id: string) {
     if (!car) {
       car = await Car.findOne({ slug: decoded }).lean();
     }
-    if (!car) return null;
+    if (!car || car.status === "draft") return null;
 
     // Non-blocking view counter increment
     Car.updateOne({ _id: car._id }, { $inc: { views: 1 } }).catch(() => {});

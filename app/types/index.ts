@@ -50,7 +50,7 @@ export interface Car {
     whatsapp?: string;
     email?: string;
   };
-  status: "available" | "sold" | "reserved";
+  status: "available" | "sold" | "reserved" | "draft";
   featured: boolean;
   views: number;
   createdAt: string;

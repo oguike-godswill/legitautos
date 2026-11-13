@@ -24,7 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     await dbConnect();
 
     const [cars, brands] = await Promise.all([
-      Car.find({})
+      Car.find({ status: { $ne: "draft" } })
         .select("_id slug updatedAt status")
         .sort({ updatedAt: -1 })
         .lean(),
